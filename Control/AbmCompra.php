@@ -1,19 +1,30 @@
 <?php
-class AbmRol
+class AbmCompra
 {
     /**
      * Espera como parametro un arreglo asociativo donde las claves coinciden 
      * con los nombres de las variables instancias del objeto
+     * Devuelve un objeto
      * @param array $param
-     * @return Rol
+     * @return Compra
      */
     private function cargarObjeto($param)
     {
+        //print_r ($param);
         $obj = null;
+        if (
+            array_key_exists('idcompra', $param) and array_key_exists('cofecha', $param)
+            and array_key_exists('idusuario', $param)
+        ) {
 
-        if (array_key_exists('idrol', $param) and array_key_exists('rodescripcion', $param)) {
-            $obj = new Rol();
-            $obj->setear($param['idrol'], $param['rodescripcion']);
+            //creo objeto estadotipos
+            $objUsuario = new Usuario();
+            $objUsuario->getIdUsuario($param['idusuario']);
+            $objUsuario->cargar();
+
+            //agregarle los otros objetos
+            $obj = new Compra();
+            $obj->setear($param['idcompra'], $param['cofecha'], $objUsuario);
         }
         return $obj;
     }
@@ -23,15 +34,14 @@ class AbmRol
      * Espera como parametro un arreglo asociativo donde las claves 
      * coinciden con los nombres de las variables instancias del objeto que son claves
      * @param array $param
-     * @return Rol
+     * @return Compra
      */
     private function cargarObjetoConClave($param)
     {
         $obj = null;
-
-        if (isset($param['idrol'])) {
-            $obj = new Rol();
-            $obj->setear($param['idrol'], null);
+        if (isset($param['idcompra'])) {
+            $obj = new Compra();
+            $obj->setear($param['idcompra'], null, null);
         }
         return $obj;
     }
@@ -45,7 +55,7 @@ class AbmRol
     private function seteadosCamposClaves($param)
     {
         $resp = false;
-        if (isset($param['idrol']))
+        if (isset($param['idcompra']))
             $resp = true;
         return $resp;
     }
@@ -60,10 +70,10 @@ class AbmRol
     public function alta($param)
     {
         $resp = false;
-
-        $elObjtRol = $this->cargarObjeto($param);
-
-        if ($elObjtRol != null and $elObjtRol->insertar()) {
+        $param['idcompra'] = null;
+        $elObjtArchivoE = $this->cargarObjeto($param);
+        //print_r($elObjtArchivoE);
+        if ($elObjtArchivoE != null and $elObjtArchivoE->insertar()) {
             $resp = true;
         }
         return $resp;
@@ -76,17 +86,17 @@ class AbmRol
      * @param array $param
      * @return boolean
      */
-    public function baja($param)
-    {
+    /* public function baja($param){
         $resp = false;
-        if ($this->seteadosCamposClaves($param)) {
-            $elObjtRol = $this->cargarObjetoConClave($param);
-            if ($elObjtRol != null and $elObjtRol->eliminar()) {
+        if ($this->seteadosCamposClaves($param)){
+            $elObjtArchivoE = $this->cargarObjetoConClave($param);
+            if ($elObjtArchivoE!=null and $elObjtArchivoE->eliminar()){
                 $resp = true;
             }
         }
+        
         return $resp;
-    }
+    } */
 
     /*---------------- MODIFICA EN BASE DE DATOS ----------------*/
     /**
@@ -99,8 +109,8 @@ class AbmRol
         //echo "Estoy en modificacion";
         $resp = false;
         if ($this->seteadosCamposClaves($param)) {
-            $elObjtRol = $this->cargarObjeto($param);
-            if ($elObjtRol != null and $elObjtRol->modificar()) {
+            $elObjtArchivoE = $this->cargarObjeto($param);
+            if ($elObjtArchivoE != null and $elObjtArchivoE->modificar()) {
                 $resp = true;
             }
         }
@@ -118,12 +128,14 @@ class AbmRol
     {
         $where = " true ";
         if ($param <> NULL) {
-            if (isset($param['idrol']))
-                $where .= " and idrol =" . $param['idrol'];
-            if (isset($param['rodescripcion']))
-                $where .= " and rodescripcion =" . $param['rodescripcion'];
+            if (isset($param['idcompra']))
+                $where .= " and idcompra =" . $param['idcompra'];
+            if (isset($param['cofecha']))
+                $where .= " and cofecha =" . $param['cofecha'];
+            if (isset($param['idusuario']))
+                $where .= " and idusuario ='" . $param['idusuario'] . "'";
         }
-        $arreglo = Rol::listar($where);
+        $arreglo = Compra::listar($where);
         return $arreglo;
     }
 }

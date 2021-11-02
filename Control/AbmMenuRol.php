@@ -1,28 +1,28 @@
 <?php
-class AbmUsuarioRol
+class AbmMenuRol
 {
     /**
      * Espera como parametro un arreglo asociativo donde las claves coinciden 
      * con los nombres de las variables instancias del objeto
      * @param array $param
-     * @return UsuarioRol
+     * @return MenuRol
      */
     private function cargarObjeto($param)
     {
         $obj = null;
 
-        if (array_key_exists('idusuario', $param) and array_key_exists('idrol', $param)) {
+        if (array_key_exists('idmenu', $param) and array_key_exists('idrol', $param)) {
 
-            $objusuario = new Usuario();
-            $objusuario->setIdUsuario($param['idusuario']);
-            $objusuario->cargar();
+            $objMenu = new Menu();
+            $objMenu->setIdMenu($param['idmenu']);
+            $objMenu->cargar();
 
             $objrol = new Rol();
             $objrol->setIdrol($param['idrol']);
             $objrol->cargar();
 
-            $obj = new UsuarioRol();
-            $obj->setear($objusuario, $objrol);
+            $obj = new MenuRol();
+            $obj->setear($objMenu, $objrol);
         }
         return $obj;
     }
@@ -32,14 +32,14 @@ class AbmUsuarioRol
      * Espera como parametro un arreglo asociativo donde las claves 
      * coinciden con los nombres de las variables instancias del objeto que son claves
      * @param array $param
-     * @return UsuarioRol
+     * @return MenuRol
      */
     private function cargarObjetoConClave($param)
     {
         $obj = null;
-        if (isset($param['idusuario']) && isset($param['idrol'])) {
-            $obj = new UsuarioRol();
-            $obj->setear(($param['idusuario']), $param['idrol']);
+        if (isset($param['idmenu']) && isset($param['idrol'])) {
+            $obj = new MenuRol();
+            $obj->setear(($param['idmenu']), $param['idrol']);
             $obj->cargar();
         }
         return $obj;
@@ -54,7 +54,7 @@ class AbmUsuarioRol
     private function seteadosCamposClaves($param)
     {
         $resp = false;
-        if (isset($param['idusuario']) && isset($param['idrol']))
+        if (isset($param['idmenu']) && isset($param['idrol']))
             $resp = true;
         return $resp;
     }
@@ -63,7 +63,7 @@ class AbmUsuarioRol
     /**
      * Carga un objeto con los datos pasados por parámetro y lo 
      * Inserta en la base de datos
-     * @param array $param= idusuario/idrol
+     * @param array $param= idmenu/idrol
      * @return boolean
      */
     public function alta($param)
@@ -100,7 +100,7 @@ class AbmUsuarioRol
         return $resp;
     }
 
-    /*---------------- BUSCAR OBJ EN BASE DE DATOS ----------------*/
+    /*---------------- BUSCAR OBJ EN BASE DE DATO ----------------*/
     /**
      * Puede traer un obj específico o toda la lista si el parámetro es null
      * permite buscar un objeto
@@ -111,34 +111,34 @@ class AbmUsuarioRol
     {
         $where = " true ";
         if ($param <> NULL) {
-            if (isset($param['idusuario']))
-                $where .= " and idusuario =" . $param['idusuario'];
+            if (isset($param['idmenu']))
+                $where .= " and idmenu =" . $param['idmenu'];
             if (isset($param['idrol']))
                 $where .= " and idrol =" . $param['idrol'];
         }
-        $arreglo = UsuarioRol::listar($where);
+        $arreglo = MenuRol::listar($where);
         return $arreglo;
     }
 
-    /*---------------- LISTAR ROLES DE UN USUARIO ----------------*/
+    /*---------------- LISTAR ROLES DE UN MENU ----------------*/
     /** 
-     * Busca todos los UsuarioRol correspondientes a un objusuario
-     * lista todos los roles que tiene el usuario
+     * Busca todos los MenuRol correspondientes a un objMenu
+     * lista todos los roles que tiene el Menu
      * @param object
-     * @return array devuelve las descripciones de cada rol de dicho usuario
+     * @return array devuelve las descripciones de cada rol de dicho Menu
      */
-    public function buscarRolesUsuario($elObjtUsuario)
+    public function buscarRolesMenu($elObjtMenu)
     {
         $listaUsRol = [];
-        //listo todos los obj UsuarioRol
+        //listo todos los obj MenuRol
         $listaUsRol = $this->buscar(null);
         //print_r($listaUsRol);
         if ($listaUsRol != "") {
             $roles = [];
-            //agrego todos los roles que tenga el usuario en el array $roles
-            foreach ($listaUsRol as $UsuarioRol) {
-                if ($UsuarioRol->getIdUsuario()->getIdUsuario() == $elObjtUsuario->getIdUsuario()) {
-                    $roldescrip = $UsuarioRol->getIdrol()->getRodescripcion();
+            //agrego todos los roles que tenga el Menu en el array $roles
+            foreach ($listaUsRol as $MenuRol) {
+                if ($MenuRol->getIdMenu()->getIdMenu() == $elObjtMenu->getIdMenu()) {
+                    $roldescrip = $MenuRol->getIdrol()->getRodescripcion();
                     array_push($roles, $roldescrip);
                 }
             }

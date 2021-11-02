@@ -1,19 +1,21 @@
 <?php
-class AbmRol
+class AbmMenu
 {
     /**
      * Espera como parametro un arreglo asociativo donde las claves coinciden 
      * con los nombres de las variables instancias del objeto
      * @param array $param
-     * @return Rol
+     * @return Menu
      */
     private function cargarObjeto($param)
     {
         $obj = null;
-
-        if (array_key_exists('idrol', $param) and array_key_exists('rodescripcion', $param)) {
-            $obj = new Rol();
-            $obj->setear($param['idrol'], $param['rodescripcion']);
+        if (
+            array_key_exists('idmenu', $param) and array_key_exists('menombre', $param) and array_key_exists('medescripcion', $param)
+            and array_key_exists('idpadre', $param) and array_key_exists('medeshabilitado', $param)
+        ) {
+            $obj = new Menu();
+            $obj->setear($param['idmenu'], $param['menombre'], $param['medescripcion'], $param['idpadre'], $param['medeshabilitado']);
         }
         return $obj;
     }
@@ -23,15 +25,15 @@ class AbmRol
      * Espera como parametro un arreglo asociativo donde las claves 
      * coinciden con los nombres de las variables instancias del objeto que son claves
      * @param array $param
-     * @return Rol
+     * @return Menu
      */
     private function cargarObjetoConClave($param)
     {
         $obj = null;
 
-        if (isset($param['idrol'])) {
-            $obj = new Rol();
-            $obj->setear($param['idrol'], null);
+        if (isset($param['idmenu'])) {
+            $obj = new Menu();
+            $obj->setear($param['idmenu'], null, null, null, null);
         }
         return $obj;
     }
@@ -45,7 +47,7 @@ class AbmRol
     private function seteadosCamposClaves($param)
     {
         $resp = false;
-        if (isset($param['idrol']))
+        if (isset($param['idmenu']))
             $resp = true;
         return $resp;
     }
@@ -61,9 +63,9 @@ class AbmRol
     {
         $resp = false;
 
-        $elObjtRol = $this->cargarObjeto($param);
+        $elObjtMenu = $this->cargarObjeto($param);
 
-        if ($elObjtRol != null and $elObjtRol->insertar()) {
+        if ($elObjtMenu != null and $elObjtMenu->insertar()) {
             $resp = true;
         }
         return $resp;
@@ -80,8 +82,8 @@ class AbmRol
     {
         $resp = false;
         if ($this->seteadosCamposClaves($param)) {
-            $elObjtRol = $this->cargarObjetoConClave($param);
-            if ($elObjtRol != null and $elObjtRol->eliminar()) {
+            $elObjtMenu = $this->cargarObjetoConClave($param);
+            if ($elObjtMenu != null and $elObjtMenu->eliminar()) {
                 $resp = true;
             }
         }
@@ -99,8 +101,8 @@ class AbmRol
         //echo "Estoy en modificacion";
         $resp = false;
         if ($this->seteadosCamposClaves($param)) {
-            $elObjtRol = $this->cargarObjeto($param);
-            if ($elObjtRol != null and $elObjtRol->modificar()) {
+            $elObjtMenu = $this->cargarObjeto($param);
+            if ($elObjtMenu != null and $elObjtMenu->modificar()) {
                 $resp = true;
             }
         }
@@ -118,12 +120,18 @@ class AbmRol
     {
         $where = " true ";
         if ($param <> NULL) {
-            if (isset($param['idrol']))
-                $where .= " and idrol =" . $param['idrol'];
-            if (isset($param['rodescripcion']))
-                $where .= " and rodescripcion =" . $param['rodescripcion'];
+            if (isset($param['idmenu']))
+                $where .= " and idmenu =" . $param['idmenu'];
+            if (isset($param['menombre']))
+                $where .= " and menombre =" . $param['menombre'];
+            if (isset($param['medescripcion']))
+                $where .= " and medescripcion ='" . $param['medescripcion'] . "'";
+            if (isset($param['idpadre']))
+                $where .= " and idpadre ='" . $param['idpadre'] . "'";
+            if (isset($param['medeshabilitado']))
+                $where .= " and medeshabilitado ='" . $param['medeshabilitado'] . "'";
         }
-        $arreglo = Rol::listar($where);
+        $arreglo = Menu::listar($where);
         return $arreglo;
     }
 }

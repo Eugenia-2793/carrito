@@ -1,19 +1,21 @@
 <?php
-class AbmRol
+class AbmCompraEstadoTipo
 {
     /**
      * Espera como parametro un arreglo asociativo donde las claves coinciden 
      * con los nombres de las variables instancias del objeto
      * @param array $param
-     * @return Rol
+     * @return CompraEstadoTipo
      */
     private function cargarObjeto($param)
     {
         $obj = null;
-
-        if (array_key_exists('idrol', $param) and array_key_exists('rodescripcion', $param)) {
-            $obj = new Rol();
-            $obj->setear($param['idrol'], $param['rodescripcion']);
+        if (
+            array_key_exists('idcompraestadotipo', $param) and array_key_exists('cetdescripcion', $param)
+            and array_key_exists('cetdetalle', $param)
+        ) {
+            $obj = new CompraEstadoTipo();
+            $obj->setear($param['idcompraestadotipo'], $param['cetdescripcion'], $param['cetdetalle']);
         }
         return $obj;
     }
@@ -23,15 +25,15 @@ class AbmRol
      * Espera como parametro un arreglo asociativo donde las claves 
      * coinciden con los nombres de las variables instancias del objeto que son claves
      * @param array $param
-     * @return Rol
+     * @return CompraEstadoTipo
      */
     private function cargarObjetoConClave($param)
     {
         $obj = null;
 
-        if (isset($param['idrol'])) {
-            $obj = new Rol();
-            $obj->setear($param['idrol'], null);
+        if (isset($param['idcompraestadotipo'])) {
+            $obj = new CompraEstadoTipo();
+            $obj->setear($param['idcompraestadotipo'], null, null);
         }
         return $obj;
     }
@@ -45,7 +47,7 @@ class AbmRol
     private function seteadosCamposClaves($param)
     {
         $resp = false;
-        if (isset($param['idrol']))
+        if (isset($param['idcompraestadotipo']))
             $resp = true;
         return $resp;
     }
@@ -61,9 +63,9 @@ class AbmRol
     {
         $resp = false;
 
-        $elObjtRol = $this->cargarObjeto($param);
+        $elObjtCompraEstadoTipo = $this->cargarObjeto($param);
 
-        if ($elObjtRol != null and $elObjtRol->insertar()) {
+        if ($elObjtCompraEstadoTipo != null and $elObjtCompraEstadoTipo->insertar()) {
             $resp = true;
         }
         return $resp;
@@ -80,8 +82,8 @@ class AbmRol
     {
         $resp = false;
         if ($this->seteadosCamposClaves($param)) {
-            $elObjtRol = $this->cargarObjetoConClave($param);
-            if ($elObjtRol != null and $elObjtRol->eliminar()) {
+            $elObjtCompraEstadoTipo = $this->cargarObjetoConClave($param);
+            if ($elObjtCompraEstadoTipo != null and $elObjtCompraEstadoTipo->eliminar()) {
                 $resp = true;
             }
         }
@@ -99,8 +101,8 @@ class AbmRol
         //echo "Estoy en modificacion";
         $resp = false;
         if ($this->seteadosCamposClaves($param)) {
-            $elObjtRol = $this->cargarObjeto($param);
-            if ($elObjtRol != null and $elObjtRol->modificar()) {
+            $elObjtCompraEstadoTipo = $this->cargarObjeto($param);
+            if ($elObjtCompraEstadoTipo != null and $elObjtCompraEstadoTipo->modificar()) {
                 $resp = true;
             }
         }
@@ -118,12 +120,14 @@ class AbmRol
     {
         $where = " true ";
         if ($param <> NULL) {
-            if (isset($param['idrol']))
-                $where .= " and idrol =" . $param['idrol'];
-            if (isset($param['rodescripcion']))
-                $where .= " and rodescripcion =" . $param['rodescripcion'];
+            if (isset($param['idcompraestadotipo']))
+                $where .= " and idcompraestadotipo =" . $param['idcompraestadotipo'];
+            if (isset($param['cetdescripcion']))
+                $where .= " and cetdescripcion =" . $param['cetdescripcion'];
+            if (isset($param['cetdetalle']))
+                $where .= " and cetdetalle ='" . $param['cetdetalle'] . "'";
         }
-        $arreglo = Rol::listar($where);
+        $arreglo = CompraEstadoTipo::listar($where);
         return $arreglo;
     }
 }

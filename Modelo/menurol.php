@@ -1,35 +1,35 @@
 <?php
 
-class UsuarioRol
+class MenuRol
 {
-    private $idusuario;
+    private $idmenu;
     private $idrol;
     private $mensajeoperacion;
 
 
     public function __construct()
     {
-        $this->idusuario = new Usuario();
+        $this->idmenu = new Menu();
         $this->idrol = new Rol();
         $this->mensajeoperacion = "";
     }
 
-    public function setear($idusuario, $idrol)
+    public function setear($idmenu, $idrol)
     {
-        $this->setIdUsuario($idusuario);
+        $this->setIdMenu($idmenu);
         $this->setIdRol($idrol);
     }
 
-    public function getIdUsuario()
+    public function getIdMenu()
     {
-        return $this->idusuario;
+        return $this->idmenu;
     }
-    public function setIdUsuario($idusuario)
+    public function setIdMenu($idmenu)
     {
-        $this->idusuario = $idusuario;
+        $this->idmenu = $idmenu;
     }
 
-    public function getIdrol()
+    public function getIdRol()
     {
         return $this->idrol;
     }
@@ -53,18 +53,18 @@ class UsuarioRol
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "SELECT * FROM usuariorol WHERE idusuario = " . $this->getIdUsuario()->getIdUsuario() . " and idrol = " . $this->getIdrol()->getIdrol();
+        $sql = "SELECT * FROM menurol WHERE idmenu = " . $this->getIdMenu()->getIdMenu() . " and idrol = " . $this->getIdRol()->getIdRol();
         if ($base->Iniciar()) {
             $res = $base->Ejecutar($sql);
             if ($res > -1) {
                 if ($res > 0) {
                     $row = $base->Registro();
 
-                    $objUsuario = NULL;
-                    if ($row['idusuario'] != null) {
-                        $objUsuario = new Usuario();
-                        $objUsuario->setIdusuario($row['idusuario']);
-                        $objUsuario->cargar();
+                    $objMenu = NULL;
+                    if ($row['idmenu'] != null) {
+                        $objMenu = new Menu();
+                        $objMenu->setIdMenu($row['idmenu']);
+                        $objMenu->cargar();
                     }
 
                     $objRol = NULL;
@@ -74,12 +74,12 @@ class UsuarioRol
                         $objRol->cargar();
                     }
 
-                    $this->setear($objUsuario, $objRol);
+                    $this->setear($objMenu, $objRol);
                     $resp = true;
                 }
             }
         } else {
-            $this->setmensajeoperacion("Usuariorol->listar: " . $base->getError());
+            $this->setmensajeoperacion("MenuRol->listar: " . $base->getError());
         }
         return $resp;
     }
@@ -88,15 +88,15 @@ class UsuarioRol
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "INSERT INTO usuariorol (idusuario, idrol) VALUES ('{$this->getIdUsuario()->getIdUsuario()}', '{$this->getIdrol()->getIdrol()}');";
+        $sql = "INSERT INTO menurol (idmenu, idrol) VALUES ('{$this->getIdMenu()->getIdMenu()}', '{$this->getIdRol()->getIdRol()}');";
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 $resp = true;
             } else {
-                $this->setmensajeoperacion("Usuariorol->insertar: " . $base->getError());
+                $this->setmensajeoperacion("MenuRol->insertar: " . $base->getError());
             }
         } else {
-            $this->setmensajeoperacion("Usuariorol->insertar: " . $base->getError());
+            $this->setmensajeoperacion("MenuRol->insertar: " . $base->getError());
         }
         return $resp;
     }
@@ -106,15 +106,15 @@ class UsuarioRol
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "DELETE * FROM usuariorol WHERE idusuario = " . $this->getIdUsuario()->getIdUsuario() . " and idrol = " . $this->getIdrol()->getIdrol();
+        $sql = "DELETE * FROM menurol WHERE idmenu = " . $this->getIdMenu()->getIdMenu() . " and idrol = " . $this->getIdRol()->getIdRol();
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 return true;
             } else {
-                $this->setmensajeoperacion("Usuariorol->eliminar: " . $base->getError());
+                $this->setmensajeoperacion("MenuRol->eliminar: " . $base->getError());
             }
         } else {
-            $this->setmensajeoperacion("Usuariorol->eliminar: " . $base->getError());
+            $this->setmensajeoperacion("MenuRol->eliminar: " . $base->getError());
         }
         return $resp;
     }
@@ -124,7 +124,7 @@ class UsuarioRol
     {
         $arreglo = array();
         $base = new BaseDatos();
-        $sql = "SELECT * FROM usuariorol  ";
+        $sql = "SELECT * FROM menurol  ";
         if ($parametro != "") {
             $sql .= 'WHERE ' . $parametro;
         }
@@ -133,13 +133,13 @@ class UsuarioRol
             if ($res > 0) {
 
                 while ($row = $base->Registro()) {
-                    $obj = new UsuarioRol();
+                    $obj = new MenuRol();
 
-                    $objUsuario = NULL;
-                    if ($row['idusuario'] != null) {
-                        $objUsuario = new Usuario();
-                        $objUsuario->setIdusuario($row['idusuario']);
-                        $objUsuario->cargar();
+                    $objMenu = NULL;
+                    if ($row['idmenu'] != null) {
+                        $objMenu = new Menu();
+                        $objMenu->setIdMenu($row['idmenu']);
+                        $objMenu->cargar();
                     }
 
                     $objRol = NULL;
@@ -149,12 +149,12 @@ class UsuarioRol
                         $objRol->cargar();
                     }
 
-                    $obj->setear($objUsuario, $objRol);
+                    $obj->setear($objMenu, $objRol);
                     array_push($arreglo, $obj);
                 }
             }
         } else {
-            $this->setmensajeoperacion("Usuariorol->listar: " . $base->getError());
+            $this->setmensajeoperacion("MenuRol->listar: " . $base->getError());
         }
 
         return $arreglo;
