@@ -13,6 +13,7 @@ class Rol
         $this->idrol = "";
         $this->rodescripcion = "";
         $this->mensajeoperacion = "";
+      
     }
 
     public function setear($idrol, $rodescripcion)

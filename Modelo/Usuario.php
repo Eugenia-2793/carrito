@@ -175,7 +175,7 @@ class Usuario
                 }
             }
         } else {
-            $this->setmensajeoperacion("Usuario->listar: " . $base->getError());
+          //  $this->setmensajeoperacion("Usuario->listar: " . $base->getError());
         }
 
         return $arreglo;

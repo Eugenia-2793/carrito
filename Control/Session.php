@@ -10,7 +10,7 @@ class Session
     }
 
 
-    /*---------------- Setear atributos de la session ----------------*/
+    
     /**
      * modifica un atributo de session a partir de la descripcion del atrbuto
      * y su valor, pasados por parametro
@@ -29,7 +29,7 @@ class Session
     }
 
 
-    /*---------------- Retornar valor de los atributos de la session ----------------*/
+
     /**
      * Retorna valor de atributo cuya descripcion es pasada por parametro
      * @param string $nombreAtributo
@@ -51,7 +51,7 @@ class Session
     }
 
 
-    /*---------------- BORRAR ATRIBUTO ----------------*/
+   
     /**
      * Elimina atributo cuya descripcion es pasada por parametro
      * @param string $nombreAtributo
@@ -68,7 +68,7 @@ class Session
     }
 
 
-    /*---------------- INICIAR SESSION ----------------*/
+
     /**
      * Setea los datos en la session iniciandola
      * @param array $datos
@@ -98,7 +98,6 @@ class Session
     }
 
 
-    /*---------------- PARA DAR PERMISO DE ADMINISTRADOR ----------------*/
     /**
      * Chequea si hay permiso de administrador entre los roles de la session iniciada
      * 
@@ -116,7 +115,7 @@ class Session
     }
 
 
-    /*---------------- PARA SABER SI LA SESSION ESTÁ ACTIVA ----------------*/
+
     /**
      * Busca el status de la session
      * Averigua si es = a ACTIVA
@@ -133,7 +132,7 @@ class Session
     }
 
 
-    /*---------------- PARA SABER SI LA SESSION ES VALIDA y si tiene permisos ----------------*/
+
     /**
      * Busca si hay un usuario logueado en la session y si tiene permiso de administrador
      * si no lo hay devuelve falso
@@ -146,15 +145,15 @@ class Session
             $pag = $_SERVER["REQUEST_URI"];
             //echo($pag);
             if (
-                $pag == "/FinalPWD_0321/CarritoCompras/vista/listarUsuario.php" ||
-                $pag == "/FinalPWD_0321/CarritoCompras/vista/listarRoles.php" ||
-                $pag == "/FinalPWD_0321/CarritoCompras/vista/actualizarlogin.php" ||
-                $pag == "/FinalPWD_0321/CarritoCompras/vista/eliminarUsuario.php"
+                $pag == "/carrito/vista/listarUsuario.php" ||
+                $pag == "/carrito/vista/listarRoles.php" ||
+                $pag == "/carrito/vista/actualizarlogin.php" ||
+                $pag == "/carrito/vista/eliminarUsuario.php"
             ) {
                 //echo "estoy en la pagina";
                 if ($this->esAdministrador() != true) {
 
-                    header("location: http://localhost/FinalPWD_0321/CarritoCompras/vista/index/home.php");
+                    header("location: http://localhost/carrito/vista/index/home.php");
                 }
             }
             $resp = true;
@@ -163,7 +162,7 @@ class Session
     }
 
 
-    /*---------------- PARA TERMINAR LA SESSION ----------------*/
+
     /**
      * Destruye la session creada.
      */

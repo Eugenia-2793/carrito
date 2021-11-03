@@ -30,7 +30,7 @@ class AbmUsuario
         return $obj;
     }
 
-    /*---------------- CARGAR SOLO CON LA CLAVE ----------------*/
+    
     /**
      * Espera como parametro un arreglo asociativo donde las claves 
      * coinciden con los nombres de las variables instancias del objeto que son claves
@@ -48,7 +48,7 @@ class AbmUsuario
         return $obj;
     }
 
-    /*---------------- CHEQUEO CLAVES SETEADAS ----------------*/
+    
     /**
      * Corrobora que dentro del arreglo asociativo estan seteados los campos claves
      * @param array $param
@@ -62,7 +62,7 @@ class AbmUsuario
         return $resp;
     }
 
-    /*---------------- INSERTAR EN BASE DE DATOS ----------------*/
+    
     /**
      * Carga un objeto con los datos pasados por parámetro y lo 
      * Inserta en la base de datos
@@ -83,7 +83,7 @@ class AbmUsuario
         return $resp;
     }
 
-    /*---------------- ELIMINA OBJETO DE BASE DE DATOS ----------------*/
+    
     /**
      * Por lo general no se usa ya que se utiliza borrado lógico (es decir pasar de activo a inactivo)
      * permite eliminar un objeto 
@@ -101,7 +101,7 @@ class AbmUsuario
      return $resp;
     }*/
 
-    /*---------------- MODIFICA EN BASE DE DATOS ----------------*/
+    
     /**
      * Carga un obj con los datos pasados por parámetro y lo modifica en base de datos (update)
      * @param array $param
@@ -120,7 +120,7 @@ class AbmUsuario
         return $resp;
     }
 
-    /*---------------- BUSCAR OBJ EN BASE DE DATOS ----------------*/
+    
     /**
      * Puede traer un obj específico o toda la lista si el parámetro es null
      * permite buscar un objeto
@@ -146,7 +146,7 @@ class AbmUsuario
         return $arreglo;
     }
 
-    /*---------------- LISTAR USUARIOS ACTIVOS ----------------*/
+    
     /**
      * busca todos los usuarios
      * Filtra los activos
@@ -175,9 +175,8 @@ class AbmUsuario
         return $listaActivos;
     }
 
-    /*---------------- FUNCIONES PARA ALTA NUEVO USUARIO ----------------*/
+    //alta de un nuevo usuario--------------------------------------
 
-    //-------------------noExisteUsuario-------------------
     /**
      * Debe verificar  que el usuario NO exista en base de datos
      * @param array $datos
@@ -202,7 +201,6 @@ class AbmUsuario
         return $resp;
     }
 
-    /*---------------- altaUsuarioRolIngresante ----------------*/
     //
     /**
      * instancia un objeto de la clase usuariorol donde 
@@ -221,7 +219,6 @@ class AbmUsuario
         return $resp;
     }
 
-    /*---------------- altaUsuarioRolExistente ----------------*/
     /**
      * Instancia un objeto de la clase usuariorol donde se le asigna un NUEVO rol a 
      * un usuario existente,se usa en ActualizarLogin.php
@@ -240,7 +237,7 @@ class AbmUsuario
         return $resp;
     }
 
-    /*---------------- ALTA NUEVO USUARIO ----------------*/
+   
     /**
      * Combina todas:
      * Chequea que no exista 
@@ -261,8 +258,9 @@ class AbmUsuario
         return $resp;
     }
 
-    /*---------------- DEVUELVE EL USUARIO SI EXISTE SINO DEVUELVE OBJ EN NULL ----------------*/
+   
     /**
+     * Devuelve el usuario si existe sino devuelv eun oj en null
      * Debe verificar  que el usuario exista en base de datos
      * SE USA EN ACTIONLOGIN PARA VER SI YA ESTÁ CARGADO EN BASE DE DATOS EL USUARIO
      * 
@@ -291,7 +289,7 @@ class AbmUsuario
         return $objUsuario;
     }
 
-    /*---------------- LOGUEAR USUARIO ----------------*/
+    
     /**
      * Chequea que existe el usuario (usando la funcion existeUsuario)
      * Si existe busca los roles que tiene y los devuelve

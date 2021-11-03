@@ -20,7 +20,7 @@ class AbmProducto
         return $obj;
     }
 
-    /*---------------- CARGAR SOLO CON LA CLAVE ----------------*/
+    
     /**
      * Espera como parametro un arreglo asociativo donde las claves 
      * coinciden con los nombres de las variables instancias del objeto que son claves
@@ -38,7 +38,7 @@ class AbmProducto
         return $obj;
     }
 
-    /*---------------- CHEQUEO CLAVES SETEADAS ----------------*/
+    
     /**
      * Corrobora que dentro del arreglo asociativo estan seteados los campos claves
      * @param array $param
@@ -52,7 +52,7 @@ class AbmProducto
         return $resp;
     }
 
-    /*---------------- INSERTAR EN BASE DE DATOS ----------------*/
+   
     /**
      * Carga un objeto con los datos pasados por parámetro y lo 
      * Inserta en la base de datos
@@ -71,7 +71,7 @@ class AbmProducto
         return $resp;
     }
 
-    /*---------------- ELIMINA OBJETO DE BASE DE DATOS ----------------*/
+   
     /**
      * Por lo general no se usa ya que se utiliza borrado lógico ( es decir pasar de activo a inactivo)
      * permite eliminar un objeto 
@@ -90,7 +90,7 @@ class AbmProducto
         return $resp;
     }
 
-    /*---------------- MODIFICA EN BASE DE DATOS ----------------*/
+    
     /**
      * Carga un obj con los datos pasados por parámetro y lo modifica en base de datos (update)
      * @param array $param
@@ -109,7 +109,7 @@ class AbmProducto
         return $resp;
     }
 
-    /*---------------- BUSCAR OBJ EN BASE DE DATOS ----------------*/
+    
     /**
      * Puede traer un obj específico o toda la lista si el parámetro es null
      * permite buscar un objeto
