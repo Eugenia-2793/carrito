@@ -74,11 +74,11 @@
                             <a class="dropdown-item" href="../pages/perfil.php">
                                 <span class="fas fa-user fa-fw" aria-hidden="true" title="Perfil"></span> Perfil
                             </a>
-                            <a class="dropdown-item" href="../pages/configuracion.php"><span class="fas fa-cog fa-fw " aria-hidden="true" title="Configuración"></span> Configuración</a>
+                            <a class="dropdown-item" href="../pages/configuraciones.php"><span class="fas fa-cog fa-fw " aria-hidden="true" title="Configuración"></span> Configuración</a>
 
                             <div class="dropdown-divider"></div>
 
-                            <a class="dropdown-item logout" href="#"><span class="fas fa-sign-out-alt fa-fw" aria-hidden="true" title="Cerrar sesión"></span> Cerrar sesión</a>
+                            <a class="dropdown-item logout" href="../pages/cerrarSesion.php"><span class="fas fa-sign-out-alt fa-fw" aria-hidden="true" title="Cerrar sesión"></span> Cerrar sesión</a>
                         </div>
                     </li>
                 </ul>

@@ -4,7 +4,7 @@ include_once("../estructura/cabecera.php");
 ?>
 
 <div class="form-signin text-center">
-    <form id="registro" name="registro" action="../accion/ac_contacto.php" method="POST" data-toggle="validator">
+    <form id="contacto" name="contacto" action="../accion/ac_contacto.php" method="POST" data-toggle="validator">
         <h3 class="h3 mb-3 fw-normal">Contacto</h3>
         <!-- Nombre -->
         <div class="form-floating">

@@ -2,172 +2,137 @@
 
 class Session
 {
+    /** CONSTRUCTOR **/
     public function __construct()
     {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
+        session_start();
     }
 
 
-    
-    /**
-     * modifica un atributo de session a partir de la descripcion del atrbuto
-     * y su valor, pasados por parametro
-     * @param string $nombreAtributo
-     * @param $valor (puede ser de cualquier tipo)
-     *
-     */
-    public function setAtributo($nombreAtributo, $valor)
+    /** GETS Y SETS **/
+    public function getIdUser()
     {
-        if (
-            session_status() === PHP_SESSION_ACTIVE
-            && is_string($nombreAtributo)
-        ) {
-            $_SESSION[$nombreAtributo] = $valor;
-        }
+        return $_SESSION['idusuario'];
     }
 
-
-
-    /**
-     * Retorna valor de atributo cuya descripcion es pasada por parametro
-     * @param string $nombreAtributo
-     * @return $atributo
-     */
-
-    public function getAtributo($nombreAtributo)
+    public function setIdUser($idUser)
     {
-        $atributo = null;
-        if (
-            session_status() === PHP_SESSION_ACTIVE
-            && is_string($nombreAtributo)
-            && isset($_SESSION[$nombreAtributo])
-        ) {
-            $atributo = $_SESSION[$nombreAtributo];
-        }
-
-        return $atributo;
+        $_SESSION['idusuario'] = $idUser;
     }
 
-
-   
-    /**
-     * Elimina atributo cuya descripcion es pasada por parametro
-     * @param string $nombreAtributo
-     */
-    public function borrarAtributo($nombreAtributo)
+    public function getUserName()
     {
-        if (
-            session_status() === PHP_SESSION_ACTIVE
-            && is_string($nombreAtributo)
-            && isset($_SESSION[$nombreAtributo])
-        ) {
-            unset($_SESSION[$nombreAtributo]);
-        }
+        return $_SESSION['usnombre'];
     }
 
-
-
-    /**
-     * Setea los datos en la session iniciandola
-     * @param array $datos
-     * @return boolean
-     */
-    public function iniciarSession($datos)
+    public function setUserName($userName)
     {
-        $this->session_started;
-        $this->setAtributo("usuario", $datos["NombreUsuario"]);
-        $this->setAtributo("login", $datos["login"]);
-        $this->setAtributo("rol", $datos["roles"]);
-        $this->setAtributo("idusuario", $datos["idusuario"]);
-
-        $resp = true;
-
-        return $resp;
-
-        /*	OPCIÓN PARA RECUPERAR $ID DE SESSION
-		LA DEJO PARA TENERLA
-		$id= session_id();
-		$this-> setSession_id ($id);
-		return $id;
-		}
-		public function setSession_id ($id){
-			$_SESSION["key"]= $id;
-		}*/
+        $_SESSION['usnombre'] = $userName;
     }
 
-
-    /**
-     * Chequea si hay permiso de administrador entre los roles de la session iniciada
-     * 
-     */
-    public function esAdministrador()
+    public function getPass()
     {
-        $resp = false;
-        $roles = $_SESSION["rol"];
-        foreach ($roles as $rol) {
-            if ($rol == "admin") {
-                $resp = true;
-            }
-        }
-        return $resp;
+        return $_SESSION['uspass'];
     }
-
-
-
-    /**
-     * Busca el status de la session
-     * Averigua si es = a ACTIVA
-     * @return boolean
-     */
-    public function activa()
+    public function setPass($pass)
     {
-        $resp = true;
-        session_status();
-        if (session_status() !== PHP_SESSION_ACTIVE) {
-            $resp = false;
-        }
-        return $resp;
+        $_SESSION['uspass'] = $pass;
     }
 
 
+    /** INICIAR **/
+    public function iniciar($nombreUsuario, $passUsuario)
+    {
+        $this->setUserName($nombreUsuario);
+        $this->setPass($passUsuario);
+    }
 
-    /**
-     * Busca si hay un usuario logueado en la session y si tiene permiso de administrador
-     * si no lo hay devuelve falso
-     * @return boolean
-     */
+
+    /** VALIDAR **/
     public function validar()
     {
-        $resp = false;
-        if (isset($_SESSION["login"])) {
-            $pag = $_SERVER["REQUEST_URI"];
-            //echo($pag);
-            if (
-                $pag == "/carrito/vista/listarUsuario.php" ||
-                $pag == "/carrito/vista/listarRoles.php" ||
-                $pag == "/carrito/vista/actualizarlogin.php" ||
-                $pag == "/carrito/vista/eliminarUsuario.php"
-            ) {
-                //echo "estoy en la pagina";
-                if ($this->esAdministrador() != true) {
 
-                    header("location: http://localhost/carrito/vista/index/home.php");
-                }
-            }
-            $resp = true;
+        $inicia = false;
+        $nombreUsuario = $this->getUserName();
+        $passUsuario = $this->getPass();
+        $abmUsuario = new AbmUsuario();
+        $where = array();
+        $filtro1 = array();
+        $filtro1['usnombre'] = $nombreUsuario;
+        $filtro2 = array();
+        $filtro2['uspass'] = $passUsuario;
+        $where['usnombre'] = $nombreUsuario;
+        $where['uspass'] = $passUsuario;
+        $listaUsuarios = $abmUsuario->buscar($where);
+        $username = $abmUsuario->buscar($filtro1);
+        $pass =  $abmUsuario->buscar($filtro2);
+        $error = "";
+        if ($username == null) {
+            $error .= "Este usuario no existe";
+        } elseif ($pass == null) {
+            $error .= "Contraseña incorrecta";
         }
-        return $resp;
+        if (count($listaUsuarios) > 0) {
+            $fechaDes = $listaUsuarios[0]->getUsdeshabilitado();
+            if ($fechaDes != "0000-00-00 00:00:00") {
+                $error .= "El usuario está deshabilitado";
+            } else {
+                $inicia = true;
+                $this->setIdUser($listaUsuarios[0]->getidusuario());
+            }
+        }
+        return array($inicia, $error);
     }
 
 
+    /** ACTIVA **/
+    public function activa()
+    {
+        $activa = false;
+        if (isset($_SESSION['usnombre'])) {
+            $activa = true;
+        }
+        return $activa;
+    }
 
+
+    /** GET USUARIO **/
+    public function getUsuario()
+    {
+        $abmUsuario = new AbmUsuario();
+        $where = ['idusuario' => $_SESSION['idusuario']];
+        $listaUsuarios = $abmUsuario->buscar($where);
+        if ($listaUsuarios >= 1) {
+            $usuarioLog = $listaUsuarios[0];
+        }
+        return $usuarioLog;
+    }
+
+
+    /** GET ROL **/
+    public function getRol()
+    {
+        $abmUsuarioRol = new AbmUsuarioRol();
+        $usuario = $this->getUsuario();
+        $idUsuario = $usuario->getIdUsuario();
+        $param = ['idusuario' => $idUsuario];
+        $listaRolesUsu = $abmUsuarioRol->buscar($param);
+        if ($listaRolesUsu > 1) {
+            $rol = $listaRolesUsu;
+        } else {
+            $rol = $listaRolesUsu[0];
+        }
+        return $rol;
+    }
+
+
+    /*---------------- PARA TERMINAR LA SESSION ----------------*/
     /**
      * Destruye la session creada.
      */
     public function cerrarSession()
     {
+        session_unset();
         session_destroy();
     }
 
