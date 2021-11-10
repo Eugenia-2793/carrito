@@ -1,42 +1,50 @@
 <?php
 $Titulo = "Login";
-include_once("../estructura/cabecera.php");
+include_once '../../configuracion.php';
+include_once '../../control/Session.php';
 
-/*$datos = data_submitted();
-if (isset($datos['cs'])) {
-    if ($datos['cs'] == 1) {
-        $sesion->cerrarSession();
-        header("Location:../index/login.php");
-    }
+$sesion = new Session();
+
+if ($sesion->activa()) {
+    header("Location:../pages/carrito.php");
 } else {
-    $activa = $sesion->activa();
-    if ($activa) {
-        header("Location:../index/carrito.php");
-    }
-}*/
+    include_once("../estructura/cabecera.php");
+}
+
+$datos = data_submitted();
 ?>
 
-<div class="card mb-5">
-    <div class="card-body">
-        <form id="login" name="login" class="form-signin" action="../accion/ac_login.php" method="POST" onsubmit="encriptPass()" data-toggle="validator">
-            <h1 class="h3 mb-3 text-center">Login</h1>
-            <div class="input-group mb-3 mx-auto" style="width: 300px">
-                <div class="input-group-prepend">
+<div class="row my-5">
+    <form class="form-signin" id="login" name="login" method="POST" action="verificarLogin.php">
+        <div class="login mx-auto">
+            <h1 class="h3 mb-3 text-center">Usuario</h1>
+            <div class="form-group">
+                <div class="input-group mt-3">
                     <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                    <input class="form-control" type="text" id="usnombre" name="usnombre" placeholder="Nombre de usuario" aria-label="username" aria-describedby="basic-addon1" required>
                 </div>
-                <input type="text" id="uslogin" name="uslogin" class="form-control" placeholder="Username" required="" autofocus="">
             </div>
-            <div class="input-group mb-3 mx-auto" style="width: 300px">
-                <div class="input-group-prepend">
+            <div class="form-group">
+                <div class="input-group mt-3">
                     <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                    <input class="form-control" type="password" id="uspass" name="uspass" placeholder="***********" aria-label="password" aria-describedby="basic-addon1" required>
                 </div>
-                <input type="password" id="usclave" name="usclave" class="form-control" placeholder="***********" required="">
             </div>
-            <button class="btn btn-lg btn-success btn-block mb-3 mx-auto" type="submit" style="width: 300px">Acceder</button>
-        </form>
-        <div style="text-align: center;">
-            <p class="mb-0 text-muted">¿No tienes cuenta? <a href="registrar.php">¡Registrate!</a></p>
+            <div class="d-grid my-3">
+                <button class="btn btn-primary" type="submit">Iniciar sesión</button>
+            </div>
+            <?php
+            if (isset($datos['error'])) {
+                $mensaje = $datos['error'];
+                echo "<div class='alert alert-danger d-flex align-items-center' role='alert'>
+                <svg class='bi flex-shrink-0 me-2' width='24' height='24' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
+                <div>$mensaje</div></div>";
+            }
+            ?>
         </div>
+    </form>
+    <div class="text-center">
+        <p class="mb-0 text-muted">¿No tienes cuenta? <a href="registrar.php">¡Registrate!</a></p>
     </div>
 </div>
 

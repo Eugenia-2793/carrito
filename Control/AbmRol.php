@@ -1,42 +1,44 @@
 <?php
 class AbmRol
 {
+    //Espera como parametro un arreglo asociativo donde las claves coinciden con los uspasss de las variables instancias del objeto
+
+
     /**
-     * Espera como parametro un arreglo asociativo donde las claves coinciden 
-     * con los nombres de las variables instancias del objeto
+     * Espera como parametro un arreglo asociativo donde las claves coinciden con los uspasss de las variables instancias del objeto
      * @param array $param
-     * @return Rol
+     * @return rol
      */
     private function cargarObjeto($param)
     {
         $obj = null;
-
-        if (array_key_exists('idrol', $param) and array_key_exists('rodescripcion', $param)) {
+        if (
+            array_key_exists('idrol', $param)
+            and array_key_exists('rodescripcion', $param)
+        ) {
             $obj = new Rol();
             $obj->setear($param['idrol'], $param['rodescripcion']);
         }
         return $obj;
     }
 
-    
+
     /**
-     * Espera como parametro un arreglo asociativo donde las claves 
-     * coinciden con los nombres de las variables instancias del objeto que son claves
+     * Espera como parametro un arreglo asociativo donde las claves coinciden con los uspasss de las variables instancias del objeto que son claves
      * @param array $param
-     * @return Rol
+     * @return rol
      */
     private function cargarObjetoConClave($param)
     {
         $obj = null;
-
         if (isset($param['idrol'])) {
             $obj = new Rol();
-            $obj->setear($param['idrol'], null);
+            $obj->setear($param['idrol'], "", ""); //???---------------------------2 o 3?
         }
         return $obj;
     }
 
-    
+
     /**
      * Corrobora que dentro del arreglo asociativo estan seteados los campos claves
      * @param array $param
@@ -50,29 +52,30 @@ class AbmRol
         return $resp;
     }
 
-    
+
     /**
-     * Carga un objeto con los datos pasados por parámetro y lo 
-     * Inserta en la base de datos
+     * ALTA
      * @param array $param
-     * @return boolean
      */
     public function alta($param)
     {
         $resp = false;
+        $buscar2 = array();
+        $buscar2['idrol'] = $param['idrol'];
+        $encuentraPer = $this->buscar($buscar2);
 
-        $elObjtRol = $this->cargarObjeto($param);
-
-        if ($elObjtRol != null and $elObjtRol->insertar()) {
-            $resp = true;
+        if ($encuentraPer == null) {
+            $elObjtrol = $this->cargarObjeto($param);
+            if ($elObjtrol != null and $elObjtrol->insertar()) {
+                $resp = true;
+            }
         }
         return $resp;
     }
 
-   
+
     /**
-     * Por lo general no se usa ya que se utiliza borrado lógico ( es decir pasar de activo a inactivo)
-     * permite eliminar un objeto 
+     * BAJA
      * @param array $param
      * @return boolean
      */
@@ -80,37 +83,41 @@ class AbmRol
     {
         $resp = false;
         if ($this->seteadosCamposClaves($param)) {
-            $elObjtRol = $this->cargarObjetoConClave($param);
-            if ($elObjtRol != null and $elObjtRol->eliminar()) {
+            $elObjtrol = $this->cargarObjetoConClave($param);
+            if ($elObjtrol != null and $elObjtrol->eliminar()) {
                 $resp = true;
             }
         }
         return $resp;
     }
 
-    
+
     /**
-     * Carga un obj con los datos pasados por parámetro y lo modifica en base de datos (update)
+     * MODIFICACION
      * @param array $param
      * @return boolean
      */
     public function modificacion($param)
     {
-        //echo "Estoy en modificacion";
         $resp = false;
         if ($this->seteadosCamposClaves($param)) {
-            $elObjtRol = $this->cargarObjeto($param);
-            if ($elObjtRol != null and $elObjtRol->modificar()) {
-                $resp = true;
+            $buscar2 = array();
+            $buscar2['idrol'] = $param['idrol'];
+            $larol = $this->buscar($buscar2);
+            if ($larol != null) {
+                $larol[0]->setroldescripcion($param['rodescripcion']);
+
+                if ($larol[0] != null and $larol[0]->modificar()) {
+                    $resp = true;
+                }
             }
         }
         return $resp;
     }
 
-   
+
     /**
-     * Puede traer un obj específico o toda la lista si el parámetro es null
-     * permite buscar un objeto
+     * BUSCAR
      * @param array $param
      * @return array
      */
@@ -121,7 +128,7 @@ class AbmRol
             if (isset($param['idrol']))
                 $where .= " and idrol =" . $param['idrol'];
             if (isset($param['rodescripcion']))
-                $where .= " and rodescripcion =" . $param['rodescripcion'];
+                $where .= " and roldescripcion ='" . $param['rodescripcion'] . "'";
         }
         $arreglo = Rol::listar($where);
         return $arreglo;

@@ -1,49 +1,38 @@
 <?php
-class AbmUsuarioRol
+class AbmUsuariorol
 {
-    /**
-     * Espera como parametro un arreglo asociativo donde las claves coinciden 
-     * con los nombres de las variables instancias del objeto
-     * @param array $param
-     * @return UsuarioRol
-     */
+
     private function cargarObjeto($param)
     {
         $obj = null;
-
         if (array_key_exists('idusuario', $param) and array_key_exists('idrol', $param)) {
-
             $objusuario = new Usuario();
-            $objusuario->setIdUsuario($param['idusuario']);
+            $objusuario->setIdusuario($param['idusuario']);
             $objusuario->cargar();
 
             $objrol = new Rol();
             $objrol->setIdrol($param['idrol']);
             $objrol->cargar();
 
-            $obj = new UsuarioRol();
+            $obj = new Usuariorol();
             $obj->setear($objusuario, $objrol);
         }
         return $obj;
     }
 
- 
-    /**
-     * Espera como parametro un arreglo asociativo donde las claves 
-     * coinciden con los nombres de las variables instancias del objeto que son claves
-     * @param array $param
-     * @return UsuarioRol
-     */
+
+    //Definir como se va a cargar el objeto y asignar las claves de lo que hace falta
     private function cargarObjetoConClave($param)
     {
         $obj = null;
-        if (isset($param['idusuario']) && isset($param['idrol'])) {
-            $obj = new UsuarioRol();
-            $obj->setear(($param['idusuario']), $param['idrol']);
-            $obj->cargar();
+
+        if (isset($param[''])) {
+            $obj = new Usuariorol();
+            $obj->setear($param[''], null, null,);
         }
         return $obj;
     }
+
 
     /**
      * Corrobora que dentro del arreglo asociativo estan seteados los campos claves
@@ -58,7 +47,7 @@ class AbmUsuarioRol
         return $resp;
     }
 
-   
+
     /**
      * Carga un objeto con los datos pasados por parámetro y lo 
      * Inserta en la base de datos
@@ -67,11 +56,9 @@ class AbmUsuarioRol
      */
     public function alta($param)
     {
-        // print_r($param);
         $resp = false;
         //Creo objeto con los datos
         $elObj = $this->cargarObjeto($param);
-        //print_r($elObjtArchivo);
         //Verifico que el objeto no sea nulo y lo inserto en BD 
         if ($elObj != null and $elObj->insertar()) {
             $resp = true;
@@ -81,8 +68,8 @@ class AbmUsuarioRol
 
 
     /**
-     * Por lo general no se usa ya que se utiliza borrado lógico ( es decir pasar de activo a inactivo)
-     * permite eliminar un objeto 
+     * Por lo general no se usa ya que se utiliza borrado lógico (es decir pasar de activo a inactivo)
+     * Permite eliminar un objeto 
      * @param array $param
      * @return boolean
      */
@@ -95,14 +82,13 @@ class AbmUsuarioRol
                 $resp = true;
             }
         }
-
         return $resp;
     }
 
-  
+
     /**
      * Puede traer un obj específico o toda la lista si el parámetro es null
-     * permite buscar un objeto
+     * Permite buscar un objeto
      * @param array $param
      * @return array
      */
@@ -115,29 +101,28 @@ class AbmUsuarioRol
             if (isset($param['idrol']))
                 $where .= " and idrol =" . $param['idrol'];
         }
-        $arreglo = UsuarioRol::listar($where);
+        $arreglo = Usuariorol::listar($where);
         return $arreglo;
     }
 
 
     /** 
-     * Busca todos los UsuarioRol correspondientes a un objusuario
-     * lista todos los roles que tiene el usuario
+     * Busca todos los usuariorol correspondientes a un objusuario
+     * Lista todos los roles que tiene el usuario
      * @param object
      * @return array devuelve las descripciones de cada rol de dicho usuario
      */
     public function buscarRolesUsuario($elObjtUsuario)
     {
         $listaUsRol = [];
-        //listo todos los obj UsuarioRol
+        //Listo todos los obj usuariorol
         $listaUsRol = $this->buscar(null);
-        //print_r($listaUsRol);
         if ($listaUsRol != "") {
             $roles = [];
-            //agrego todos los roles que tenga el usuario en el array $roles
-            foreach ($listaUsRol as $UsuarioRol) {
-                if ($UsuarioRol->getIdUsuario()->getIdUsuario() == $elObjtUsuario->getIdUsuario()) {
-                    $roldescrip = $UsuarioRol->getIdrol()->getRodescripcion();
+            //Agrego todos los roles que tenga el usuario en el array $roles
+            foreach ($listaUsRol as $usuariorol) {
+                if ($usuariorol->getOBJusuario()->getIdusuario() == $elObjtUsuario->getIdusuario()) {
+                    $roldescrip = $usuariorol->getOBJrol()->getroldescripcion();
                     array_push($roles, $roldescrip);
                 }
             }
