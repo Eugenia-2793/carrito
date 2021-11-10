@@ -153,6 +153,8 @@ class Compra
         return $resp;
     }
 
+    //REVISAR ESTA FUNCION CUANDO SE CREA EL OBJETO COMPRA.---------------------------------------------
+    
     public static function listar($parametro = "")
     {
         $arreglo = array();
