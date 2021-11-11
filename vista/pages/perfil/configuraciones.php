@@ -1,8 +1,11 @@
 <?php
-$Titulo = "ABM Usuarios";
+$Titulo = "Carrito";
 include_once("../../estructura/cabecera.php");
+?>
 
-?> 
+<p>configuraciones </p>
 
 
-<p> aca de momento no se que se configura </p>
+<?php
+include_once("../../estructura/pie.php");
+?>

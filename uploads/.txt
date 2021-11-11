@@ -1,0 +1,12 @@
+<h3>Información de la película</h3>
+                          <p><b>Título:</b>  <br />
+                          <b>Actores:</b>  <br />
+                          <b>Director:</b>  <br />
+                          <b>Guión:</b>  <br />
+                          <b>Producción:</b>  <br />
+                          <b>A&ntilde;o:</b>  <br />
+                          <b>Nacionalidad:</b>  <br />
+                          <b>Genero:</b>  <br />
+                          <b>Duración:</b>  minutos<br />
+                          <b>Restricciones de edad:</b> Apta para todo público <br />
+                          <b>Sinopsis:</b>  <br />

@@ -68,9 +68,16 @@
 
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown-Usuario">
                             <a class="dropdown-item" href="../../pages/perfil/perfil.php">
-                                <span class="fas fa-user fa-fw" aria-hidden="true" title="Perfil"></span> Perfil
+                                <span class="fas fa-user fa-fw" aria-hidden="true" title="Perfil"> </span> Perfil
                             </a>
-                            <a class="dropdown-item" href="../../pages/perfil/configuraciones.php"><span class="fas fa-cog fa-fw " aria-hidden="true" title="Configuración"></span> Configuración</a>
+
+                            <a class="dropdown-item" href="../../pages/usuario/listar.php">
+                                <span class="fas fa-users fa-fw" aria-hidden="true" title="Usuarios"> </span> Usuarios
+                            </a>
+
+                            <a class="dropdown-item" href="../../pages/perfil/configuraciones.php">
+                                <span class="fas fa-cog fa-fw " aria-hidden="true" title="Configuración"></span> Configuración
+                            </a>
 
                             <div class="dropdown-divider"></div>
 
