@@ -1,6 +1,6 @@
 <?php
-include_once '../../configuracion.php';
-include_once '../../control/Session.php';
+include_once '../../../configuracion.php';
+include_once '../../../control/Session.php';
 
 $sesion = new Session();
 $sesion->cerrarSession();

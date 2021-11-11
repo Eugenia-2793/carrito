@@ -1,9 +1,14 @@
-@import url("https://fonts.googleapis.com/css2?family=Kufam:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+/* Fonts */
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css");
+@import url("https://fonts.googleapis.com/css2?family=Kufam:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
+/* General */
 body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background-image: url("../img/dust_scratches.png");
+  background-color: transparent;
 }
 
 h1,
@@ -15,8 +20,15 @@ h6 {
   margin: 0;
   font-family: "Kufam";
   font-weight: 600;
+  color: #ab0a41;
 }
 
+/* Header */
+.bg-nav {
+  background-color: #9d0a3c;
+}
+
+/* Footer */
 footer {
   color: #fff;
   background-color: #1b1b1b;
@@ -31,6 +43,16 @@ footer a:hover {
   color: #ab0a41;
 }
 
+/* Formularios */
+#agregarProducto label,
+#agregarProducto legend {
+  font-weight: 600;
+}
+
+#agregarProducto label.form-check-label {
+  font-weight: inherit;
+}
+
 .formulario {
   background-color: #f0f2f5;
   border: 2px solid #dae0e5;
@@ -38,6 +60,7 @@ footer a:hover {
 
 /* Le saco los bordes al toggler */
 
+/** Fondo claro **/
 .navbar-light .navbar-toggler,
 .navbar-light .navbar-toggler:focus,
 .navbar-light .navbar-toggler:active {
@@ -47,15 +70,27 @@ footer a:hover {
   border: 0;
 }
 
-/* Formulario de Contacto */
-
-.form-signin {
-  width: 100%;
-  max-width: 330px;
-  padding: 15px;
-  margin: auto;
+/** Fondo oscuro **/
+.navbar-dark .navbar-toggler,
+.navbar-dark .navbar-toggler:focus,
+.navbar-dark .navbar-toggler:active {
+  outline: none;
+  box-shadow: none;
+  padding: 0;
+  border: 0;
 }
 
+.navbar-dark .navbar-nav .nav-link {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Formularios de Contacto y Registro */
+
+.form-signin {
+  max-width: 400px;
+}
+
+/** Contacto **/
 #contacto input#uslogin {
   margin-bottom: -1px;
   border-bottom-right-radius: 0;
@@ -70,11 +105,14 @@ footer a:hover {
   border-top-left-radius: 0;
 }
 
-#contacto input#descripcion {
+#contacto textarea#descripcion {
   border-top-right-radius: 0;
   border-top-left-radius: 0;
+  border-bottom-right-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
 }
 
+/** Registro **/
 #registro input#usnombre {
   margin-bottom: -1px;
   border-bottom-right-radius: 0;
@@ -94,4 +132,59 @@ footer a:hover {
   border-top-left-radius: 0;
   border-bottom-right-radius: 0.25rem;
   border-bottom-left-radius: 0.25rem;
+}
+
+/* Botones Películas */
+#pelis .btn {
+  border-radius: inherit;
+}
+
+.btn-verPeli {
+  color: #fff;
+  background-color: #ab0a41;
+  border-color: #ab0a41;
+}
+
+.btn-verPeli:hover {
+  color: #fff;
+  background-color: #9d0a3c;
+  border-color: #9d0a3c;
+}
+
+/* Cartelera */
+
+/** Agregar Película **/
+#agregarPelis a {
+  border: 3px solid #b6b9bd !important;
+  color: #b6b9bd;
+}
+
+#agregarPelis a:hover {
+  border-color: #ab0a41 !important;
+  color: #ab0a41;
+}
+
+/** Portada Película **/
+#pelis .jojo {
+  border-top-left-radius: 0.25rem !important;
+  border-top-right-radius: 0.25rem !important;
+  overflow: hidden;
+}
+
+#pelis .jojo img {
+  transition: all 0.9s ease;
+  width: 100%;
+}
+
+#pelis .jojo img:hover {
+  -webkit-transform: scale(1.25);
+  -moz-transform: scale(1.25);
+  -ms-transform: scale(1.25);
+  -o-transform: scale(1.25);
+  transform: scale(1.25);
+}
+
+/* Tablas */
+.table-responsive {
+  white-space: nowrap;
 }

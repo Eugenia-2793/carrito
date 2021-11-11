@@ -1,6 +1,6 @@
 <?php
 $Titulo = "Registrar";
-include_once("../estructura/cabecera.php");
+include_once("../../estructura/cabecera.php");
 
 /*$datos = data_submitted();
 if (isset($datos['cs'])) {
@@ -16,9 +16,9 @@ if (isset($datos['cs'])) {
 }*/
 ?>
 
-<div class="form-signin text-center">
+<div class="form-signin mx-auto p-3 text-center">
     <form id="registro" name="registro" action="../accion/ac_registrar.php" method="POST" data-toggle="validator">
-        <h3 class="h3 mb-3 fw-normal">Registro</h3>
+        <h2 class="h2 mb-3">Registro</h2>
         <!-- Nombre -->
         <div class="form-floating">
             <input type="text" class="form-control" id="usnombre" name="usnombre" placeholder="Hannah Montana" required>
@@ -31,8 +31,8 @@ if (isset($datos['cs'])) {
         </div>
         <!-- Mail -->
         <div class="form-floating mb-4">
-            <input type="email" class="form-control" mane="mail" id="mail" placeholder="name@example.com" required>
-            <label for="mail">Mail</label>
+            <input type="email" class="form-control" mane="usmail" id="usmail" placeholder="name@example.com" required>
+            <label for="usmail">Mail</label>
         </div>
         <!-- Boton -->
         <button class="w-100 btn btn-lg btn-primary" type="submit">Registrarse</button>
@@ -40,5 +40,5 @@ if (isset($datos['cs'])) {
 </div>
 
 <?php
-include_once("../estructura/pie.php");
+include_once("../../estructura/pie.php");
 ?>
