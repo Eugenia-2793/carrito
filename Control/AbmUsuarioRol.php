@@ -26,9 +26,9 @@ class AbmUsuariorol
     {
         $obj = null;
 
-        if (isset($param[''])) {
+        if (isset($param['idusuario'])) {
             $obj = new Usuariorol();
-            $obj->setear($param[''], null, null,);
+            $obj->setear($param['idusuario'], null);
         }
         return $obj;
     }

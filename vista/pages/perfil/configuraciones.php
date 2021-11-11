@@ -1,5 +1,5 @@
 <?php
-$Titulo = "Carrito";
+$Titulo = "Configuraciones";
 include_once("../../estructura/cabecera.php");
 ?>
 

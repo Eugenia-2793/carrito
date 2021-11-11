@@ -37,7 +37,7 @@ class AbmUsuario
 
         if (isset($param['idusuario'])) {
             $obj = new Usuario();
-            $obj->setear($param['idusuario'], "", "", "", "", "");
+            $obj->setear($param['idusuario'], "", "", "", "");
         }
         return $obj;
     }
@@ -71,6 +71,14 @@ class AbmUsuario
         if ($encuentraUser == null) {
             $elObjtUsuario = $this->cargarObjeto($param);
             if ($elObjtUsuario != null and $elObjtUsuario->insertar()) {
+                
+                //verificar que ingrese el rol
+                /*
+                 //Recupero id nueva del objeto insertado
+                  $param['idusuario'] = $elObjtUsuario->getIdusuario();
+                   $resp= $this->altaUsuarioRolIngresante($param);
+                
+                */
                 $resp = true;
             }
         }
@@ -146,4 +154,22 @@ class AbmUsuario
         $arreglo = Usuario::listar($where);
         return $arreglo;
     }
-}
+
+
+//solo ver lo usuario activos' -filtra activs y busca roles
+
+//verificar que no existe usuario en la bd
+
+//altauruariorolingresante rol a usuario nuevo
+
+//altausuariorolexistente asgina rol a un usuario existene
+
+//altanuevousuario chequedo que no exista y le doy el alta.
+
+//existe ususario? actionlogin para ver is esta cargado.
+
+//loguear usuario
+
+
+
+}//clase
