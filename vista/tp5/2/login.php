@@ -6,7 +6,7 @@ if ($objLogin->activa()) {
     header('location:paginaSegura.php');
 } else {
     $Titulo = "Ejercicio 4.2 - TP5";
-    include_once("../../estructura/cabeceraBT.php");
+    include_once("../../estructura/cabecera.php");
 }
 
 $datos = data_submitted();

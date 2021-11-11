@@ -2,6 +2,6 @@
 include_once '../../../configuracion.php';
 
 $sesion = new Session();
-$sesion->cerrar();
+$sesion->cerrarSession();
 $message = "Sesión cerrada";
 header('Location: login.php?message=' . urlencode($message));

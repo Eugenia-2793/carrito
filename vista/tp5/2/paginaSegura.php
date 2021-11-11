@@ -22,7 +22,7 @@ if (!$sesion->activa()) {
         $rol = $usrol[0]->getobjrol();
         $descrp = $rol->getroldescripcion();
         $Titulo = "Pagina Segura 4.2 - TP5";
-        include_once("../../estructura/cabeceraBT.php");
+        include_once("../../home/home/index.php");
     } else {
         header('Location: cerrarSesion.php');
     }

@@ -128,7 +128,7 @@ class AbmUsuario
      * @param array $param
      * @return array
      */
-    public function buscar($param)
+    public function buscar($param = null)
     {
         $where = " true ";
         if ($param <> NULL) {
