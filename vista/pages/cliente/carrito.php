@@ -1,6 +1,6 @@
 <?php
 $Titulo = "Carrito";
-include_once("../estructura/cabecera.php");
+include_once("../../estructura/cabecera.php");
 ?>
 
 <div class="container2">
@@ -48,5 +48,5 @@ include_once("../estructura/cabecera.php");
 </div>
 
 <?php
-include_once("../estructura/pie.php");
+include_once("../../estructura/pie.php");
 ?>

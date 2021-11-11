@@ -1,6 +1,6 @@
 <?php
 $Titulo = "Lista de Productos";
-include_once("../estructura/cabecera.php");
+include_once("../../estructura/cabecera.php");
 
 /*$obj = new control_Contenido();
 $arreglo = $obj->obtenerArchivos();*/
@@ -38,5 +38,5 @@ $arreglo = $obj->obtenerArchivos();*/
 </div>
 
 <?php
-include_once("../estructura/pie.php");
+include_once("../../estructura/pie.php");
 ?>

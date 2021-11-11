@@ -1,6 +1,6 @@
 <?php
 $Titulo = "Eliminar Producto";
-include_once("../estructura/cabecera.php");
+include_once("../../estructura/cabecera.php");
 
 /*$datos = data_submitted();
 if (isset($datos['cs'])) {
@@ -45,5 +45,5 @@ if (isset($datos['cs'])) {
 
 
 <?php
-include_once("../estructura/pie.php");
+include_once("../../estructura/pie.php");
 ?>
