@@ -1,11 +1,11 @@
 <?php
 $Titulo = "Contacto";
-include_once("../estructura/cabecera.php");
+include_once("../../estructura/cabecera.php");
 ?>
 
-<div class="form-signin text-center">
-    <form id="registro" name="registro" action="../accion/ac_contacto.php" method="POST" data-toggle="validator">
-        <h3 class="h3 mb-3 fw-normal">Contacto</h3>
+<div class="form-signin mx-auto p-3 text-center">
+    <form id="contacto" name="contacto" action="../accion/ac_contacto.php" method="POST" data-toggle="validator">
+        <h2 class="h2 mb-3">Contacto</h2>
         <!-- Nombre -->
         <div class="form-floating">
             <input type="text" class="form-control" id="uslogin" name="uslogin" placeholder="Hannah Montana" required>
@@ -23,10 +23,9 @@ include_once("../estructura/cabecera.php");
         </div>
         <!-- Boton -->
         <button class="w-100 btn btn-lg btn-success" type="submit">Enviar</button>
-        <p class="my-4 text-muted">© mami uge</p>
     </form>
 </div>
 
 <?php
-include_once("../estructura/pie.php");
+include_once("../../estructura/pie.php");
 ?>
