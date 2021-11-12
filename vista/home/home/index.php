@@ -23,9 +23,17 @@ $arreglo = $obj->obtenerArchivos();
                 }
             }
 
-            echo "<div id='agregarPelis' class='d-grid col-lg-2 col-sm-4 mb-4'>
-            <a class='btn d-flex justify-content-center align-items-center fs-1 bg-light' href='../../pages/deposito/agregarProducto.php' role='button'><i class='fas fa-plus'></i></a>
-            </div>";
+            if ($sesion->activa()) {
+                $bandera = false;
+                for ($i = 0; $i < count($descrp) && !$bandera; $i++) {
+                    if ($descrp[$i] == "Administrador" || $descrp[$i] == "Deposito") {
+                        echo "<div id='agregarPelis' class='d-grid col-lg-2 col-sm-4 mb-4'>
+                            <a class='btn d-flex justify-content-center align-items-center fs-1 bg-light' href='../../pages/deposito/agregarProducto.php' role='button'><i class='fas fa-plus'></i></a>
+                        </div>";
+                        $bandera = true;
+                    }
+                }
+            }
             ?>
         </div>
     </form>

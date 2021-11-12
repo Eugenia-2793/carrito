@@ -28,7 +28,7 @@ $respuesta = $obj2->verInformacion($_POST);
         ?>
         <!-- Botones -->
         <div class="mb-5">
-            <a class="btn btn-dark" href="ejer3TP3.php" role="button"><i class="fas fa-angle-double-left"></i> Regresar</a>
+            <a class="btn btn-dark" href="agregarProducto.php" role="button"><i class="fas fa-angle-double-left"></i> Regresar</a>
             <a class='btn btn-success' href='../../home/home/index.php' role='button'>Ver Más <i class="fas fa-angle-double-right"></i></a>
         </div>
     </div>

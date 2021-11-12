@@ -1,6 +1,33 @@
 <?php
-$Titulo = "Carrito";
-include_once("../../estructura/cabecera.php");
+include_once '../../../configuracion.php';
+include_once '../../../control/Session.php';
+include_once '../../../control/AbmUsuario.php';
+include_once '../../../control/AbmUsuarioRol.php';
+include_once '../../../modelo/Usuario.php';
+include_once '../../../modelo/UsuarioRol.php';
+include_once '../../../modelo/conector/BaseDatos.php';
+include_once '../../../modelo/Rol.php';
+
+$sesion = new Session();
+$datos = data_submitted();
+
+if (!$sesion->activa()) {
+    header('Location: ../login/login.php');
+} else {
+    list($sesionValidar, $error) = $sesion->validar();
+    if ($sesionValidar) {
+        $user = $sesion->getUsuario();
+        $name = $user->getusnombre();
+        $mail = $user->getusmail();
+        $usrol = $sesion->getRol();
+        $rol = $usrol[0]->getobjrol();
+        $descrp = $rol->getroldescripcion();
+        $Titulo = "Carrito";
+        include_once("../../estructura/cabecera.php");
+    } else {
+        header('Location: ../login/cerrarSesion.php');
+    }
+}
 ?>
 
 <div class="container2">

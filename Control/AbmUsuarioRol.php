@@ -121,8 +121,8 @@ class AbmUsuariorol
             $roles = [];
             //Agrego todos los roles que tenga el usuario en el array $roles
             foreach ($listaUsRol as $usuariorol) {
-                if ($usuariorol->getOBJusuario()->getIdusuario() == $elObjtUsuario->getIdusuario()) {
-                    $roldescrip = $usuariorol->getOBJrol()->getroldescripcion();
+                if ($usuariorol->getobjusuario()->getidusuario() == $elObjtUsuario->getidusuario()) {
+                    $roldescrip = $usuariorol->getobjrol()->getroldescripcion();
                     array_push($roles, $roldescrip);
                 }
             }
