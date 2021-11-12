@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-11-2021 a las 15:51:36
+-- Tiempo de generación: 12-11-2021 a las 03:24:16
 -- Versión del servidor: 10.4.21-MariaDB
 -- Versión de PHP: 8.0.11
 
@@ -103,11 +103,10 @@ CREATE TABLE `menu` (
 --
 
 INSERT INTO `menu` (`idmenu`, `menombre`, `medescripcion`, `idpadre`, `medeshabilitado`) VALUES
-(7, 'nuevo', 'kkkkk', NULL, NULL),
-(8, 'nuevo', 'kkkkk', NULL, NULL),
-(9, 'nuevo', 'kkkkk', 7, NULL),
-(10, 'nuevo', 'kkkkk', NULL, NULL),
-(11, 'nuevo', 'kkkkk', NULL, NULL);
+(1, 'acciones', 'menu de operaciones', NULL, NULL),
+(2, 'administrador', 'menu de rol administrador', 1, NULL),
+(3, 'deposito', 'menu del usuario deposito', 1, NULL),
+(4, 'cliente', 'menu del usuario cliente', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -150,9 +149,9 @@ CREATE TABLE `rol` (
 --
 
 INSERT INTO `rol` (`idrol`, `rodescripcion`) VALUES
-(1, 'Administrador'),
-(2, 'Usuario'),
-(3, 'Deposito');
+(1, 'administrador'),
+(2, 'deposito'),
+(3, 'cliente');
 
 -- --------------------------------------------------------
 
@@ -173,8 +172,9 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`idusuario`, `usnombre`, `uspass`, `usmail`, `usdeshabilitado`) VALUES
-(1, 'Eugenia', 123456, 'eugenia@gmail.com', NULL),
-(2, 'Maria', 123456, 'maria@gmail.com', '2021-11-01 14:40:33');
+(1, 'Eugenia', 123456, 'eugenia@gmail.com', '0000-00-00 00:00:00'),
+(2, 'Maria', 123456, 'maria@gmail.com', '2021-11-01 14:40:33'),
+(3, 'Eldepo', 123456, 'eldepo@gmail.com', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -193,7 +193,8 @@ CREATE TABLE `usuariorol` (
 
 INSERT INTO `usuariorol` (`idusuario`, `idrol`) VALUES
 (1, 1),
-(1, 3),
+(2, 2),
+(2, 3),
 (3, 3);
 
 --
@@ -320,7 +321,7 @@ ALTER TABLE `rol`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idusuario` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idusuario` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Restricciones para tablas volcadas
@@ -358,13 +359,6 @@ ALTER TABLE `menu`
 ALTER TABLE `menurol`
   ADD CONSTRAINT `fkmenurol_1` FOREIGN KEY (`idmenu`) REFERENCES `menu` (`idmenu`) ON UPDATE CASCADE,
   ADD CONSTRAINT `fkmenurol_2` FOREIGN KEY (`idrol`) REFERENCES `rol` (`idrol`) ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `usuariorol`
---
-ALTER TABLE `usuariorol`
-  ADD CONSTRAINT `fkmovimiento_1` FOREIGN KEY (`idrol`) REFERENCES `rol` (`idrol`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `usuariorol_ibfk_2` FOREIGN KEY (`idusuario`) REFERENCES `usuario` (`idusuario`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

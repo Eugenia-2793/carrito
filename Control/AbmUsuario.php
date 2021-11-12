@@ -11,6 +11,7 @@ class AbmUsuario
      */
     private function cargarObjeto($param)
     {
+      
         $obj = null;
         if (
             array_key_exists('idusuario', $param)
@@ -56,34 +57,25 @@ class AbmUsuario
         return $resp;
     }
 
-
-    /**
+      /**
      * ALTA
      * @param array $param
      */
-    public function alta($param)
-    {
+    public function alta($param){
         $resp = false;
-        $buscar2 = array();
-        $buscar2['idusuario'] = $param['idusuario'];
-        $encuentraUser = $this->buscar($buscar2);
-
-        if ($encuentraUser == null) {
-            $elObjtUsuario = $this->cargarObjeto($param);
-            if ($elObjtUsuario != null and $elObjtUsuario->insertar()) {
-                
-                //verificar que ingrese el rol
-                /*
-                 //Recupero id nueva del objeto insertado
-                  $param['idusuario'] = $elObjtUsuario->getIdusuario();
-                   $resp= $this->altaUsuarioRolIngresante($param);
-                
-                */
-                $resp = true;
-            }
+        $param['idusuario'] =null;
+        $elObjtUsuario = $this->cargarObjeto($param);
+      
+        if ($elObjtUsuario!=null and $elObjtUsuario->insertar()){
+            //Recupero id nueva del objeto insertado
+           // $param['idusuario'] = $elObjtUsuario->getIdusuario();
+           // $resp= $this->altaUsuarioRolIngresante($param);
+           $resp = true;
         }
         return $resp;
     }
+
+
 
 
     /**
@@ -136,7 +128,8 @@ class AbmUsuario
      * @param array $param
      * @return array
      */
-    public function buscar($param = null)
+    //($param = null)
+    public function buscar($param)
     {
         $where = " true ";
         if ($param <> NULL) {
@@ -169,7 +162,6 @@ class AbmUsuario
 //existe ususario? actionlogin para ver is esta cargado.
 
 //loguear usuario
-
 
 
 }//clase

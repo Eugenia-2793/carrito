@@ -27,6 +27,9 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <!-- Collapsible wrapper -->
+
+           <!------------------------------------------------------------------>
+
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
@@ -42,6 +45,10 @@
                         </a>
                     </li>
                 </ul>
+            
+            <!------------------------------------------------------------------>
+
+
                 <ul class="navbar-nav d-flex">
                     <!-- Icon carrito -->
                     <li class="nav-item">
@@ -95,5 +102,6 @@
         <div class="row">
             <main role="main" class="mx-auto my-5 px-md-5">
                 <?php
-                include_once '../../../configuracion.php';
+               include_once '../../../configuracion.php';
                 ?>
+

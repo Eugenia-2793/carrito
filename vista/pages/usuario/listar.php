@@ -8,15 +8,15 @@ $listaUsuario = $objAbmUsuario->buscar(null);
 ?>
 
 <h2 class="mt-5">Listar Usuarios</h2>
-<
 
-
-<div class="row mb-5" id="">
-  <!-- Boton Agregar UsuarioAbmUsuario -->
-  <div class="mb-2 d-flex justify-content-end">
-    <a class="btn btn-primary" href="#" role="button"><i class="fas fa-plus"></i> Nuevo Usuario</a>
+ <!-- Boton Agregar Usuario -->
+ <div class="mb-2 d-flex justify-content-end">
+    <a class="btn btn-primary" href="nuevo.php" role="button"><i class="fas fa-plus"></i> Nuevo Usuario</a>
   </div>
-  <form id="Usuario">
+
+<!-- Listado de usuarios -->
+<div class="row mb-5" id="">
+  <form id="Usuario"  name="Usuario" method="POST" action="editar.php" data-toggle="validator">
     <div class="table-responsive">
       <table class="table table-striped">
         <thead>
@@ -27,6 +27,7 @@ $listaUsuario = $objAbmUsuario->buscar(null);
             <th scope="col">Email</th>
             <th scope="col">habilitado</th>
             <th scope="col">Rol</th>
+            <th scope="col"  class='text-center'>Editar <th>
           </tr>
         </thead>
         <?php
@@ -42,7 +43,13 @@ $listaUsuario = $objAbmUsuario->buscar(null);
             echo '<td>' . $objAbmUsuario->getuspass() .    '</td>';
             echo '<td>' . $objAbmUsuario->getusmail() .  '</td>';
             echo '<td>' . $objAbmUsuario->getusdeshabilitado() .'</td>';
-            echo '<td>' . "aca deberian ir los roles" .'</td>';
+            echo '<td>' . "roles" .'</td>';
+
+            echo "<td  class='text-center'>
+                   <button type='submit' class='btn btn-success btn-sm' value='editar' name='accion' id='accion'>
+                   <i class='fa fa-pen'> </i>
+                   </button>         
+                   ";
             $i++;
           }
           echo '</tbody>';
@@ -50,6 +57,7 @@ $listaUsuario = $objAbmUsuario->buscar(null);
         }
 
         ?>
+
 
     </div>
   </form>

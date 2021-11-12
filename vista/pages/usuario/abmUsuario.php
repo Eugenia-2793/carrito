@@ -3,6 +3,7 @@ $Titulo = "ABM Usuarios";
 include_once("../../estructura/cabecera.php");
 
 $datos = data_submitted();
+//print_r($datos);
 $resp = false;
 $objTrans = new AbmUsuario();
 
@@ -24,6 +25,7 @@ if (isset($datos['accion'])) {
         }
     }
     if ($datos['accion'] == 'nueva') {
+       // print_r($datos);
         if ($objTrans->alta($datos)) {
             $resp = true;
         } else {
@@ -58,16 +60,8 @@ $encuentraError = strpos(strtoupper($mensaje), 'ERROR');
 
         ?>
     </div>
-
-    <!-- Botones -->
-    <div class="mb-5">
-        <a class="btn btn-primary" href="nuevo.php" role="button"><i class="fas fa-plus"></i> Alta</a>
-        <a class='btn btn-success' href='editar.php' role='button'><i class="fas fa-search"></i> Modificacion</a>
-        <a class='btn btn-success' href='listar.php' role='button'><i class="fas fa-search"></i> Listar</a>
-        <a class='btn btn-danger' href='borrar.php' role='button'><i class="fas fa-eye"></i> Baja</a>
-    </div>
 </div>
 
 <?php
-include_once("../../estructura/pieBT.php");
+include_once("../../estructura/pie.php");
 ?>

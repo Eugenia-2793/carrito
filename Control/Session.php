@@ -47,6 +47,33 @@ class Session
         $this->setPass($passUsuario);
     }
 
+    /** DAR PERMISO AL ADMINISTRADOR **/
+    public function esAdministrador(){ 
+        $resp=false; 
+        $roles= $_SESSION["rol"];
+
+        foreach($roles as $rol){
+            if($rol=="administrador"){
+                $resp=true;
+            }
+        }
+        return $resp; 
+    }
+
+    /** DAR PERMISO AL DEPOSITADOR **/
+        public function esDeposito(){ 
+            $resp=false; 
+            $roles= $_SESSION["rol"];
+    
+            foreach($roles as $rol){
+                if($rol=="deposito"){
+                    $resp=true;
+                }
+            }
+            return $resp; 
+        }
+
+
 
     /** VALIDAR **/
     public function validar()
@@ -83,6 +110,8 @@ class Session
         }
         return array($inicia, $error);
     }
+
+
 
 
     /** ACTIVA **/
