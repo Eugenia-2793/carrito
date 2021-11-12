@@ -2,10 +2,15 @@
 $Titulo = "Listar usuarios";
 include_once("../../estructura/cabecera.php");
 
+//$objAbmUsuarioRol = new AbmUsuariorol();
+//$listaUsuario = $objAbmUsuarioRol->buscar(null);
+
+//var_dump($listaUsuario);
 
 $objAbmUsuario = new AbmUsuario();
 $listaUsuario = $objAbmUsuario->buscar(null);   
-//$listaUsuario = $objAbmUsuario->listarUsuarios(null);
+
+
 ?>
 
 <h2 class="mt-5">Listar Usuarios</h2>
@@ -27,7 +32,7 @@ $listaUsuario = $objAbmUsuario->buscar(null);
             <th scope="col">Password</th>
             <th scope="col">Mail</th>
             <th scope="col">habilitado</th>
-            <!-- <th scope="col">Rol</th> -->
+            <th scope="col">Rol</th> 
             <th scope="col" class='text-center'>Editar <th>
           </tr>
         </thead>
@@ -46,7 +51,7 @@ $listaUsuario = $objAbmUsuario->buscar(null);
             echo '<td>' . $objAbmUsuario->getuspass() .    '</td>';
             echo '<td>' . $objAbmUsuario->getusmail() .  '</td>';
             echo '<td>' . $objAbmUsuario->getusdeshabilitado() .'</td>';
-            // echo '<td>' . "aca van roles"  .'</td>';
+            echo '<td> <a href="../../pages/roles/listar.php"> ver <a/></td>';
 
 
             //<!---------en listas usussarios saca el id y lo manda por boton-------------->
