@@ -3,9 +3,9 @@ $Titulo = "ABM Usuarios";
 include_once("../../estructura/cabecera.php");
 
 $datos = data_submitted();
-//print_r($datos);
 $resp = false;
 $objTrans = new AbmUsuario();
+
 
 /* Accion que permite: cargar una nueva persona, borrar y editar */
 if (isset($datos['accion'])) {
@@ -33,7 +33,8 @@ if (isset($datos['accion'])) {
         }
     }
     if ($resp) {
-        $mensaje = "La acción <b>" . $datos['accion'] . " usuario</b> se realizo correctamente.";
+        $mensaje = "La acción <b>" . $datos['accion'] . " usuario</b> se realizo correctamente.s";
+
     } else {
         $mensaje .= "La acción <b>" . $datos['accion'] . " usuario</b> no pudo concretarse.";
     }
@@ -61,6 +62,10 @@ $encuentraError = strpos(strtoupper($mensaje), 'ERROR');
         ?>
     </div>
 </div>
+
+<a class="dropdown-item" href="../../pages/usuario/listar.php">
+    <span class="fas fa-users fa-fw" aria-hidden="true" title="Usuarios"> </span> Volver a Usuarios
+</a>
 
 <?php
 include_once("../../estructura/pie.php");

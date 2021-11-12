@@ -149,19 +149,30 @@ class AbmUsuario
     }
 
 
-//solo ver lo usuario activos' -filtra activs y busca roles
-
-//verificar que no existe usuario en la bd
-
-//altauruariorolingresante rol a usuario nuevo
-
-//altausuariorolexistente asgina rol a un usuario existene
-
-//altanuevousuario chequedo que no exista y le doy el alta.
-
-//existe ususario? actionlogin para ver is esta cargado.
-
-//loguear usuario
-
+    /**
+     * busca todos los usuarios
+     * Busca los roles que tienen esos usuarios activos
+     *
+     * @return array multidimensional con arrays de objusuario/ array con sus roles
+     */
+    public function listarUsuarios($param){
+        $listaActivos=[];
+        $listaUsuarios = $this->buscar($param);
+        if(count($listaUsuarios)>0){
+        foreach ($listaUsuarios as $usuario){
+     
+               $roles=[];
+               // $datosUSuario va a guardar un obj usuario y un array de roles de dicho usuario
+               $datosUsuario=[];
+                $usuarioRol= new AbmUsuarioRol();
+                $roles=$usuarioRol->buscarRolesUsuario($usuario);
+                array_push($datosUsuario,$usuario);
+                array_push($datosUsuario,$roles);
+                array_push($listaActivos, $datosUsuario);
+                       
+        }
+    }
+        return $listaActivos;
+    }
 
 }//clase

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-11-2021 a las 03:24:16
+-- Tiempo de generación: 12-11-2021 a las 17:28:37
 -- Versión del servidor: 10.4.21-MariaDB
 -- Versión de PHP: 8.0.11
 
@@ -119,6 +119,15 @@ CREATE TABLE `menurol` (
   `idrol` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `menurol`
+--
+
+INSERT INTO `menurol` (`idmenu`, `idrol`) VALUES
+(2, 1),
+(3, 2),
+(4, 3);
+
 -- --------------------------------------------------------
 
 --
@@ -172,9 +181,12 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`idusuario`, `usnombre`, `uspass`, `usmail`, `usdeshabilitado`) VALUES
-(1, 'Eugenia', 123456, 'eugenia@gmail.com', '0000-00-00 00:00:00'),
-(2, 'Maria', 123456, 'maria@gmail.com', '2021-11-01 14:40:33'),
-(3, 'Eldepo', 123456, 'eldepo@gmail.com', '0000-00-00 00:00:00');
+(0, 'Eugenia', 123456, 'eugenia@gmail.com', '0000-00-00 00:00:00'),
+(1, 'Maria', 123456, 'maria@gmail.com', '2021-11-01 14:40:33'),
+(2, 'Eldepo', 123456, 'eldepo@gmail.com', '0000-00-00 00:00:00'),
+(3, 'flor', 123456, 'flor@gmail.com', '2021-11-12 03:00:00'),
+(4, 'nohabilitado', 123456, 'nohabilitado@gmail.com', '0000-00-00 00:00:00'),
+(5, 'hoy12', 123456, 'hoy12@gmail.com', '2021-11-26 03:00:00');
 
 -- --------------------------------------------------------
 
@@ -321,7 +333,7 @@ ALTER TABLE `rol`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idusuario` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idusuario` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Restricciones para tablas volcadas

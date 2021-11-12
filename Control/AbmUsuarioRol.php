@@ -14,7 +14,7 @@ class AbmUsuariorol
             $objrol->setIdrol($param['idrol']);
             $objrol->cargar();
 
-            $obj = new Usuariorol();
+            $obj = new UsuarioRol();
             $obj->setear($objusuario, $objrol);
         }
         return $obj;
@@ -27,7 +27,7 @@ class AbmUsuariorol
         $obj = null;
 
         if (isset($param['idusuario'])) {
-            $obj = new Usuariorol();
+            $obj = new UsuarioRol();
             $obj->setear($param['idusuario'], null);
         }
         return $obj;
@@ -101,7 +101,7 @@ class AbmUsuariorol
             if (isset($param['idrol']))
                 $where .= " and idrol =" . $param['idrol'];
         }
-        $arreglo = Usuariorol::listar($where);
+        $arreglo = UsuarioRol::listar($where);
         return $arreglo;
     }
 
@@ -117,12 +117,14 @@ class AbmUsuariorol
         $listaUsRol = [];
         //Listo todos los obj usuariorol
         $listaUsRol = $this->buscar(null);
+
+
         if ($listaUsRol != "") {
             $roles = [];
             //Agrego todos los roles que tenga el usuario en el array $roles
             foreach ($listaUsRol as $usuariorol) {
-                if ($usuariorol->getOBJusuario()->getIdusuario() == $elObjtUsuario->getIdusuario()) {
-                    $roldescrip = $usuariorol->getOBJrol()->getroldescripcion();
+                if ($usuariorol->getobjusuario()->getIdusuario() == $elObjtUsuario->getIdusuario()) {
+                    $roldescrip = $usuariorol->getobjrol()->getroldescripcion();
                     array_push($roles, $roldescrip);
                 }
             }

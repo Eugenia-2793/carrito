@@ -4,7 +4,8 @@ include_once("../../estructura/cabecera.php");
 
 
 $objAbmUsuario = new AbmUsuario();
-$listaUsuario = $objAbmUsuario->buscar(null);
+$listaUsuario = $objAbmUsuario->buscar(null);   
+//$listaUsuario = $objAbmUsuario->listarUsuarios(null);
 ?>
 
 <h2 class="mt-5">Listar Usuarios</h2>
@@ -24,29 +25,33 @@ $listaUsuario = $objAbmUsuario->buscar(null);
             <th scope="">#</th>
             <th scope="col">Nombre</th>
             <th scope="col">Password</th>
-            <th scope="col">Email</th>
+            <th scope="col">Mail</th>
             <th scope="col">habilitado</th>
-            <th scope="col">Rol</th>
-            <th scope="col"  class='text-center'>Editar <th>
+            <!-- <th scope="col">Rol</th> -->
+            <th scope="col" class='text-center'>Editar <th>
           </tr>
         </thead>
         <?php
 
         if (count($listaUsuario) > 0) {
-          $i = 1;
+         $i = 1;
           echo '<tbody>';
           foreach ($listaUsuario as $objAbmUsuario) {
+             $id =  $objAbmUsuario->getidusuario();
+            
             // var_dump($objAbmUsuario);
             echo '<tr class="align-middle">';
-            echo '<th scope="row">' . $i . '</th>';
+            echo '<th scope="row">' . $id. '</th>';
             echo '<td>' . $objAbmUsuario->getusnombre() .  '</td>';
             echo '<td>' . $objAbmUsuario->getuspass() .    '</td>';
             echo '<td>' . $objAbmUsuario->getusmail() .  '</td>';
             echo '<td>' . $objAbmUsuario->getusdeshabilitado() .'</td>';
-            echo '<td>' . "roles" .'</td>';
+            // echo '<td>' . "aca van roles"  .'</td>';
 
+
+            //<!---------en listas usussarios saca el id y lo manda por boton-------------->
             echo "<td  class='text-center'>
-                   <button type='submit' class='btn btn-success btn-sm' value='editar' name='accion' id='accion'>
+                   <button type='submit' class='btn btn-success btn-sm' value=".$id." name='accion' id='accion'>
                    <i class='fa fa-pen'> </i>
                    </button>         
                    ";
