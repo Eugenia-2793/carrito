@@ -2,8 +2,18 @@
 $Titulo = "Inicio";
 include_once("../../estructura/cabecera.php");
 include_once("../../../control/controlSubeArchivos.php");
-$obj = new controlArchivos();
-$arreglo = $obj->obtenerArchivos();
+
+//Guardo todos los productos en un arreglo
+$abmProducto = new AbmProducto;
+$arregloProductos = $abmProducto->buscar(null);
+
+// Obtengo datos de un producto
+// $idpro = $arregloProductos->getIdProducto();
+// $nompro = $arregloProductos->getProNombre();
+// $detallepro = $arregloProductos->getProDetalle();
+// $stockpro = $arregloProductos->getProStock();
+// $preciopro = $arregloProductos->getPrecio();
+
 ?>
 
 <div class="container-lg p-3">
@@ -12,17 +22,22 @@ $arreglo = $obj->obtenerArchivos();
     <form id="ejeArchivos" name="ejeArchivos" method="POST" action="accionIndex.php">
         <div class="row">
             <?php
-            foreach ($arreglo as $archivo) {
-                if (strlen($archivo) > 2 && strpos($archivo, "txt") <= 0  && strpos($archivo, "pdf") <= 0) {
+            foreach ($arregloProductos as $unProducto) {
+                $nompro = $unProducto->getProNombre();
+                $detallepro = $unProducto->getProDetalle();
+                if ($detallepro == "Película") {
+                    $obj = new controlArchivos();
+                    $archivo = $obj->obtenerUnaImg($nompro);
                     echo    "<div id='pelis' class='d-grid col-lg-2 col-sm-4 mb-4'>
-                           <div class='jojo'> <img class='img-fluid' alt='$archivo' src='../../../uploads/$archivo' width='100%'></div>
-                            <div class='d-grid align-items-end'>
-                                <input type='submit' name='Seleccion:$archivo' id='Seleccion:$archivo' class='btn btn-verPeli rounded-bottom' value='Ver detalles'>
-                            </div>
-                        </div>";
+                                <div class='jojo'> <img class='img-fluid' alt='$archivo' src='../../../uploads/$archivo' width='100%'></div>
+                                <div class='d-grid align-items-end'>
+                                    <input type='submit' name='Seleccion:$archivo' id='Seleccion:$archivo' class='btn btn-verPeli rounded-bottom' value='$nompro'>
+                                </div>
+                            </div>";
                 }
             }
 
+            /* Botón para agregar un nuevo Producto */
             if ($sesion->activa()) {
                 $bandera = false;
                 for ($i = 0; $i < count($descrp) && !$bandera; $i++) {

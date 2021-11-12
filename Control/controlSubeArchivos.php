@@ -130,6 +130,27 @@ class controlArchivos
         return $archivos;
     }
 
+    public function obtenerUnaImg($nombre)
+    {
+        $directorio = "../../../uploads/";
+        $archivos = scandir($directorio, 1);
+        $bandera = false;
+        $imagen = "";
+        /* Reemplazamos los espacios vacios por _ para evitar problemas al subir el archivo */
+        $nombreImg = str_replace(" ", "_", $nombre);
+        for ($i = 0; $i < count($archivos) && !$bandera; $i++) {
+            $pos = strpos($archivos[$i], $nombreImg);
+            if ($pos !== false) {
+                /* Verificamos que el tipo de archivo sea de tipo imagen */
+                if (strpos($archivos[$i], "txt") <= 0) {
+                    $imagen = $archivos[$i];
+                    $bandera = true;
+                }
+            }
+        }
+        return $imagen;
+    }
+
 
     public function obtenerInfoDeArchivo($datos)
     {
