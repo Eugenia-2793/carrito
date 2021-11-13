@@ -32,7 +32,7 @@ $listaUsuario = $objAbmUsuario->buscar(null);
             <th scope="col">Password</th>
             <th scope="col">Mail</th>
             <th scope="col">habilitado</th>
-            <th scope="col">Rol</th> 
+            <th scope="col"><a href="../roles/listar.php"> Rol </a></th> 
             <th scope="col" class='text-center'>Editar <th>
           </tr>
         </thead>
