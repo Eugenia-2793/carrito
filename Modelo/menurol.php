@@ -154,7 +154,7 @@ class MenuRol
                 }
             }
         } else {
-            $this->setmensajeoperacion("MenuRol->listar: " . $base->getError());
+            // $this->setmensajeoperacion("MenuRol->listar: " . $base->getError());
         }
 
         return $arreglo;

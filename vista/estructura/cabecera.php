@@ -3,8 +3,10 @@ include_once '../../../configuracion.php';
 include_once '../../../control/Session.php';
 include_once '../../../control/AbmUsuario.php';
 include_once '../../../control/AbmUsuarioRol.php';
+include_once '../../../control/AbmProducto.php';
 include_once '../../../modelo/Usuario.php';
 include_once '../../../modelo/UsuarioRol.php';
+include_once '../../../modelo/producto.php';
 include_once '../../../modelo/conector/BaseDatos.php';
 include_once '../../../modelo/Rol.php';
 

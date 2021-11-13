@@ -176,7 +176,7 @@ class Menu
                 }
             }
         } else {
-            $this->setmensajeoperacion("Menu->listar: " . $base->getError());
+            // $this->setmensajeoperacion("Menu->listar: " . $base->getError());
         }
 
         return $arreglo;
