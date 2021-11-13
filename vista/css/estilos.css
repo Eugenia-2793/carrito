@@ -28,6 +28,38 @@ h6 {
   background-color: #9d0a3c;
 }
 
+/* Le saco los bordes al Toggler */
+
+/** Fondo claro **/
+.navbar-light .navbar-toggler,
+.navbar-light .navbar-toggler:focus,
+.navbar-light .navbar-toggler:active {
+  outline: none;
+  box-shadow: none;
+  padding: 0;
+  border: 0;
+}
+
+/** Fondo oscuro **/
+.navbar-dark .navbar-toggler,
+.navbar-dark .navbar-toggler:focus,
+.navbar-dark .navbar-toggler:active {
+  outline: none;
+  box-shadow: none;
+  padding: 0;
+  border: 0;
+}
+
+/** Ajuste de color del nav-link **/
+.navbar-dark .navbar-nav .nav-link {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/** Le quito padding derecho a los iconos de usuario **/
+.navbar-dark .navbar-nav .nav-item.dropdown .nav-link.dropdown-toggle {
+  padding-right: 0;
+}
+
 /* Footer */
 footer {
   color: #fff;
@@ -56,32 +88,6 @@ footer a:hover {
 .formulario {
   background-color: #f0f2f5;
   border: 2px solid #dae0e5;
-}
-
-/* Le saco los bordes al toggler */
-
-/** Fondo claro **/
-.navbar-light .navbar-toggler,
-.navbar-light .navbar-toggler:focus,
-.navbar-light .navbar-toggler:active {
-  outline: none;
-  box-shadow: none;
-  padding: 0;
-  border: 0;
-}
-
-/** Fondo oscuro **/
-.navbar-dark .navbar-toggler,
-.navbar-dark .navbar-toggler:focus,
-.navbar-dark .navbar-toggler:active {
-  outline: none;
-  box-shadow: none;
-  padding: 0;
-  border: 0;
-}
-
-.navbar-dark .navbar-nav .nav-link {
-  color: rgba(255, 255, 255, 0.9);
 }
 
 /* Formularios de Contacto y Registro */
@@ -157,6 +163,7 @@ footer a:hover {
 #agregarPelis a {
   border: 3px solid #b6b9bd !important;
   color: #b6b9bd;
+  transition: all 0.5s ease-in-out;
 }
 
 #agregarPelis a:hover {

@@ -1,3 +1,33 @@
+<?php
+include_once '../../../configuracion.php';
+include_once '../../../control/Session.php';
+include_once '../../../control/AbmUsuario.php';
+include_once '../../../control/AbmUsuarioRol.php';
+include_once '../../../modelo/Usuario.php';
+include_once '../../../modelo/UsuarioRol.php';
+include_once '../../../modelo/conector/BaseDatos.php';
+include_once '../../../modelo/Rol.php';
+
+$sesion = new Session();
+
+if ($sesion->activa()) {
+    list($sesionValidar, $error) = $sesion->validar();
+    if ($sesionValidar) {
+        $Titulo = "Carrito";
+        // Obtengo el usuario
+        $user = $sesion->getUsuario();
+        // Obtengo nombre y mail del usuario
+        $name = $user->getusnombre();
+        $mail = $user->getusmail();
+        // Obtengo los roles del usuario
+        $abmusuariorol = new AbmUsuarioRol;
+        $descrp = $abmusuariorol->buscarRolesUsuario($user);
+    } else {
+        header('Location: ../../pages/login/cerrarSesion.php');
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -21,7 +51,7 @@
         <!-- Container wrapper -->
         <div class="container-fluid px-lg-5 px-3">
             <!-- Navbar brand -->
-            <span class="navbar-brand fw-bold text-uppercase mb-0">CineUge</span>
+            <a class="navbar-brand fw-bold text-uppercase mb-0" href="../../home/home/index.php">CineUge</a>
             <!-- Toggle button -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -31,66 +61,84 @@
            <!------------------------------------------------------------------>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="../../home/home/index.php">
-                            <i class="fas fa-home d-lg-none d-xl-none"></i>
-                            <span>Home</span>
-                        </a>
-                    </li>
+                <ul class="navbar-nav align-items-lg-center me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="../../home/home/contacto.php">
                             <i class="fas fa-info-circle d-lg-none d-xl-none"></i>
                             <span>Contacto</span>
                         </a>
                     </li>
+                    <?php
+                    /* Mostramos los roles según corresponda */
+                    if ($sesion->activa()) {
+                        echo "<!-- Icon Roles -->
+                        <li class='nav-item dropdown'>
+                            <a class='nav-link dropdown-toggle' href='#' id='navbarDropdown-Visitante' role='button' data-bs-toggle='dropdown' aria-expanded='false'>
+                                <i class='fas fa-eye'></i> <span class='d-lg-none'>Rol</span>
+                            </a>
+    
+                            <div class='dropdown-menu dropdown-menu-end' aria-labelledby='navbarDropdown-Visitante'>";
+                        for ($i = 0; $i < count($descrp); $i++) {
+                            switch ($descrp[$i]) {
+                                case "Administrador":
+                                    echo "<a class='dropdown-item' href='#'><i class='fas fa-crown'></i> Administrador</a>";
+                                    break;
+                                case "Deposito":
+                                    echo "<a class='dropdown-item' href='#'><i class='fas fa-archive'></i> Deposito</a>";
+                                    break;
+                                case "Cliente":
+                                    echo "<a class='dropdown-item' href='#'><i class='fas fa-user-tie'></i> Cliente</a>";
+                                    break;
+                            }
+                        }
+                        echo "</div>
+                        </li>";
+                    }
+                    ?>
                 </ul>
-            
-            <!------------------------------------------------------------------>
+                <ul class="navbar-nav align-items-lg-center d-flex">
 
-
-                <ul class="navbar-nav d-flex">
                     <!-- Icon carrito -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="../../pages/cliente/carrito.php" role="button" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-shopping-cart"></i> <span class="d-lg-none">Carrito</span>
+                    <li class='nav-item'>
+                        <a class='nav-link' href='../../pages/cliente/carrito.php' role='button' aria-haspopup='true' aria-expanded='false'>
+                            <i class='fas fa-shopping-cart'></i> <span class='d-lg-none'>Carrito</span>
                         </a>
                     </li>
-                    <!-- Icon visitante -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown-Visitante" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-user-times"></i> <span class="d-lg-none">Usuario</span>
+
+                    <?php
+                    /* Mostramos el icono de usuario de acuerdo a si la sesion esta activa o no */
+                    if (!$sesion->activa()) {
+                        echo "<!-- Icon visitante -->
+                        <li class='nav-item dropdown'>
+                        <a class='nav-link dropdown-toggle' href='#' id='navbarDropdown-Visitante' role='button' data-bs-toggle='dropdown' aria-expanded='false'>
+                            <i class='fas fa-user-times'></i> <span class='d-lg-none'>Usuario</span>
                         </a>
 
-                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown-Visitante">
-                            <a class="dropdown-item" href="../../pages/login/login.php"><span class="fas fa-sign-in-alt fa-fw" aria-hidden="true" title="Log in"></span> Login</a>
-                            <a class="dropdown-item" href="../../pages/login/registrar.php"><span class="fas fa-pencil-alt fa-fw" aria-hidden="true" title="Sign up"></span> Registrarse</a>
+                        <div class='dropdown-menu dropdown-menu-end' aria-labelledby='navbarDropdown-Visitante'>
+                            <a class='dropdown-item' href='../../pages/login/login.php'><i class='fas fa-sign-in-alt'></i> Login</a>
+                            <a class='dropdown-item' href='../../pages/login/registrar.php'><i class='fas fa-pencil-alt'></i> Registrarse</a>
                         </div>
-                    </li>
-                    <!-- Icon usuario -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown-Usuario" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-user"></i> <span class="d-lg-none">Usuario</span>
-                        </a>
-
-                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown-Usuario">
-                            <a class="dropdown-item" href="../../pages/perfil/perfil.php">
-                                <span class="fas fa-user fa-fw" aria-hidden="true" title="Perfil"> </span> Perfil
+                        </li>";
+                    } else {
+                        echo "<!-- Icon usuario -->
+                        <li class='nav-item dropdown'>
+                            <a class='nav-link dropdown-toggle' href='#' id='navbarDropdown-Usuario' role='button' data-bs-toggle='dropdown' aria-expanded='false'>
+                                <i class='fas fa-user'></i> <span class='d-lg-none'>Usuario</span>
                             </a>
 
-                            <a class="dropdown-item" href="../../pages/usuario/listar.php">
-                                <span class="fas fa-users fa-fw" aria-hidden="true" title="Usuarios"> </span> Usuarios
-                            </a>
+                            <div class='dropdown-menu dropdown-menu-end' aria-labelledby='navbarDropdown-Usuario'>
+                                <a class='dropdown-item' href='../../pages/perfil/perfil.php'>
+                                    <i class='fas fa-user'></i> Perfil
+                                </a>
+                                <a class='dropdown-item' href='../../pages/perfil/configuraciones.php'><i class='fas fa-cog'></i> Configuración</a>
 
-                            <a class="dropdown-item" href="../../pages/perfil/configuraciones.php">
-                                <span class="fas fa-cog fa-fw " aria-hidden="true" title="Configuración"></span> Configuración
-                            </a>
+                                <div class='dropdown-divider'></div>
 
-                            <div class="dropdown-divider"></div>
-
-                            <a class="dropdown-item logout" href="../../pages/login/cerrarSesion.php"><span class="fas fa-sign-out-alt fa-fw" aria-hidden="true" title="Cerrar sesión"></span> Cerrar sesión</a>
-                        </div>
-                    </li>
+                                <a class='dropdown-item logout' href='../../pages/login/cerrarSesion.php'><i class='fas fa-sign-out-alt'></i> Cerrar sesión</a>
+                            </div>
+                        </li>";
+                    }
+                    ?>
                 </ul>
             </div>
         </div>
@@ -101,7 +149,3 @@
     <div class="container-fluid">
         <div class="row">
             <main role="main" class="mx-auto my-5 px-md-5">
-                <?php
-               include_once '../../../configuracion.php';
-                ?>
-
