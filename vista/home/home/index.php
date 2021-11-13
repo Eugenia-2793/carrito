@@ -8,42 +8,60 @@ $abmProducto = new AbmProducto;
 $arregloProductos = $abmProducto->buscar(null);
 
 // Obtengo datos de un producto
-// $idpro = $arregloProductos->getIdProducto();
-// $nompro = $arregloProductos->getProNombre();
-// $detallepro = $arregloProductos->getProDetalle();
-// $stockpro = $arregloProductos->getProStock();
-// $preciopro = $arregloProductos->getPrecio();
+// $idpro = $unProducto->getIdProducto();
+// $nompro = $unProducto->getProNombre();
+// $detallepro = $unProducto->getProDetalle();
+// $stockpro = $unProducto->getProStock();
+// $preciopro = $unProducto->getPrecio();
 
 ?>
 
 <div class="container-lg p-3">
-    <h2 class="mb-4 text-center text-uppercase">Cartelera</h2>
 
     <form id="ejeArchivos" name="ejeArchivos" method="POST" action="accionIndex.php">
-        <div class="row">
+        <!-- Combos -->
+        <h2 class="mb-4 text-center text-uppercase">Combos</h2>
+        <div id="combos" class="row mb-5">
             <?php
             foreach ($arregloProductos as $unProducto) {
                 $nompro = $unProducto->getProNombre();
                 $detallepro = $unProducto->getProDetalle();
-                if ($detallepro == "Película") {
-                    $obj = new controlArchivos();
-                    $archivo = $obj->obtenerUnaImg($nompro);
-                    echo    "<div id='pelis' class='d-grid col-lg-2 col-sm-4 mb-4'>
-                                <div class='jojo'> <img class='img-fluid' alt='$archivo' src='../../../uploads/$archivo' width='100%'></div>
+                $stockpro = $unProducto->getProStock();
+                $preciopro = $unProducto->getPrecio();
+                if ($detallepro != "Película") {
+                    // $obj = new controlArchivos();
+                    // $archivo = $obj->obtenerUnaImg($nompro);
+                    echo    "<div class='d-grid col-lg-3 col-md-6 col-sm-4 mb-4 h-100'>
+                                <div class='imgProducto'> <img class='img-fluid' alt='$nompro' src='../../img/imageCap.jpg' width='100%'></div>
                                 <div class='d-grid align-items-end'>
-                                    <input type='submit' name='Seleccion:$archivo' id='Seleccion:$archivo' class='btn btn-verPeli rounded-bottom' value='$nompro'>
+                                    <input type='submit' name='Seleccion:$nompro' id='Seleccion:$nompro' class='btn btn-verProducto text-uppercase fw-bold' value='$nompro'>
+                                </div>
+                                <div>
+                                    <ul class='list-group list-group-flush rounded-bottom'>
+                                        <li class='list-group-item d-flex align-items-center'>
+                                            $detallepro
+                                        </li>
+                                        <li class='list-group-item d-flex justify-content-between align-items-center'>
+                                            <span class='fw-bold'>Precio</span>
+                                            <span class='badge bg-warning text-dark'>$$preciopro</span>
+                                        </li>
+                                        <li class='list-group-item d-flex justify-content-between align-items-center'>
+                                            <span class='fw-bold'>Stock</span>
+                                            <span class='badge bg-success'>$stockpro</span>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>";
                 }
             }
 
-            /* Botón para agregar un nuevo Producto */
+            /* Botón para agregar un nuevo Combo */
             if ($sesion->activa()) {
                 $bandera = false;
                 for ($i = 0; $i < count($descrp) && !$bandera; $i++) {
                     if ($descrp[$i] == "Administrador" || $descrp[$i] == "Deposito") {
-                        echo "<div id='agregarPelis' class='d-grid col-lg-2 col-sm-4 mb-4'>
-                            <a class='btn d-flex justify-content-center align-items-center fs-1 bg-light' href='../../pages/deposito/agregarProducto.php' role='button'><i class='fas fa-plus'></i></a>
+                        echo "<div id='agregarPelis' class='d-grid col-lg-3 col-md-6 col-sm-4 mb-4'>
+                            <a class='btn d-flex justify-content-center align-items-center fs-1 bg-light rounded' href='../../pages/deposito/agregarProducto.php' role='button'><i class='fas fa-plus'></i></a>
                         </div>";
                         $bandera = true;
                     }
@@ -51,6 +69,41 @@ $arregloProductos = $abmProducto->buscar(null);
             }
             ?>
         </div>
+        <!-- Fin Combos -->
+        <!-- Cartelera -->
+        <h2 class="mb-4 text-center text-uppercase">Cartelera</h2>
+        <div id="pelis" class="row">
+            <?php
+            foreach ($arregloProductos as $unProducto) {
+                $nompro = $unProducto->getProNombre();
+                $detallepro = $unProducto->getProDetalle();
+                if ($detallepro == "Película") {
+                    $obj = new controlArchivos();
+                    $archivo = $obj->obtenerUnaImg($nompro);
+                    echo    "<div class='d-grid col-xl-2 col-lg-3 col-sm-4 mb-4'>
+                                <div class='imgProducto'> <img class='img-fluid' alt='$archivo' src='../../../uploads/$archivo' width='100%'></div>
+                                <div class='d-grid align-items-end'>
+                                    <input type='submit' name='Seleccion:$archivo' id='Seleccion:$archivo' class='btn btn-verProducto rounded-bottom' value='$nompro'>
+                                </div>
+                            </div>";
+                }
+            }
+
+            /* Botón para agregar una nueva Película */
+            if ($sesion->activa()) {
+                $bandera = false;
+                for ($i = 0; $i < count($descrp) && !$bandera; $i++) {
+                    if ($descrp[$i] == "Administrador" || $descrp[$i] == "Deposito") {
+                        echo "<div id='agregarPelis' class='d-grid col-xl-2 col-lg-3 col-sm-4 mb-4'>
+                            <a class='btn d-flex justify-content-center align-items-center fs-1 bg-light rounded' href='../../pages/deposito/agregarProducto.php' role='button'><i class='fas fa-plus'></i></a>
+                        </div>";
+                        $bandera = true;
+                    }
+                }
+            }
+            ?>
+        </div>
+        <!-- Fin Cartelera -->
     </form>
 
 
