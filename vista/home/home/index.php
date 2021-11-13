@@ -7,13 +7,6 @@ include_once("../../../control/controlSubeArchivos.php");
 $abmProducto = new AbmProducto;
 $arregloProductos = $abmProducto->buscar(null);
 
-// Obtengo datos de un producto
-// $idpro = $unProducto->getIdProducto();
-// $nompro = $unProducto->getProNombre();
-// $detallepro = $unProducto->getProDetalle();
-// $stockpro = $unProducto->getProStock();
-// $preciopro = $unProducto->getPrecio();
-
 ?>
 
 <div class="container-lg p-3">
