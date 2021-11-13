@@ -50,10 +50,14 @@ $listaRol = $objAbmRol->buscar(null);
             echo "<td  class='text-center'>
             <button type='submit' class='btn btn-success btn-sm' value=".$id." name='accion' id='accion'>
             <i class='fa fa-pen'> </i>
-            </button>         
+            </button>    
+            <button class='btn btn-danger btn-sm' type='submit' value=".$id." formaction='eliminar.php' name='idrol' id='idrol'>
+            <i class='fas fa-trash-alt'></i>
+            </button>
+
             ";
 
-            
+
             $i++;
           }
           echo '</tbody>';
