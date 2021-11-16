@@ -19,12 +19,20 @@ $('#pass').keyup(function (e) {
 });
 
 
-/* EDITOR DE TEXTO */
-$('#summernote').summernote({
-    placeholder: 'Esta es una descripción genérica, si lo necesita la puede cambiar.',
-    tabsize: 2,
-    height: 100
-});
+/* AGREGAR PRODUCTO: Muestra información para agregar Combo o Película */
+function check() {
+    var indice = document.getElementById("tipoProducto").selectedIndex;
+    if (indice == "1") {
+        document.getElementById("agregarCombo").style.display = 'block';
+        document.getElementById("agregarPelícula").style.display = 'none';
+    } else if (indice == "2") {
+        document.getElementById("agregarCombo").style.display = 'none';
+        document.getElementById("agregarPelícula").style.display = 'block';
+    } else {
+        document.getElementById("agregarCombo").style.display = 'none';
+        document.getElementById("agregarPelícula").style.display = 'none';
+    }
+}
 
 
 /* HABILITAR O DESHABILITAR CLAVE */

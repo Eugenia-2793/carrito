@@ -14,7 +14,7 @@ $arregloProductos = $abmProducto->buscar(null);
     <form id="ejeArchivos" name="ejeArchivos" method="POST" action="accionIndex.php">
         <!-- Combos -->
         <h2 class="mb-4 text-center text-uppercase">Combos</h2>
-        <div id="combos" class="row mb-5">
+        <div id="combos" class="row justify-content-center mb-5">
             <?php
             foreach ($arregloProductos as $unProducto) {
                 $nompro = $unProducto->getProNombre();
@@ -29,7 +29,7 @@ $arregloProductos = $abmProducto->buscar(null);
                                 <div class='d-grid align-items-end'>
                                     <input type='submit' name='Seleccion:$nompro' id='Seleccion:$nompro' class='btn btn-verProducto text-uppercase fw-bold' value='$nompro'>
                                 </div>
-                                <div>
+                                <div class='shadow-sm'>
                                     <ul class='list-group list-group-flush rounded-bottom'>
                                         <li class='list-group-item d-flex align-items-center'>
                                             $detallepro
@@ -51,8 +51,8 @@ $arregloProductos = $abmProducto->buscar(null);
             /* Botón para agregar un nuevo Combo */
             if ($sesion->activa()) {
                 $bandera = false;
-                for ($i = 0; $i < count($descrp) && !$bandera; $i++) {
-                    if ($descrp[$i] == "Administrador" || $descrp[$i] == "Deposito") {
+                for ($i = 0; $i < count($idrol) && !$bandera; $i++) {
+                    if ($idrol[$i] == "1" || $idrol[$i] == "2") {
                         echo "<div id='agregarPelis' class='d-grid col-lg-3 col-md-6 col-sm-4 mb-4'>
                             <a class='btn d-flex justify-content-center align-items-center fs-1 bg-light rounded' href='../../pages/deposito/agregarProducto.php' role='button'><i class='fas fa-plus'></i></a>
                         </div>";
@@ -85,8 +85,8 @@ $arregloProductos = $abmProducto->buscar(null);
             /* Botón para agregar una nueva Película */
             if ($sesion->activa()) {
                 $bandera = false;
-                for ($i = 0; $i < count($descrp) && !$bandera; $i++) {
-                    if ($descrp[$i] == "Administrador" || $descrp[$i] == "Deposito") {
+                for ($i = 0; $i < count($idrol) && !$bandera; $i++) {
+                    if ($idrol[$i] == "1" || $idrol[$i] == "2") {
                         echo "<div id='agregarPelis' class='d-grid col-xl-2 col-lg-3 col-sm-4 mb-4'>
                             <a class='btn d-flex justify-content-center align-items-center fs-1 bg-light rounded' href='../../pages/deposito/agregarProducto.php' role='button'><i class='fas fa-plus'></i></a>
                         </div>";

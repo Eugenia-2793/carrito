@@ -1,48 +1,46 @@
 <?php
-$Titulo = "Eliminar Producto";
+$Titulo = "Listar Productos";
 include_once("../../estructura/cabecera.php");
 
-/*$datos = data_submitted();
-if (isset($datos['cs'])) {
-    if ($datos['cs'] == 1) {
-        $sesion->cerrarSession();
-        header("Location:../index/login.php");
-    }
+$datos = data_submitted();
+$id = $datos['idproducto'];
+
+$objProducto = new AbmProducto();
+$filtro = array();
+$filtro['idproducto'] = $datos['idproducto'];
+$listProductos = $objProducto->buscar($filtro);
+$unProducto = $listProductos[0];
+/* Verificamos que el producto sea una película para eliminar los archivos */
+$pronombre = $unProducto->getProNombre();
+$detalle = $unProducto->getProDetalle();
+if ($detalle == "Película") {
+    $protipo = 'pelicula';
 } else {
-    $activa = $sesion->activa();
-    if ($activa) {
-        header("Location:../index/carrito.php");
-    }
-}*/
+    $protipo = 'combo';
+}
 ?>
 
-<div>
-    <h2 class="mb-3 text-center">Eliminar Producto</h2>
-    <div class="rounded formulario mb-5">
-        <div class="card-body">
-            <form id="registro" name="registro" class="form-signin" action="../accion/ac_eliminarP.php" method="POST" onsubmit="encriptPass()" data-toggle="validator">
-                <div class="form-row">
-                    <!-- Nombre -->
-                    <div class="col-md-6 mb-3">
-                        <label class="control-label" for="nombre"><strong>Nombre del Producto</strong></label>
-                        <input type="text" readonly class="form-control-plaintext pl-2" id="nombre" value="1234.png">
-                    </div>
-                    <!-- Descripción -->
-                    <div class="col-md-12 mb-3">
-                        <label class="control-label" for="descripcion"><strong>Motivo de Eliminación</strong></label>
-                        <textarea class="form-control text-wrap" name="descripcion" id="descripcion" placeholder="Escriba el motivo de eliminación" required></textarea>
-                    </div>
+<section>
+    <div class="row my-5">
+        <form class="mb-5" id="eliminarProducto" method="POST" action="abmProducto.php">
+            <div class="d-flex justify-content-center">
+                <?php
+                echo "<input class='d-none' id='idproducto' name='idproducto' type='hidden' value='" . $id . "'>";
+                echo "<input class='d-none' id='pronombre' name='pronombre' type='hidden' value='" . $pronombre . "'>";
+                echo "<input class='d-none' id='tipo' name='tipo' type='hidden' value='" . $protipo . "'>";
+                echo "<div class='card text-center border border-3 border-primary' style='width: 25rem;'>
+                <div class='card-body'>
+                    <h4 class='card-title'>¡Atención!</h4>
+                    <p class='card-text'>¿Realmente desea eliminar este producto?</p>
+                    <button href='#' class='btn btn-primary' id='accion' name='accion' type='submit' value='borrar' style='width: 3rem;'>Sí</button>
+                    <button href='#' class='btn btn-primary' id='accion' name='accion' type='submit' value='noAccion' style='width: 3rem;'>No</button>
                 </div>
-                <!-- Botones -->
-                <div class="text-center mt-1 mb-2">
-                    <input class="btn btn-primary" name="btn_volver" href="listaProductos.php" type="button" value="Volver"></input>
-                    <input class="btn btn-danger" name="btn_eliminar" type="submit" value="Eliminar"></input>
-                </div>
-            </form>
-        </div>
+            </div>";
+                ?>
+            </div>
+        </form>
     </div>
-</div>
-
+</section>
 
 <?php
 include_once("../../estructura/pie.php");

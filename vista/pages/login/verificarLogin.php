@@ -13,7 +13,7 @@ $sesion->iniciar($name, $pass);
 list($valido, $error) = $sesion->validar();
 
 if ($valido) {
-    header("Location:../cliente/carrito.php");
+    header("Location:../../home/home/index.php");
 } else {
     $sesion->cerrarSession();
     header("Location:login.php?error=" . urlencode($error));
