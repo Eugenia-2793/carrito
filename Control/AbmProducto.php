@@ -10,17 +10,18 @@ class AbmProducto
     private function cargarObjeto($param)
     {
         $obj = null;
+
         if (
             array_key_exists('idproducto', $param) and array_key_exists('pronombre', $param) and array_key_exists('prodetalle', $param)
-            and array_key_exists('procantstock', $param)
+            and array_key_exists('procantstock', $param) and array_key_exists('precio', $param)
         ) {
             $obj = new Producto();
-            $obj->setear($param['idproducto'], $param['pronombre'], $param['prodetalle'], $param['procantstock']);
+            $obj->setear($param['idproducto'], $param['pronombre'], $param['prodetalle'], $param['procantstock'],  $param['precio']);
         }
         return $obj;
     }
 
-    
+
     /**
      * Espera como parametro un arreglo asociativo donde las claves 
      * coinciden con los nombres de las variables instancias del objeto que son claves
@@ -33,12 +34,12 @@ class AbmProducto
 
         if (isset($param['idproducto'])) {
             $obj = new Producto();
-            $obj->setear($param['idproducto'], null, null, null);
+            $obj->setear($param['idproducto'], null, null, null, null);
         }
         return $obj;
     }
 
-    
+
     /**
      * Corrobora que dentro del arreglo asociativo estan seteados los campos claves
      * @param array $param
@@ -52,7 +53,7 @@ class AbmProducto
         return $resp;
     }
 
-   
+
     /**
      * Carga un objeto con los datos pasados por parámetro y lo 
      * Inserta en la base de datos
@@ -62,7 +63,6 @@ class AbmProducto
     public function alta($param)
     {
         $resp = false;
-
         $elObjtProducto = $this->cargarObjeto($param);
 
         if ($elObjtProducto != null and $elObjtProducto->insertar()) {
@@ -71,7 +71,7 @@ class AbmProducto
         return $resp;
     }
 
-   
+
     /**
      * Por lo general no se usa ya que se utiliza borrado lógico ( es decir pasar de activo a inactivo)
      * permite eliminar un objeto 
@@ -90,7 +90,7 @@ class AbmProducto
         return $resp;
     }
 
-    
+
     /**
      * Carga un obj con los datos pasados por parámetro y lo modifica en base de datos (update)
      * @param array $param
@@ -109,7 +109,7 @@ class AbmProducto
         return $resp;
     }
 
-    
+
     /**
      * Puede traer un obj específico o toda la lista si el parámetro es null
      * permite buscar un objeto
@@ -128,6 +128,8 @@ class AbmProducto
                 $where .= " and prodetalle ='" . $param['prodetalle'] . "'";
             if (isset($param['procantstock']))
                 $where .= " and procantstock ='" . $param['procantstock'] . "'";
+            if (isset($param['precio']))
+                $where .= " and precio ='" . $param['precio'] . "'";
         }
         $arreglo = Producto::listar($where);
         return $arreglo;

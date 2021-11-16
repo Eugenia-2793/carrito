@@ -140,7 +140,7 @@ footer a:hover {
   border-bottom-left-radius: 0.25rem;
 }
 
-/* Botones Películas */
+/* Botones para ver detalles del Producto */
 #pelis .btn,
 #combos .btn {
   border-radius: inherit;
@@ -172,7 +172,7 @@ footer a:hover {
 
 /* Cartelera + Combos */
 
-/** Agregar Película **/
+/** Botón Agregar Producto **/
 #pelis #agregarPelis a,
 #combos #agregarPelis a {
   border: 3px solid #b6b9bd !important;
@@ -190,7 +190,7 @@ footer a:hover {
   color: #0a27ab;
 }
 
-/** Portada Película **/
+/** Portada Producto **/
 #pelis .imgProducto,
 #combos .imgProducto {
   border-top-left-radius: 0.25rem !important;
@@ -216,4 +216,10 @@ footer a:hover {
 /* Tablas */
 .table-responsive {
   white-space: nowrap;
+}
+
+/* Agregar Producto */
+div#agregarCombo,
+div#agregarPelícula {
+  display: none;
 }

@@ -13,7 +13,7 @@ $respuesta = $obj2->verInformacion($_POST);
 ?>
 
 <div class="row mb-3">
-    <div class="col-sm-12 ">
+    <div class="col-sm-12">
         <?php
         if ($error == "") {
             echo "<div class='alert alert-success mt-5' role='alert'>
