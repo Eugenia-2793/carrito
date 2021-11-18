@@ -15,7 +15,7 @@ class AbmCompraItem
         if (
             array_key_exists('idcompraitem', $param) and array_key_exists('idproducto', $param)
             and array_key_exists('idcompra', $param) and array_key_exists('cicantidad', $param)
-            and array_key_exists('precio', $param)
+            and array_key_exists('itemprecio', $param)
         ) {
 
             //creo objeto estadotipos
@@ -30,7 +30,7 @@ class AbmCompraItem
 
             //agregarle los otros objetos
             $obj = new CompraItem();
-            $obj->setear($param['idcompraitem'], $objProducto, $objCompra, $param['cicantidad'], $param['precio']);
+            $obj->setear($param['idcompraitem'], $objProducto, $objCompra, $param['cicantidad'], $param['itemprecio']);
         }
         return $obj;
     }
@@ -142,8 +142,8 @@ class AbmCompraItem
                 $where .= " and idcompra ='" . $param['idcompra'] . "'";
             if (isset($param['cicantidad']))
                 $where .= " and cicantidad ='" . $param['cicantidad'] . "'";
-            if (isset($param['precio']))
-                $where .= " and precio ='" . $param['precio'] . "'";    
+            if (isset($param['itemprecio']))
+                $where .= " and itemprecio ='" . $param['itemprecio'] . "'";    
         }
         $arreglo = CompraItem::listar($where);
         return $arreglo;
