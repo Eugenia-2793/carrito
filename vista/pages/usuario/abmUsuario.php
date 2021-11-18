@@ -25,7 +25,7 @@ if (isset($datos['accion'])) {
         }
     }
     if ($datos['accion'] == 'crear') {
-       // print_r($datos);
+      //print_r($datos);
         if ($objTrans->alta($datos)) { 
            // if ($objTrans->altaUsuarioRolExistente($datos)) {
             $resp = true;

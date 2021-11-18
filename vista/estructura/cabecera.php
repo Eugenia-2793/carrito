@@ -146,10 +146,10 @@ if ($sesion->activa()) {
                             </a>
 
                             <div class='dropdown-menu dropdown-menu-end' aria-labelledby='navbarDropdown-Usuario'>
-                                <a class='dropdown-item' href='../../pages/perfil/perfil.php'>
+                                <a class='dropdown-item' href='../../pages/cliente/perfil/perfil.php'>
                                     <i class='fas fa-user'></i> Perfil
                                 </a>
-                                <a class='dropdown-item' href='../../pages/perfil/configuraciones.php'><i class='fas fa-cog'></i> Configuración</a>
+                                <a class='dropdown-item' href='../../pages/cliente/perfil/configuraciones.php'><i class='fas fa-cog'></i> Configuración</a>
 
                                 <div class='dropdown-divider'></div>
 
@@ -159,6 +159,7 @@ if ($sesion->activa()) {
                     }
                     ?>
                 </ul>
+
             </div>
         </div>
         <!-- Container wrapper -->

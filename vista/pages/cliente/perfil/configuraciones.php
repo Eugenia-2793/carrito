@@ -1,6 +1,6 @@
 <?php
 $Titulo = "Configuraciones";
-include_once("../../estructura/cabecera.php");
+include_once("");
 ?>
 
 <p>configuraciones </p>
