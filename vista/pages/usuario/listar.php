@@ -2,13 +2,9 @@
 $Titulo = "Listar usuarios";
 include_once("../../estructura/cabecera.php");
 
-//$objAbmUsuarioRol = new AbmUsuariorol();
-//$listaUsuario = $objAbmUsuarioRol->buscar(null);
-
-//var_dump($listaUsuario);
-
 $objAbmUsuario = new AbmUsuario();
-$listaUsuario = $objAbmUsuario->buscar(null);   
+//$listaUsuario = $objAbmUsuario->buscar(null);   
+$listaUsuario = $objAbmUsuario->listarUsuarios(null);  
 
 
 ?>
@@ -32,26 +28,32 @@ $listaUsuario = $objAbmUsuario->buscar(null);
             <th scope="col">Password</th>
             <th scope="col">Mail</th>
             <th scope="col">habilitado</th>
-            <th scope="col"><a href="../roles/listar.php"> Rol </a></th> 
-            <th scope="col" class='text-center'>Editar <th>
+            <th scope="col"><a href="../roles/listar.php"> Rol (editar) </a></th> 
+            <th scope="col" class='text-center'>Editar (usuario)<th>
           </tr>
         </thead>
         <?php
 
         if (count($listaUsuario) > 0) {
-         $i = 1;
+        // $i = 1;
           echo '<tbody>';
           foreach ($listaUsuario as $objAbmUsuario) {
-             $id =  $objAbmUsuario->getidusuario();
+             //$id =  $objAbmUsuario->getidusuario();
+             $id = $objAbmUsuario[0]->getidusuario();
             
-            // var_dump($objAbmUsuario);
+            $roles="";
+            foreach($objAbmUsuario [1] as $rol){
+              $roles = $roles. " ". $rol. '  -  ';
+            }
+
             echo '<tr class="align-middle">';
             echo '<th scope="row">' . $id. '</th>';
-            echo '<td>' . $objAbmUsuario->getusnombre() .  '</td>';
-            echo '<td>' . $objAbmUsuario->getuspass() .    '</td>';
-            echo '<td>' . $objAbmUsuario->getusmail() .  '</td>';
-            echo '<td>' . $objAbmUsuario->getusdeshabilitado() .'</td>';
-            echo '<td> <a href="../../pages/roles/listar.php"> ver <a/></td>';
+            echo '<td>' . $objAbmUsuario[0]->getusnombre() .  '</td>';
+            echo '<td>' . $objAbmUsuario[0]->getuspass() .    '</td>';
+            echo '<td>' . $objAbmUsuario[0]->getusmail() .  '</td>';
+            echo '<td>' . $objAbmUsuario[0]->getusdeshabilitado() .'</td>';
+            echo '<td>'.$roles. '</td>';
+            //echo '<td> <a href="../../pages/roles/listar.php"> ver <a/></td>';
 
 
             //<!---------en listas usussarios saca el id y lo manda por boton-------------->
@@ -60,7 +62,7 @@ $listaUsuario = $objAbmUsuario->buscar(null);
                    <i class='fa fa-pen'> </i>
                    </button>         
                    ";
-            $i++;
+          //  $i++;
           }
           echo '</tbody>';
           echo '</table>';

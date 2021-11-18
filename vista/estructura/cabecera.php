@@ -75,6 +75,18 @@ if ($sesion->activa()) {
                             <span>Contacto</span>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="../../pages/usuario/listar.php">
+                            <i class="fas fa-info-circle d-lg-none d-xl-none"></i>
+                            <span>usuarios</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="../../pages/roles/listar.php">
+                            <i class="fas fa-info-circle d-lg-none d-xl-none"></i>
+                            <span>roles</span>
+                        </a>
+                    </li>
                     <?php
                     /* Mostramos los roles según corresponda */
                     if ($sesion->activa()) {

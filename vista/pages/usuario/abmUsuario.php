@@ -26,7 +26,8 @@ if (isset($datos['accion'])) {
     }
     if ($datos['accion'] == 'nueva') {
        // print_r($datos);
-        if ($objTrans->alta($datos)) {
+        if ($objTrans->alta($datos)) { 
+           // if ($objTrans->altaUsuarioRolExistente($datos)) {
             $resp = true;
         } else {
             $mensaje = "<b>ERROR:</b> definir la clave primaria para no repetir";

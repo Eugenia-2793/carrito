@@ -67,16 +67,57 @@ class AbmUsuario
         $elObjtUsuario = $this->cargarObjeto($param);
       
         if ($elObjtUsuario!=null and $elObjtUsuario->insertar()){
-            //Recupero id nueva del objeto insertado
-           // $param['idusuario'] = $elObjtUsuario->getIdusuario();
-           // $resp= $this->altaUsuarioRolIngresante($param);
+            //nuevo--------------------------------------------
+            //Recupero id nueva del objeto insertado //rol name nuevoRol
+            $param['idusuario'] = $elObjtUsuario->getidusuario();
+            $resp= $this->altaUsuarioRolIngresante($param);
+            //---------------------------------------------------
            $resp = true;
         }
         return $resp;
     }
 
+    //---------------------funciones de alta extra-------------------
+
+    /**
+     * instanciamos el usuariorl y asinamos un rol al nuevo
+     * que por defecto es el cliente. 
+     * DESDE REGISTRO
+     * @param array $param
+     * @return boolean
+     */
+    public function altaUsuarioRolIngresante($datos){
+        $resp= false;
+   
+        $usuarioRol= new AbmUsuariorol();
+        $param= ['idusuario'=>$datos['idusuario'],'idrol'=> 3];
+        if($usuarioRol->alta($param)){
+            $resp=true;
+        }
+    
+        return $resp;
+     }
 
 
+    /**
+     * objeto de la clase usuariorol donde se le asigna un nuevo rol
+     *DESDE ADMINISTRADOR
+     * @param array $datos array de datos de todo el obj usuario + nuevoRol
+     * @return boolean
+     */
+    public function altaUsuarioRolExistente($datos){
+        $resp= false;
+            
+        $usuarioRol= new AbmUsuariorol();
+        $param= ['idusuario'=>$datos['idusuario'],'idrol'=> $datos['nuevoRol']];
+            if($usuarioRol->alta($param)){
+                $resp=true;
+           }
+        return $resp;
+     }
+
+
+//-------------------------------------------------------------
 
     /**
      * BAJA 

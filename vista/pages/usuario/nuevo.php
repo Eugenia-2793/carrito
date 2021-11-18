@@ -33,6 +33,7 @@ include_once("../../estructura/cabecera.php");
 			<label for="Duenio">Habilitado</label> 
             <input type="date" class="form-control"  name="usdeshabilitado" id="usdeshabilitado">
 		</div>
+		
 	</div>
 	<!-- accion = nuevo (input oculto) -->
 	<input id="accion" name="accion" value="nueva" type="hidden">

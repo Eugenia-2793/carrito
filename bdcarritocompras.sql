@@ -31,7 +31,7 @@ CREATE TABLE `compra` (
   `idcompra` bigint(20) NOT NULL,
   `cofecha` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `idusuario` bigint(20) NOT NULL,
-  `precio` int(11) NOT NULL
+  `comprecio` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -81,7 +81,7 @@ CREATE TABLE `compraitem` (
   `idproducto` bigint(20) NOT NULL,
   `idcompra` bigint(20) NOT NULL,
   `cicantidad` int(11) NOT NULL,
-  `precio` int(11) NOT NULL
+  `itemprecio` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -139,7 +139,7 @@ CREATE TABLE `producto` (
   `pronombre` int(11) NOT NULL,
   `prodetalle` varchar(512) NOT NULL,
   `procantstock` int(11) NOT NULL,
-  `precio` int(11) NOT NULL
+  `proprecio` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -204,11 +204,13 @@ CREATE TABLE `usuariorol` (
 --
 
 INSERT INTO `usuariorol` (`idusuario`, `idrol`) VALUES
+(0, 1),
 (1, 1),
 (2, 2),
 (2, 3),
-(3, 3);
-
+(3, 3),
+(4, 3),
+(5, 3);
 --
 -- Índices para tablas volcadas
 --

@@ -115,17 +115,15 @@ class AbmUsuariorol
     public function buscarRolesUsuario($elObjtUsuario)
     {
         $listaUsRol = [];
-        //Listo todos los obj usuariorol
-        $listaUsRol = $this->buscar(null);
+        $listaUsRol = $this->buscar(null); //obj usuariorol
 
-
-        if ($listaUsRol != "") {
+        if (count($listaUsRol)>0) { // $listaUsRol != ""
             $roles = [];
-            //Agrego todos los roles que tenga el usuario en el array $roles
+            //Agrego TODOS los roles que tenga el usuario en el array $roles
             foreach ($listaUsRol as $usuariorol) {
-                if ($usuariorol->getobjusuario()->getidusuario() == $elObjtUsuario->getidusuario()) {
+                if ($usuariorol->getobjusuario()->getidusuario() == $elObjtUsuario->getidusuario()){
                     //$roldescrip = $usuariorol->getobjrol()->getroldescripcion();
-                    $roldescrip = $usuariorol->getobjrol()->getidrol();
+                    $roldescrip = $usuariorol->getobjrol()->getroldescripcion();
                     array_push($roles, $roldescrip);
                 }
             }

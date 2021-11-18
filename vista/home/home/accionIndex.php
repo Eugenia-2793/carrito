@@ -2,6 +2,7 @@
 $Titulo = "Acción Index";
 include_once("../../estructura/cabecera.php");
 include_once("../../../control/controlSubeArchivos.php");
+//include_once('../../../control/controlSubeArchivos.php');
 
 $obj = new controlArchivos();
 $infoArchivo = $obj->obtenerInfoDeArchivo($_POST);

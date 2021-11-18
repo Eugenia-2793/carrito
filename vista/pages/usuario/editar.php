@@ -37,8 +37,24 @@ $unUsuario = $objAbmUsuario->buscar($filtro);
            //usdeshabilitado
            echo ' <label for="Duenio">Habilitado </label> <br>  <input type="date" id="usdeshabilitado" name="usdeshabilitado"  value="' . $usdeshabilitado . '">';
 
-       }
+       }       
   ?>
+
+  <!-- Rol -->
+  <div class="col-sm-8 col-md-6 col-lg-3 mb-3">
+     <label for="Nombre" class="control-label">Rol agregar filtro de los que ya tiene</label> 
+    		<select class='form-control' id='nuevoRol' name='nuevoRol'>"
+                <option value="">Elija rol</option>
+                <?php
+                    $rol = new AbmRol();
+                    $objRoles = $rol->buscar(null);
+
+                    foreach ($objRoles as $unObjeto) {
+                        echo  " <option value='" . $unObjeto->getidrol() . "'>" . $unObjeto->getroldescripcion() . "</option>";
+                    } 
+                ?>
+           </select>
+   </div> <!-----------ESTO SE ENVIARIA A UNA ACCION Y DE AHI AL ABMUSUARIO------------------->
 
        <!-- accion = nuevo (input oculto) -->
        <input id="accion" name="accion" value="editar" type="hidden">
