@@ -140,50 +140,72 @@ footer a:hover {
   border-bottom-left-radius: 0.25rem;
 }
 
-/* Botones Películas */
-#pelis .btn {
+/* Botones para ver detalles del Producto */
+#pelis .btn,
+#combos .btn {
   border-radius: inherit;
 }
 
-.btn-verPeli {
+#pelis .btn-verProducto {
   color: #fff;
   background-color: #ab0a41;
   border-color: #ab0a41;
 }
 
-.btn-verPeli:hover {
+#pelis .btn-verProducto:hover {
   color: #fff;
   background-color: #9d0a3c;
   border-color: #9d0a3c;
 }
 
-/* Cartelera */
+#combos .btn-verProducto {
+  color: #fff;
+  background-color: #0a42ab;
+  border-color: #0a42ab;
+}
 
-/** Agregar Película **/
-#agregarPelis a {
+#combos .btn-verProducto:hover {
+  color: #fff;
+  background-color: #0a27ab;
+  border-color: #0a27ab;
+}
+
+/* Cartelera + Combos */
+
+/** Botón Agregar Producto **/
+#pelis #agregarPelis a,
+#combos #agregarPelis a {
   border: 3px solid #b6b9bd !important;
   color: #b6b9bd;
   transition: all 0.5s ease-in-out;
 }
 
-#agregarPelis a:hover {
+#pelis #agregarPelis a:hover {
   border-color: #ab0a41 !important;
   color: #ab0a41;
 }
 
-/** Portada Película **/
-#pelis .jojo {
+#combos #agregarPelis a:hover {
+  border-color: #0a27ab !important;
+  color: #0a27ab;
+}
+
+/** Portada Producto **/
+#pelis .imgProducto,
+#combos .imgProducto {
   border-top-left-radius: 0.25rem !important;
   border-top-right-radius: 0.25rem !important;
   overflow: hidden;
 }
 
-#pelis .jojo img {
+#pelis .imgProducto img,
+#combos .imgProducto img {
   transition: all 0.9s ease;
   width: 100%;
 }
 
-#pelis .jojo img:hover {
+#pelis .imgProducto img:hover,
+#combos .imgProducto img:hover {
   -webkit-transform: scale(1.25);
   -moz-transform: scale(1.25);
   -ms-transform: scale(1.25);
@@ -194,4 +216,10 @@ footer a:hover {
 /* Tablas */
 .table-responsive {
   white-space: nowrap;
+}
+
+/* Agregar Producto */
+div#agregarCombo,
+div#agregarPelícula {
+  display: none;
 }

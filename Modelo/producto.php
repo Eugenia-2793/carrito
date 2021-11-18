@@ -9,8 +9,6 @@ class Producto
     private $precio;
     private $mensajeoperacion;
 
-    //aca tenemos que agregar el precio.
-
 
     public function __construct()
     {
@@ -67,7 +65,7 @@ class Producto
         $this->procantstock = $procantstock;
     }
 
-        public function getPrecio()
+    public function getPrecio()
     {
         return $this->precio;
     }
@@ -75,7 +73,6 @@ class Producto
     {
         $this->precio = $precio;
     }
-  
 
     public function getmensajeoperacion()
     {
@@ -178,7 +175,7 @@ class Producto
                 }
             }
         } else {
-            $this->setmensajeoperacion("Producto->listar: " . $base->getError());
+            //$this->setmensajeoperacion("Producto->listar: " . $base->getError());
         }
 
         return $arreglo;

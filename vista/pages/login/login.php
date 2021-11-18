@@ -6,7 +6,7 @@ include_once '../../../control/Session.php';
 $sesion = new Session();
 
 if ($sesion->activa()) {
-    header("Location:../cliente/carrito.php");
+    header("Location:../../home/home/index.php");
 } else {
     include_once("../../estructura/cabecera.php");
 }

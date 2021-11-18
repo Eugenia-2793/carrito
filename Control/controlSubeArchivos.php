@@ -2,7 +2,7 @@
 
 class controlArchivos
 {
-    public function control_portada()
+    public function control_portada($nombreImg)
     {
         $dir = "../../../uploads/";
         $nombre = $_FILES['imagen']['name'];
@@ -14,6 +14,12 @@ class controlArchivos
 
         /* Reemplazamos los espacios vacios por _ para evitar problemas al subir el archivo */
         $nombre = str_replace(" ", "_", $nombre);
+        /* Obtenemos la extensión para reemplazar el nombre por el que entra por parametro */
+        $pos = mb_strripos($nombre, ".");
+        $cant = strlen($nombre);
+        $tipo = substr($nombre, $pos - $cant);
+        //echo $tipo;
+        $nombre = $nombreImg . $tipo;
 
         /* Veamos si se pudo subir a la carpeta temporal */
         if ($_FILES['imagen']['error'] <= 0) {
@@ -70,23 +76,27 @@ class controlArchivos
             $retorno['imagen']['error'] = $error;
         }
 
-        /* Busco la posicion del punto de la extensión del archivo, para reemplazar con la extensión .txt, 
-        Con esto creo un nuevo arhicvo .txt con el mismo nombre */
-        $pos = mb_strripos($nombre, ".");
-        $texto = $this->verInformacion($_POST);
-        $name = substr($nombre, 0, $pos) . ".txt";
-        $name = $dir . $name;
-        /* fopen crea un nuevo archivo con nombre $name y con "w" reemplaza la información si ya existia */
-        $ar = fopen($name, "w") or die("error al crear");
-        fwrite($ar, $texto);
-        fclose($ar);
         return $retorno;
     }
 
+    /* Busco la posición del punto de la extensión del archivo, para reemplazar con la extensión .txt. 
+        Con esto, creo un nuevo arhicvo .txt con el mismo nombre */
+    public function crearDescripcionPelicula($nombre)
+    {
+        $dir = "../../../uploads/";
+        //$pos = mb_strripos($nombre, ".");
+        $texto = $this->verInformacion($_POST);
+        //$name = substr($nombre, 0, $pos) . ".txt";
+        $name = $dir . $nombre . ".txt";
+        /* fopen crea un nuevo archivo con nombre $name y con "w" reemplaza la información si ya existía */
+        $ar = fopen($name, "w") or die("Error al crear");
+        fwrite($ar, $texto);
+        fclose($ar);
+    }
 
     public function verInformacion($datos)
     {
-        $titulo = $datos["titulo"];
+        $titulo = $datos["pronombre"];
         $actores = $datos["actores"];
         $director = $datos["director"];
         $guion = $datos["guion"];
@@ -122,7 +132,6 @@ class controlArchivos
         return $texto;
     }
 
-
     public function obtenerArchivos()
     {
         $directorio = "../../../uploads/";
@@ -130,6 +139,43 @@ class controlArchivos
         return $archivos;
     }
 
+    public function borrarArchivos($nombre)
+    {
+        $directorio = "../../../uploads/";
+        $archivos = scandir($directorio, 1);
+        $nombre = str_replace(" ", "_", $nombre);
+        foreach ($archivos as $unArchivo) {
+            $pos = strpos($unArchivo, $nombre . ".");
+            if ($pos === 0) {
+                $pos2 = mb_strripos($unArchivo, ".");
+                $cant = strlen($unArchivo);
+                $tipo = substr($unArchivo, $pos2 - $cant);
+                $directorio2 = $directorio . $nombre . $tipo;
+                unlink($directorio2);
+            }
+        }
+    }
+
+    public function obtenerUnaImg($nombre)
+    {
+        $directorio = "../../../uploads/";
+        $archivos = scandir($directorio, 1);
+        $bandera = false;
+        $imagen = "";
+        /* Reemplazamos los espacios vacios por _ para evitar problemas al subir el archivo */
+        $nombreImg = str_replace(" ", "_", $nombre);
+        for ($i = 0; $i < count($archivos) - 2 && !$bandera; $i++) {
+            $pos = strpos($archivos[$i], $nombreImg);
+            if ($pos !== false) {
+                /* Verificamos que el tipo de archivo sea de tipo imagen */
+                if (strpos($archivos[$i], "txt") <= 0) {
+                    $imagen = $archivos[$i];
+                    $bandera = true;
+                }
+            }
+        }
+        return $imagen;
+    }
 
     public function obtenerInfoDeArchivo($datos)
     {
@@ -163,8 +209,6 @@ class controlArchivos
             "Descripcion" => $descripcion
 
         ];
-
-        //finfo_close($finfo);
 
         return $datosArch;
     }
