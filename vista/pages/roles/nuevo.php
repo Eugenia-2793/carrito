@@ -19,7 +19,7 @@ include_once("../../estructura/cabecera.php");
 		</div>
 
 	<!-- accion = nuevo (input oculto) -->
-	<input id="accion" name="accion" value="nueva" type="hidden">
+	<input id="accion" name="accion" value="crear" type="hidden">
 	<!-- Botón enviar -->
 	<div class="text-center mt-3 mb-5">
 		<input class="btn btn-danger btn-lg"  type="reset" value="Borrar">

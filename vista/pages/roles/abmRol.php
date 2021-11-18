@@ -24,7 +24,7 @@ if (isset($datos['accion'])) {
             $mensaje = "<b>ERROR: </b>";
         }
     }
-    if ($datos['accion'] == 'nueva') {
+    if ($datos['accion'] == 'crear') {
         if ($objTrans->alta($datos)) {
             $resp = true;
         } else {

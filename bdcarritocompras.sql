@@ -171,8 +171,8 @@ INSERT INTO `rol` (`idrol`, `rodescripcion`) VALUES
 CREATE TABLE `usuario` (
   `idusuario` bigint(20) NOT NULL,
   `usnombre` varchar(50) NOT NULL,
-  `uspass` int(11) NOT NULL,
-  `usmail` varchar(50) NOT NULL,
+  `uspass` varchar(50) NOT NULL,
+  `usmail` varchar(100) NOT NULL,
   `usdeshabilitado` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -185,7 +185,7 @@ INSERT INTO `usuario` (`idusuario`, `usnombre`, `uspass`, `usmail`, `usdeshabili
 (1, 'Maria', 123456, 'maria@gmail.com', '2021-11-01 14:40:33'),
 (2, 'Eldepo', 123456, 'eldepo@gmail.com', '0000-00-00 00:00:00'),
 (3, 'flor', 123456, 'flor@gmail.com', '2021-11-12 03:00:00'),
-(4, 'nohabilitado', 123456, 'nohabilitado@gmail.com', '0000-00-00 00:00:00'),
+(4, 'nohabilitado', 'conletrastambien', 'nohabilitado@gmail.com', '0000-00-00 00:00:00'),
 (5, 'hoy12', 123456, 'hoy12@gmail.com', '2021-11-26 03:00:00');
 
 -- --------------------------------------------------------
