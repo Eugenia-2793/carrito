@@ -146,14 +146,14 @@ if ($sesion->activa()) {
                             </a>
 
                             <div class='dropdown-menu dropdown-menu-end' aria-labelledby='navbarDropdown-Usuario'>
-                                <a class='dropdown-item' href='../../pages/cliente/perfil/perfil.php'>
+                                <a class='dropdown-item' href='../../pages/usuario/perfil.php'>
                                     <i class='fas fa-user'></i> Perfil
                                 </a>
-                                <a class='dropdown-item' href='../../pages/cliente/perfil/configuraciones.php'><i class='fas fa-cog'></i> Configuración</a>
 
                                 <div class='dropdown-divider'></div>
-
-                                <a class='dropdown-item logout' href='../../pages/login/cerrarSesion.php'><i class='fas fa-sign-out-alt'></i> Cerrar sesión</a>
+                                <a class='dropdown-item logout' href='../../pages/login/cerrarSesion.php'>
+                                   <i class='fas fa-sign-out-alt'></i> Cerrar sesión
+                                </a>
                             </div>
                         </li>";
                     }

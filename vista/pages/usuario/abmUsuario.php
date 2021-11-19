@@ -9,8 +9,10 @@ $objTrans = new AbmUsuario();
 
 /* Accion que permite: cargar una nueva persona, borrar y editar */
 if (isset($datos['accion'])) {
+    print_r($datos);
     $mensaje = "";
     if ($datos['accion'] == 'editar') {
+        
         if ($objTrans->modificacion($datos)) {
             $resp = true;
         } else {
@@ -34,7 +36,7 @@ if (isset($datos['accion'])) {
         }
     }
     if ($resp) {
-        $mensaje = "La acción <b>" . $datos['accion'] . " usuario</b> se realizo correctamente.s";
+        $mensaje = "La acción <b>" . $datos['accion'] . " usuario</b> se realizo correctamente";
 
     } else {
         $mensaje .= "La acción <b>" . $datos['accion'] . " usuario</b> no pudo concretarse.";
