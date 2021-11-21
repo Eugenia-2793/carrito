@@ -183,8 +183,8 @@ CREATE TABLE `usuario` (
 INSERT INTO `usuario` (`idusuario`, `usnombre`, `uspass`, `usmail`, `usdeshabilitado`) VALUES
 (0, 'Eugenia', 123456, 'eugenia@gmail.com', '0000-00-00 00:00:00'),
 (1, 'Maria', 123456, 'maria@gmail.com', '2021-11-01 14:40:33'),
-(2, 'Eldepo', 123456, 'eldepo@gmail.com', '0000-00-00 00:00:00'),
-(3, 'flor', 123456, 'flor@gmail.com', '2021-11-12 03:00:00'),
+(2, 'Eldepo', 'eldepo', 'eldepo@gmail.com', '0000-00-00 00:00:00'),
+(3, 'flor', 'flor', 'flor@gmail.com', '2021-11-12 03:00:00'),
 (4, 'nohabilitado', 'conletrastambien', 'nohabilitado@gmail.com', '0000-00-00 00:00:00'),
 (5, 'hoy12', 123456, 'hoy12@gmail.com', '2021-11-26 03:00:00');
 

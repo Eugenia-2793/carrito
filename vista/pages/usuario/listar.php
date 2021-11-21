@@ -76,21 +76,19 @@ $listaUsuario = $objAbmUsuario->listarUsuarios(null);
       </div>
       <div class="modal-body">
         <!----usnombre------->
-        <input id="idusuario" name="idusuario" value="" type="hidden">';
-         
-        <select class='form-control' >
-                <option value="">Elija rol</option>
+        <input id="idusuario" name="idusuario" value="" type="hidden">
+  
                 <?php
-                
-         
                     $rol = new AbmRol();
                     $objRoles = $rol->buscar(null);
 
                     foreach ($objRoles as $unObjeto) {
-                        echo  " <option id='idrol' name='idrol' value='" . $unObjeto->getidrol() . "'>" . $unObjeto->getroldescripcion() . "</option>";
-                    } 
+                        // echo  " <option id='idrol' name='idrol' value='" . $unObjeto->getidrol() . "'>" . $unObjeto->getroldescripcion() . "</option>";
+                        echo "<input type='radio'   id='" . $unObjeto->getidrol() . "'>" . $unObjeto->getroldescripcion() . "</br>";
+                      }
+                      // 
                 ?>
-           </select>
+
         <!----------->
       </div>
       <div class="modal-footer">

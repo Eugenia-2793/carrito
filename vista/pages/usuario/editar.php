@@ -30,7 +30,7 @@ $unUsuario = $objAbmUsuario->buscar($filtro);
            //clave primeria
            echo ' <input id="idusuario" name="idusuario" value="' . $id . '" type="hidden">';
            //usnombre
-           echo ' <label for="Nombre" class="control-label">Nombre *</label> <input type="text" class="form-control" name="usnombre" id="usnombre"  value="' . $nombre . '" required>';
+           echo ' <label for="Nombre" class="control-label">Nombre *</label> <input type="text" class="form-control" name="usnombre" id="usnombre"  value="' . $nombre . '">';
            //uspass
            echo '<label for="Contrasenia">Contraseña *</label> <input class="form-control" type="text" id="uspass" name="uspass"value="' . $pass . '">';
            //usmail
@@ -41,21 +41,6 @@ $unUsuario = $objAbmUsuario->buscar($filtro);
        }       
   ?>
 
-  <!-- Rol -->
-  <div class="col-sm-8 col-md-6 col-lg-3 mb-3">
-     <label for="Nombre" class="control-label">Rol agregar filtro de los que ya tiene</label> 
-    		<select class='form-control' id='nuevoRol' name='nuevoRol'>"
-                <option value="">Elija rol</option>
-                <?php
-                    $rol = new AbmRol();
-                    $objRoles = $rol->buscar(null);
-
-                    foreach ($objRoles as $unObjeto) {
-                        echo  " <option value='" . $unObjeto->getidrol() . "'>" . $unObjeto->getroldescripcion() . "</option>";
-                    } 
-                ?>
-           </select>
-   </div> <!-----------ESTO SE ENVIARIA A UNA ACCION Y DE AHI AL ABMUSUARIO------------------->
 
        <!-- accion = nuevo (input oculto) -->
        <input id="accion" name="accion" value="editar" type="hidden">
