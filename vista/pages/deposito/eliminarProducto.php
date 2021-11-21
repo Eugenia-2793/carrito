@@ -1,5 +1,5 @@
 <?php
-$Titulo = "Listar Productos";
+$Titulo = "Eliminar Producto";
 include_once("../../estructura/cabecera.php");
 
 $datos = data_submitted();
@@ -13,11 +13,7 @@ $unProducto = $listProductos[0];
 /* Verificamos que el producto sea una película para eliminar los archivos */
 $pronombre = $unProducto->getProNombre();
 $detalle = $unProducto->getProDetalle();
-if ($detalle == "Película") {
-    $protipo = 'pelicula';
-} else {
-    $protipo = 'combo';
-}
+$protipo = $unProducto->getProTipo();
 ?>
 
 <section>
@@ -27,7 +23,7 @@ if ($detalle == "Película") {
                 <?php
                 echo "<input class='d-none' id='idproducto' name='idproducto' type='hidden' value='" . $id . "'>";
                 echo "<input class='d-none' id='pronombre' name='pronombre' type='hidden' value='" . $pronombre . "'>";
-                echo "<input class='d-none' id='tipo' name='tipo' type='hidden' value='" . $protipo . "'>";
+                echo "<input class='d-none' id='protipo' name='protipo' type='hidden' value='" . $protipo . "'>";
                 echo "<div class='card text-center border border-3 border-primary' style='width: 25rem;'>
                 <div class='card-body'>
                     <h4 class='card-title'>¡Atención!</h4>

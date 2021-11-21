@@ -19,9 +19,10 @@ $arregloProductos = $abmProducto->buscar(null);
             foreach ($arregloProductos as $unProducto) {
                 $nompro = $unProducto->getProNombre();
                 $detallepro = $unProducto->getProDetalle();
+                $tipopro = $unProducto->getProTipo();
                 $stockpro = $unProducto->getProStock();
-                $preciopro = $unProducto->getPrecio();
-                if ($detallepro != "Película") {
+                $preciopro = $unProducto->getProPrecio();
+                if ($tipopro != "pelicula") {
                     // $obj = new controlArchivos();
                     // $archivo = $obj->obtenerUnaImg($nompro);
                     echo    "<div class='d-grid col-lg-3 col-md-6 col-sm-4 mb-4 h-100'>
@@ -69,8 +70,8 @@ $arregloProductos = $abmProducto->buscar(null);
             <?php
             foreach ($arregloProductos as $unProducto) {
                 $nompro = $unProducto->getProNombre();
-                $detallepro = $unProducto->getProDetalle();
-                if ($detallepro == "Película") {
+                $tipopro = $unProducto->getProTipo();
+                if ($tipopro == "pelicula") {
                     $obj = new controlArchivos();
                     $archivo = $obj->obtenerUnaImg($nompro);
                     echo    "<div class='d-grid col-xl-2 col-lg-3 col-sm-4 mb-4'>

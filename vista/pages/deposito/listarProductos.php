@@ -25,6 +25,7 @@ $listaProducto = $objAbmProducto->buscar(null);
                             <th scope="">#</th>
                             <th scope="col">Nombre</th>
                             <th scope="col">Detalles</th>
+                            <th scope="col" class='text-center'>Tipo</th>
                             <th scope="col" class='text-center'>Stock</th>
                             <th scope="col" class='text-center'>Precio</th>
                             <th scope="col" class='text-center'>Editar</th>
@@ -39,20 +40,22 @@ $listaProducto = $objAbmProducto->buscar(null);
                             $id =  $objAbmProducto->getIdProducto();
                             $nombre = $objAbmProducto->getProNombre();
                             $detalle =  $objAbmProducto->getProDetalle();
+                            $tipo = $objAbmProducto->getProTipo();
                             $stock = $objAbmProducto->getProStock();
-                            $precio = $objAbmProducto->getPrecio();
+                            $precio = $objAbmProducto->getProPrecio();
 
                             echo '<tr class="align-middle">';
                             echo '<th scope="row">' . $i . '</th>';
                             echo '<td>' . $nombre .  '</td>';
-                            echo '<td>' . $detalle .  '</td>';
+                            echo '<td><div class="td-detalles">' . $detalle .  '</div></td>';
+                            echo '<td class="text-center">' . $tipo .  '</td>';
                             echo '<td class="text-center">' . $stock .  '</td>';
                             echo '<td class="text-center">' . $precio .  '</td>';
                             echo "<td  class='text-center'>
-                                <button type='submit' class='btn btn-success btn-sm' value='editar' name='accion' id='accion'>
+                                <button class='btn btn-success btn-sm' type='submit' value='" . $id . "' id='idproducto' name='idproducto' role='button'>
                                 <i class='fa fa-pen'> </i>
                                 </button>    
-                                <button class='btn btn-danger btn-sm' type='submit' value=" . $id . " formaction='eliminarProducto.php' name='idproducto' id='idproducto'>
+                                <button class='btn btn-danger btn-sm' type='submit' value='" . $id . "' id='idproducto' name='idproducto' role='button' formaction='eliminarProducto.php'>
                                 <i class='fas fa-trash-alt'></i>
                                 </button>
                             </td>";
@@ -70,7 +73,6 @@ $listaProducto = $objAbmProducto->buscar(null);
         </form>
     </div>
 </section>
-
 
 <?php
 include_once("../../estructura/pie.php");
