@@ -9,4 +9,4 @@
                           <b>Genero:</b> Comedia <br />
                           <b>Duración:</b> 86 minutos<br />
                           <b>Restricciones de edad:</b> Apta para todo público <br />
-                          <b>Sinopsis:</b> La película trata de cuatro animales del zoológico de Central Park, Nueva York, (Alex el león, Marty la cebra, Gloria la hipopótamo y Melman la jirafa) que han estado toda su vida en cautiverio a los que una serie de casualidades acaba dejándolos en plena naturaleza en la isla de Madagascar. Allí descubrirán que la vida salvaje no es tal y como se la imaginaban. <br />
+                          <b>Sinopsis:</b> La película trata de cuatro animales del zoológico de Central Park, Nueva York, (Alex el león, Marty la cebra, Gloria la hipopótamo y Melman la jirafa) que han estado toda su vida en cautiverio, a los que una serie de casualidades acaba dejándolos en plena naturaleza en la isla de Madagascar. Allí descubrirán que la vida salvaje no es tal y como se la imaginaban. <br />

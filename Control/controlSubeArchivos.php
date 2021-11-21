@@ -106,7 +106,7 @@ class controlArchivos
         $genero = $datos["genero"];
         $minutos = $datos["minutos"];
         $edad = $datos["edad"];
-        $sinopsis = $datos["sinopsis"];
+        $sinopsis = $datos["prodetalle"];
 
         if ($edad == "md") {
             $rEdad = "Mayores de 18 A&ntilde;os";
@@ -212,7 +212,6 @@ class controlArchivos
 
         return $datosArch;
     }
-
 
     public function obtenerContenido()
     {

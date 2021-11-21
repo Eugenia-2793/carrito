@@ -218,6 +218,13 @@ footer a:hover {
   white-space: nowrap;
 }
 
+div.td-detalles {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 300px;
+}
+
 /* Agregar Producto */
 div#agregarCombo,
 div#agregarPelícula {
