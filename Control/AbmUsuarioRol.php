@@ -14,7 +14,7 @@ class AbmUsuariorol
             $objrol->setIdrol($param['idrol']);
             $objrol->cargar();
 
-            $obj = new Usuariorol();
+            $obj = new UsuarioRol();
             $obj->setear($objusuario, $objrol);
         }
         return $obj;
@@ -26,9 +26,9 @@ class AbmUsuariorol
     {
         $obj = null;
 
-        if (isset($param[''])) {
-            $obj = new Usuariorol();
-            $obj->setear($param[''], null, null,);
+        if (isset($param['idusuario'])) {
+            $obj = new UsuarioRol();
+            $obj->setear($param['idusuario'], null);
         }
         return $obj;
     }
@@ -101,7 +101,7 @@ class AbmUsuariorol
             if (isset($param['idrol']))
                 $where .= " and idrol =" . $param['idrol'];
         }
-        $arreglo = Usuariorol::listar($where);
+        $arreglo = UsuarioRol::listar($where);
         return $arreglo;
     }
 
@@ -115,15 +115,15 @@ class AbmUsuariorol
     public function buscarRolesUsuario($elObjtUsuario)
     {
         $listaUsRol = [];
-        //Listo todos los obj usuariorol
-        $listaUsRol = $this->buscar(null);
-        if ($listaUsRol != "") {
+        $listaUsRol = $this->buscar(null); //obj usuariorol
+
+        if (count($listaUsRol)>0) { // $listaUsRol != ""
             $roles = [];
-            //Agrego todos los roles que tenga el usuario en el array $roles
+            //Agrego TODOS los roles que tenga el usuario en el array $roles
             foreach ($listaUsRol as $usuariorol) {
-                if ($usuariorol->getobjusuario()->getidusuario() == $elObjtUsuario->getidusuario()) {
+                if ($usuariorol->getobjusuario()->getidusuario() == $elObjtUsuario->getidusuario()){
                     //$roldescrip = $usuariorol->getobjrol()->getroldescripcion();
-                    $roldescrip = $usuariorol->getobjrol()->getidrol();
+                    $roldescrip = $usuariorol->getobjrol()->getroldescripcion();
                     array_push($roles, $roldescrip);
                 }
             }

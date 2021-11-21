@@ -11,6 +11,7 @@ class AbmRol
      */
     private function cargarObjeto($param)
     {
+        print_r($param);
         $obj = null;
         if (
             array_key_exists('idrol', $param)
@@ -33,7 +34,7 @@ class AbmRol
         $obj = null;
         if (isset($param['idrol'])) {
             $obj = new Rol();
-            $obj->setear($param['idrol'], "", ""); //???---------------------------2 o 3?
+            $obj->setear($param['idrol'], ""); //???---------------------------2 o 3?
         }
         return $obj;
     }
@@ -57,18 +58,12 @@ class AbmRol
      * ALTA
      * @param array $param
      */
-    public function alta($param)
-    {
+    public function alta($param){
         $resp = false;
-        $buscar2 = array();
-        $buscar2['idrol'] = $param['idrol'];
-        $encuentraPer = $this->buscar($buscar2);
-
-        if ($encuentraPer == null) {
-            $elObjtrol = $this->cargarObjeto($param);
-            if ($elObjtrol != null and $elObjtrol->insertar()) {
-                $resp = true;
-            }
+        $elObjtRol = $this->cargarObjeto($param);
+      
+        if ($elObjtRol!=null and $elObjtRol->insertar()){
+           $resp = true;
         }
         return $resp;
     }
@@ -128,7 +123,7 @@ class AbmRol
             if (isset($param['idrol']))
                 $where .= " and idrol =" . $param['idrol'];
             if (isset($param['rodescripcion']))
-                $where .= " and roldescripcion ='" . $param['rodescripcion'] . "'";
+                $where .= " and rodescripcion ='" . $param['rodescripcion'] . "'";
         }
         $arreglo = Rol::listar($where);
         return $arreglo;

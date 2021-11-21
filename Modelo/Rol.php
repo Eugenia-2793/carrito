@@ -81,7 +81,7 @@ class Rol
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "INSERT INTO rol(idrol,roldescripcion)  VALUES('" . $this->getidrol() . "','" . $this->getroldescripcion() . "');";
+        $sql = "INSERT INTO rol(idrol,rodescripcion)  VALUES('" . $this->getidrol() . "','" . $this->getroldescripcion() . "');";
         if ($base->Iniciar()) {
             if ($elid = $base->Ejecutar($sql)) {
                 $this->setidrol($elid);
@@ -101,7 +101,7 @@ class Rol
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "UPDATE rol SET roldescripcion='" . $this->getroldescripcion() . "'
+        $sql = "UPDATE rol SET rodescripcion='" . $this->getroldescripcion() . "'
         WHERE idrol=" . $this->getidrol();
         if ($base->Iniciar()) {
             //var_dump($sql);

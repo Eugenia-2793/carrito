@@ -14,7 +14,7 @@ class AbmCompra
         $obj = null;
         if (
             array_key_exists('idcompra', $param) and array_key_exists('cofecha', $param)
-            and array_key_exists('idusuario', $param)
+            and array_key_exists('idusuario', $param) and array_key_exists('comprecio', $param)
         ) {
 
             //creo objeto estadotipos
@@ -24,7 +24,7 @@ class AbmCompra
 
             //agregarle los otros objetos
             $obj = new Compra();
-            $obj->setear($param['idcompra'], $param['cofecha'], $objUsuario);
+            $obj->setear($param['idcompra'], $param['cofecha'], $objUsuario, $param['comprecio']);
         }
         return $obj;
     }
@@ -42,7 +42,7 @@ class AbmCompra
         $obj = null;
         if (isset($param['idcompra'])) {
             $obj = new Compra();
-            $obj->setear($param['idcompra'], null, null);
+            $obj->setear($param['idcompra'], null, null, null);
         }
         return $obj;
     }
@@ -136,6 +136,8 @@ class AbmCompra
                 $where .= " and cofecha =" . $param['cofecha'];
             if (isset($param['idusuario']))
                 $where .= " and idusuario ='" . $param['idusuario'] . "'";
+            if (isset($param['comprecio']))
+                $where .= " and comprecio =" . $param['comprecio'];    
         }
         $arreglo = Compra::listar($where);
         return $arreglo;

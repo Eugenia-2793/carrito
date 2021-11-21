@@ -3,6 +3,9 @@ $Titulo = "Contacto";
 include_once("../../estructura/cabecera.php");
 ?>
 
+<!--Libro de quejas-->
+
+
 <div class="form-signin mx-auto p-3 text-center">
     <form id="contacto" name="contacto" action="../accion/ac_contacto.php" method="POST" data-toggle="validator">
         <h2 class="h2 mb-3">Contacto</h2>

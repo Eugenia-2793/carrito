@@ -64,12 +64,27 @@ if ($sesion->activa()) {
                 <span class="navbar-toggler-icon"></span>
             </button>
             <!-- Collapsible wrapper -->
+
+           <!------------------------------------------------------------------>
+
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav align-items-lg-center me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="../../home/home/contacto.php">
                             <i class="fas fa-info-circle d-lg-none d-xl-none"></i>
                             <span>Contacto</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="../../pages/usuario/listar.php">
+                            <i class="fas fa-info-circle d-lg-none d-xl-none"></i>
+                            <span>usuarios</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="../../pages/roles/listar.php">
+                            <i class="fas fa-info-circle d-lg-none d-xl-none"></i>
+                            <span>roles</span>
                         </a>
                     </li>
                     <?php
@@ -131,19 +146,20 @@ if ($sesion->activa()) {
                             </a>
 
                             <div class='dropdown-menu dropdown-menu-end' aria-labelledby='navbarDropdown-Usuario'>
-                                <a class='dropdown-item' href='../../pages/perfil/perfil.php'>
+                                <a class='dropdown-item' href='../../pages/usuario/perfil.php'>
                                     <i class='fas fa-user'></i> Perfil
                                 </a>
-                                <a class='dropdown-item' href='../../pages/perfil/configuraciones.php'><i class='fas fa-cog'></i> Configuración</a>
 
                                 <div class='dropdown-divider'></div>
-
-                                <a class='dropdown-item logout' href='../../pages/login/cerrarSesion.php'><i class='fas fa-sign-out-alt'></i> Cerrar sesión</a>
+                                <a class='dropdown-item logout' href='../../pages/login/cerrarSesion.php'>
+                                   <i class='fas fa-sign-out-alt'></i> Cerrar sesión
+                                </a>
                             </div>
                         </li>";
                     }
                     ?>
                 </ul>
+
             </div>
         </div>
         <!-- Container wrapper -->

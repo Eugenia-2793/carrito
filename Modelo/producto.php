@@ -77,6 +77,7 @@ class Producto
         $this->proprecio = $proprecio;
     }
 
+
     public function getProTipo()
     {
         return $this->protipo;
@@ -85,6 +86,7 @@ class Producto
     {
         $this->protipo = $protipo;
     }
+
 
     public function getmensajeoperacion()
     {

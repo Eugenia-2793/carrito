@@ -6,6 +6,7 @@ class CompraItem
     private $idproducto;
     private $idcompra;
     private $cicantidad;
+    private $itemprecio;
     private $mensajeoperacion;
 
 
@@ -15,15 +16,17 @@ class CompraItem
         $this->idproducto = new Producto();
         $this->idcompra = new Compra();
         $this->cicantidad = "";
+        $this->itemprecio = "";
         $this->mensajeoperacion = "";
     }
 
-    public function setear($idcompraitem, $idproducto, $idcompra, $cicantidad)
+    public function setear($idcompraitem, $idproducto, $idcompra, $cicantidad, $itemprecio)
     {
         $this->setIdCompraItem($idcompraitem);
         $this->setIdProducto($idproducto);
         $this->setIdCompra($idcompra);
         $this->setCiCantidad($cicantidad);
+        $this->setitemPrecio($itemprecio);
     }
 
     public function getIdCompraItem()
@@ -61,6 +64,16 @@ class CompraItem
         $this->cicantidad = $cicantidad;
     }
 
+        public function getitemPrecio()
+    {
+        return $this->itemprecio;
+    }
+    public function setitemPrecio($itemprecio)
+    {
+        $this->itemprecio = $itemprecio;
+    }
+    
+
     public function getmensajeoperacion()
     {
         return $this->mensajeoperacion;
@@ -95,7 +108,7 @@ class CompraItem
                         $objCompra->cargar();
                     }
 
-                    $this->setear($row['idcompraitem'], $objProducto, $objCompra, $row['cicantidad']);
+                    $this->setear($row['idcompraitem'], $objProducto, $objCompra, $row['cicantidad'], $row['itemprecio']);
                     $resp = true;
                 }
             }
@@ -109,7 +122,7 @@ class CompraItem
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "INSERT INTO compraitem (idproducto, idcompra, cicantidad) VALUES ('{$this->getIdProducto()->getIdProducto()}','{$this->getIdCompra()->getIdCompra()}','{$this->getCiCantidad()}');";
+        $sql = "INSERT INTO compraitem (idproducto, idcompra, cicantidad, itemprecio) VALUES ('{$this->getIdProducto()->getIdProducto()}','{$this->getIdCompra()->getIdCompra()}','{$this->getCiCantidad()}', '{$this->getitemPrecio()}');";
         if ($base->Iniciar()) {
             if ($base = $base->Ejecutar($sql)) {
                 $this->setIdCompraItem($base);
@@ -127,7 +140,7 @@ class CompraItem
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "UPDATE compraitem SET idcompraitem='{$this->getIdCompraItem()}', idproducto='{$this->getIdProducto()->getIdProducto()}', idcompra='{$this->getIdCompra()->getIdCompra()}', cicantidad='{$this->getCiCantidad()}' WHERE idcompraitem='{$this->getIdCompraItem()}'";
+        $sql = "UPDATE compraitem SET idcompraitem='{$this->getIdCompraItem()}', idproducto='{$this->getIdProducto()->getIdProducto()}', idcompra='{$this->getIdCompra()->getIdCompra()}', cicantidad='{$this->getCiCantidad()}', itemprecio='{$this->getitemPrecio()}' WHERE idcompraitem='{$this->getIdCompraItem()}'";
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 $resp = true;
@@ -185,12 +198,12 @@ class CompraItem
                         $objCompra->cargar();
                     }
 
-                    $obj->setear($row['idcompraitem'], $objProducto, $objCompra, $row['cicantidad']);
+                    $obj->setear($row['idcompraitem'], $objProducto, $objCompra, $row['cicantidad'], $row['itemprecio']);
                     array_push($arreglo, $obj);
                 }
             }
         } else {
-            $this->setmensajeoperacion("CompraItem->listar: " . $base->getError());
+           // $this->setmensajeoperacion("CompraItem->listar: " . $base->getError());
         }
 
         return $arreglo;

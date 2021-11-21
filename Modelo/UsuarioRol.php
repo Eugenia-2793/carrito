@@ -1,5 +1,5 @@
 <?php
-class Usuariorol
+class UsuarioRol
 {
     private $idrol;
     private $idusuario;
@@ -153,7 +153,7 @@ class Usuariorol
                         $objRol->setIdrol($row['idrol']);
                         $objRol->cargar();
                     }
-                    $obj = new Usuariorol();
+                    $obj = new UsuarioRol();
                     $obj->setear($objUsuario, $objRol);
                     array_push($arreglo, $obj);
                 }
