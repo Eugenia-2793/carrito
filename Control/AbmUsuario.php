@@ -145,6 +145,7 @@ class AbmUsuario
     public function modificacion($param)
     {
         $resp = false;
+        $otra = false;
         if ($this->seteadosCamposClaves($param)) {
             $buscar2 = array();
             $buscar2['idusuario'] = $param['idusuario'];
@@ -155,8 +156,10 @@ class AbmUsuario
                 //$elUsuario[0]->setuspass($elUsuario[0]->getuspass());
                 $elUsuario[0]->setusmail($param['usmail']);
                 $elUsuario[0]->setusdeshabilitado($param['usdeshabilitado']);
-
                 if ($elUsuario[0] != null and $elUsuario[0]->modificar()) {
+                     //nueva parte agrego nuevo rol
+                    if($param['idrol'] <> null){ $otra= $this->altaUsuarioRolExistente($param); }
+                    //------------------------------
                     $resp = true;
                 }
             }

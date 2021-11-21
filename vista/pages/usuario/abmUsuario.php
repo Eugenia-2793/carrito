@@ -12,7 +12,6 @@ if (isset($datos['accion'])) {
     print_r($datos);
     $mensaje = "";
     if ($datos['accion'] == 'editar') {
-        
         if ($objTrans->modificacion($datos)) {
             $resp = true;
         } else {
