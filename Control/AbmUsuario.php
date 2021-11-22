@@ -63,7 +63,7 @@ class AbmUsuario
      */
     public function alta($param){
         $resp = false;
-        $param['idusuario'] =null;
+        $param['idusuario'] = null;
         $elObjtUsuario = $this->cargarObjeto($param);
         
         if ($elObjtUsuario!=null and $elObjtUsuario->insertar()){

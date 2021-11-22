@@ -76,23 +76,24 @@ $listaUsuario = $objAbmUsuario->listarUsuarios(null);
       </div>
       <div class="modal-body">
         <!----usnombre------->
-        <input id="idusuario" name="idusuario" value="" type="hidden">
-  
-                <?php
-                    $rol = new AbmRol();
-                    $objRoles = $rol->buscar(null);
-
-                    foreach ($objRoles as $unObjeto) {
-                        // echo  " <option id='idrol' name='idrol' value='" . $unObjeto->getidrol() . "'>" . $unObjeto->getroldescripcion() . "</option>";
-                        echo "<input type='radio'   id='" . $unObjeto->getidrol() . "'>" . $unObjeto->getroldescripcion() . "</br>";
-                      }
-                      // 
-                ?>
+        
+      
+        <?php 
+           echo ' <input id="idusuario" name="idusuario" value="' . $id . '" type="hidden">';
+         
+           foreach($objAbmUsuario [1] as $rol){
+              $roles = $roles. "". $rol. ' / ';
+              //echo "";
+              echo ' <input id="idrol" name="idrol" value="' . $rol. '" type="checkbox">'. $rol;
+        
+            }
+        ?>
 
         <!----------->
       </div>
       <div class="modal-footer">
-        <input class="btn btn-primary" id="accion" name="accion" value="editar" type="submit" formaction="abmUsuario.php"> 
+        <input class="btn btn-primary" id="accion" name="accion" value="guardar" type="submit" formaction="abmUsuario.php"> 
+        <input class="btn btn-primary" id="accion" name="accion" value="borrar" type="submit" formaction=""> 
       </div>
     </div>
   </div>
