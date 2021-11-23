@@ -27,7 +27,7 @@ class AbmMenuRol
         return $obj;
     }
 
-    
+
     /**
      * Espera como parametro un arreglo asociativo donde las claves 
      * coinciden con los nombres de las variables instancias del objeto que son claves
@@ -45,7 +45,7 @@ class AbmMenuRol
         return $obj;
     }
 
-   
+
     /**
      * Corrobora que dentro del arreglo asociativo estan seteados los campos claves
      * @param array $param
@@ -59,7 +59,7 @@ class AbmMenuRol
         return $resp;
     }
 
-    
+
     /**
      * Carga un objeto con los datos pasados por parámetro y lo 
      * Inserta en la base de datos
@@ -80,7 +80,7 @@ class AbmMenuRol
         return $resp;
     }
 
-    
+
     /**
      * Por lo general no se usa ya que se utiliza borrado lógico ( es decir pasar de activo a inactivo)
      * permite eliminar un objeto 
@@ -100,7 +100,7 @@ class AbmMenuRol
         return $resp;
     }
 
-   
+
     /**
      * Puede traer un obj específico o toda la lista si el parámetro es null
      * permite buscar un objeto
@@ -120,7 +120,7 @@ class AbmMenuRol
         return $arreglo;
     }
 
-    
+
     /** 
      * Busca todos los MenuRol correspondientes a un objMenu
      * lista todos los roles que tiene el Menu

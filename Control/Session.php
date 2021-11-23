@@ -50,30 +50,32 @@ class Session
     }
 
     /** DAR PERMISO AL ADMINISTRADOR **/
-    public function esAdministrador(){ 
-        $resp=false; 
-        $roles= $_SESSION["rol"];
+    public function esAdministrador()
+    {
+        $resp = false;
+        $roles = $_SESSION["rol"];
 
-        foreach($roles as $rol){
-            if($rol=="administrador"){
-                $resp=true;
+        foreach ($roles as $rol) {
+            if ($rol == "Administrador") {
+                $resp = true;
             }
         }
-        return $resp; 
+        return $resp;
     }
 
     /** DAR PERMISO AL DEPOSITADOR **/
-        public function esDeposito(){ 
-            $resp=false; 
-            $roles= $_SESSION["rol"];
-    
-            foreach($roles as $rol){
-                if($rol=="deposito"){
-                    $resp=true;
-                }
+    public function esDeposito()
+    {
+        $resp = false;
+        $roles = $_SESSION["rol"];
+
+        foreach ($roles as $rol) {
+            if ($rol == "Deposito") {
+                $resp = true;
             }
-            return $resp; 
         }
+        return $resp;
+    }
 
 
 

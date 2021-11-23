@@ -18,9 +18,7 @@ if (isset($datos['accion'])) {
 
     /***  EDITAR ***/
     if ($datos['accion'] == 'editar') {
-        var_dump($datos);
         if ($objProducto->modificacion($datos)) {
-            echo "entre";
             $obj = new controlArchivos();
             $mensaje = $obj->control_portada($datos['pronombre']);
             $link = $mensaje['imagen']['link'];

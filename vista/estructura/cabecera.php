@@ -33,6 +33,11 @@ if ($sesion->activa()) {
         header('Location: ../../pages/login/cerrarSesion.php');
     }
 }
+
+// Obtengo los roles del usuario
+$abmmenu = new AbmMenu;
+$menus = $abmmenu->buscar(null);
+
 ?>
 
 <!DOCTYPE html>
@@ -65,31 +70,20 @@ if ($sesion->activa()) {
             </button>
             <!-- Collapsible wrapper -->
 
-           <!------------------------------------------------------------------>
+            <!------------------------------------------------------------------>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav align-items-lg-center me-auto mb-2 mb-lg-0">
+                    <!-- Contacto -->
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="../../home/home/contacto.php">
                             <i class="fas fa-info-circle d-lg-none d-xl-none"></i>
                             <span>Contacto</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="../../pages/usuario/listar.php">
-                            <i class="fas fa-info-circle d-lg-none d-xl-none"></i>
-                            <span>usuarios</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="../../pages/roles/listar.php">
-                            <i class="fas fa-info-circle d-lg-none d-xl-none"></i>
-                            <span>roles</span>
-                        </a>
-                    </li>
                     <?php
                     /* Mostramos los roles según corresponda */
-                    if ($sesion->activa()) {
+                    /*if ($sesion->activa()) {
                         echo "<!-- Icon Roles -->
                         <li class='nav-item dropdown'>
                             <a class='nav-link dropdown-toggle' href='#' id='navbarDropdown-Visitante' role='button' data-bs-toggle='dropdown' aria-expanded='false'>
@@ -98,21 +92,39 @@ if ($sesion->activa()) {
     
                             <div class='dropdown-menu dropdown-menu-end' aria-labelledby='navbarDropdown-Visitante'>";
                         for ($i = 0; $i < count($idrol); $i++) {
-                            switch ($idrol[$i]) {
-                                case "1":
-                                    echo "<a class='dropdown-item' href='#'><i class='fas fa-crown'></i> Administrador</a>";
-                                    break;
-                                case "2":
-                                    echo "<a class='dropdown-item' href='#'><i class='fas fa-archive'></i> Deposito</a>";
-                                    break;
-                                case "3":
-                                    echo "<a class='dropdown-item' href='#'><i class='fas fa-user-tie'></i> Cliente</a>";
-                                    break;
-                            }
+                            // Obtengo los menurol
+                            $abmmenurol = new AbmMenuRol;
+                            $unMenuRol = array();
+                            $unMenuRol['idrol'] = $idrol[$i];
+                            $menurol = $abmmenurol->buscar($unMenuRol);
+                            $nombreMenu = $menurol[0]->getIdMenu()->getMeNombre();
+                            echo "<a class='dropdown-item' href='#'>" . $nombreMenu . "</a>";
                         }
                         echo "</div>
                         </li>";
+                    }*/
+
+
+                    /** PRUEBA SELECT **/
+                    if ($sesion->activa()) {
+                        echo "<!-- Icon Roles -->
+                        <li class='nav-item dropdown'>
+                        <form action='' method='post'>
+                        <select id='selectRol' name='selectRol' class='form-select' aria-label='Seleccionar Rol' onchange='this.form.submit()'>
+                        <option value=''>Seleccione un Rol</option>";
+                        for ($i = 0; $i < count($idrol); $i++) {
+                            // Obtengo los menurol
+                            $abmmenurol = new AbmMenuRol;
+                            $unMenuRol = array();
+                            $unMenuRol['idrol'] = $idrol[$i];
+                            $menurol = $abmmenurol->buscar($unMenuRol);
+                            $idmenu = $menurol[0]->getIdMenu()->getIdMenu();
+                            $nombreMenu = $menurol[0]->getIdMenu()->getMeNombre();
+                            echo "<option value='" . $idmenu . "'>" . $nombreMenu . "</option>";
+                        }
+                        echo "</select></form>";
                     }
+
                     ?>
                 </ul>
                 <ul class="navbar-nav align-items-lg-center d-flex">
@@ -147,10 +159,41 @@ if ($sesion->activa()) {
 
                             <div class='dropdown-menu dropdown-menu-end' aria-labelledby='navbarDropdown-Usuario'>
                                 <a class='dropdown-item' href='../../pages/usuario/perfil.php'>
-                                    <i class='fas fa-user'></i> Perfil
-                                </a>
+                                    Ver Perfil
+                                </a>";
+                        $selectRol = "";
+                        for ($i = 0; $i < count($idrol); $i++) {
+                            // Obtengo los menurol
+                            $abmmenurol = new AbmMenuRol;
+                            $unMenuRol = array();
+                            $unMenuRol['idrol'] = $idrol[$i];
+                            $menurol = $abmmenurol->buscar($unMenuRol);
+                            $idmenu = $menurol[0]->getIdMenu()->getIdMenu();
+                            // Obtenemos los submenus
+                            $abmMenus = new AbmMenu;
+                            $unMenu = array();
+                            $unMenu['idpadre'] = $idmenu;
+                            $menus = $abmMenus->buscar($unMenu);
+                            if (isset($_POST["selectRol"])) {
+                                $selectRol = $_POST["selectRol"];
+                                if ((count($menus) > 0) && ($idmenu == $selectRol)) {
+                                    echo "<div class='dropdown-divider'></div>";
+                                }
+                                foreach ($menus as $subMenu) {
+                                    $nombreSubMenu = $subMenu->getMeNombre();
+                                    $padreSubMenu = $subMenu->getIdPadre();
+                                    $rutaSubMenu = $subMenu->getMeDescripcion();
 
-                                <div class='dropdown-divider'></div>
+                                    if ($padreSubMenu == $selectRol) {
+                                        echo "<a id='" . $padreSubMenu . "' class='dropdown-item' href='" . $rutaSubMenu . "'>
+                                                " . $nombreSubMenu . "
+                                            </a>";
+                                    }
+                                }
+                            }
+                        }
+
+                        echo "<div class='dropdown-divider'></div>
                                 <a class='dropdown-item logout' href='../../pages/login/cerrarSesion.php'>
                                    <i class='fas fa-sign-out-alt'></i> Cerrar sesión
                                 </a>

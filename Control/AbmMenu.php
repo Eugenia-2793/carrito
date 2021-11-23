@@ -20,8 +20,8 @@ class AbmMenu
         return $obj;
     }
 
-  
-    
+
+
     /**
      * Espera como parametro un arreglo asociativo donde las claves 
      * coinciden con los nombres de las variables instancias del objeto que son claves
@@ -39,8 +39,8 @@ class AbmMenu
         return $obj;
     }
 
-    
-    
+
+
     /**
      * Corrobora que dentro del arreglo asociativo estan seteados los campos claves
      * @param array $param
@@ -54,8 +54,8 @@ class AbmMenu
         return $resp;
     }
 
-    
-    
+
+
     /**
      * Carga un objeto con los datos pasados por parámetro y lo 
      * Inserta en la base de datos
@@ -74,8 +74,8 @@ class AbmMenu
         return $resp;
     }
 
-    
-    
+
+
     /**
      * Por lo general no se usa ya que se utiliza borrado lógico ( es decir pasar de activo a inactivo)
      * permite eliminar un objeto 
@@ -94,8 +94,8 @@ class AbmMenu
         return $resp;
     }
 
-    
-    
+
+
     /**
      * Carga un obj con los datos pasados por parámetro y lo modifica en base de datos (update)
      * @param array $param
@@ -114,8 +114,8 @@ class AbmMenu
         return $resp;
     }
 
-   
-    
+
+
     /**
      * Puede traer un obj específico o toda la lista si el parámetro es null
      * permite buscar un objeto

@@ -110,19 +110,43 @@ class AbmUsuariorol
      * Busca todos los usuariorol correspondientes a un objusuario
      * Lista todos los roles que tiene el usuario
      * @param object
-     * @return array devuelve las descripciones de cada rol de dicho usuario
+     * @return array devuelve los id de cada rol de dicho usuario
      */
     public function buscarRolesUsuario($elObjtUsuario)
     {
         $listaUsRol = [];
         $listaUsRol = $this->buscar(null); //obj usuariorol
 
-        if (count($listaUsRol)>0) { // $listaUsRol != ""
+        if (count($listaUsRol) > 0) { // $listaUsRol != ""
             $roles = [];
             //Agrego TODOS los roles que tenga el usuario en el array $roles
             foreach ($listaUsRol as $usuariorol) {
-                if ($usuariorol->getobjusuario()->getidusuario() == $elObjtUsuario->getidusuario()){
-                    //$roldescrip = $usuariorol->getobjrol()->getroldescripcion();
+                if ($usuariorol->getobjusuario()->getidusuario() == $elObjtUsuario->getidusuario()) {
+                    $rolid = $usuariorol->getobjrol()->getidrol();
+                    array_push($roles, $rolid);
+                }
+            }
+        }
+        return $roles;
+    }
+
+
+    /** 
+     * Busca todos los usuariorol correspondientes a un objusuario
+     * Lista todos los roles que tiene el usuario
+     * @param object
+     * @return array devuelve las descripciones de cada rol de dicho usuario
+     */
+    public function buscarDesRolesUsuario($elObjtUsuario)
+    {
+        $listaUsRol = [];
+        $listaUsRol = $this->buscar(null); //obj usuariorol
+
+        if (count($listaUsRol) > 0) { // $listaUsRol != ""
+            $roles = [];
+            //Agrego TODOS los roles que tenga el usuario en el array $roles
+            foreach ($listaUsRol as $usuariorol) {
+                if ($usuariorol->getobjusuario()->getidusuario() == $elObjtUsuario->getidusuario()) {
                     $roldescrip = $usuariorol->getobjrol()->getroldescripcion();
                     array_push($roles, $roldescrip);
                 }

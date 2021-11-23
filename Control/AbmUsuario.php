@@ -11,7 +11,7 @@ class AbmUsuario
      */
     private function cargarObjeto($param)
     {
-      
+
         $obj = null;
         if (
             array_key_exists('idusuario', $param)
@@ -57,22 +57,23 @@ class AbmUsuario
         return $resp;
     }
 
-      /**
+    /**
      * ALTA
      * @param array $param
      */
-    public function alta($param){
+    public function alta($param)
+    {
         $resp = false;
-        $param['idusuario'] =null;
+        $param['idusuario'] = null;
         $elObjtUsuario = $this->cargarObjeto($param);
-        
-        if ($elObjtUsuario!=null and $elObjtUsuario->insertar()){
+
+        if ($elObjtUsuario != null and $elObjtUsuario->insertar()) {
             //nuevo--------------------------------------------
             //Recupero id nueva del objeto insertado //rol name nuevoRol
             $param['idusuario'] = $elObjtUsuario->getidusuario();
-            $resp= $this->altaUsuarioRolIngresante($param);
+            $resp = $this->altaUsuarioRolIngresante($param);
             //---------------------------------------------------
-           $resp = true;
+            $resp = true;
         }
         return $resp;
     }
@@ -86,17 +87,18 @@ class AbmUsuario
      * @param array $param
      * @return boolean
      */
-    public function altaUsuarioRolIngresante($datos){
-        $resp= false;
-   
-        $usuarioRol= new AbmUsuariorol();
-        $param= ['idusuario'=>$datos['idusuario'],'idrol'=> 3];
-        if($usuarioRol->alta($param)){
-            $resp=true;
+    public function altaUsuarioRolIngresante($datos)
+    {
+        $resp = false;
+
+        $usuarioRol = new AbmUsuariorol();
+        $param = ['idusuario' => $datos['idusuario'], 'idrol' => 3];
+        if ($usuarioRol->alta($param)) {
+            $resp = true;
         }
-    
+
         return $resp;
-     }
+    }
 
 
     /**
@@ -105,19 +107,20 @@ class AbmUsuario
      * @param array $datos array de datos de todo el obj usuario + nuevoRol
      * @return boolean
      */
-    public function altaUsuarioRolExistente($datos){
-        $resp= false;
-            
-        $usuarioRol= new AbmUsuariorol();
-        $param= ['idusuario'=>$datos['idusuario'],'idrol'=> $datos['nuevoRol']];
-            if($usuarioRol->alta($param)){
-                $resp=true;
-           }
+    public function altaUsuarioRolExistente($datos)
+    {
+        $resp = false;
+
+        $usuarioRol = new AbmUsuariorol();
+        $param = ['idusuario' => $datos['idusuario'], 'idrol' => $datos['nuevoRol']];
+        if ($usuarioRol->alta($param)) {
+            $resp = true;
+        }
         return $resp;
-     }
+    }
 
 
-//-------------------------------------------------------------
+    //-------------------------------------------------------------
 
     /**
      * BAJA 
@@ -157,8 +160,10 @@ class AbmUsuario
                 $elUsuario[0]->setusmail($param['usmail']);
                 $elUsuario[0]->setusdeshabilitado($param['usdeshabilitado']);
                 if ($elUsuario[0] != null and $elUsuario[0]->modificar()) {
-                     //nueva parte agrego nuevo rol
-                    if($param['idrol'] <> null){ $otra= $this->altaUsuarioRolExistente($param); }
+                    //nueva parte agrego nuevo rol
+                    if ($param['idrol'] <> null) {
+                        $otra = $this->altaUsuarioRolExistente($param);
+                    }
                     //------------------------------
                     $resp = true;
                 }
@@ -200,24 +205,23 @@ class AbmUsuario
      *
      * @return array multidimensional con arrays de objusuario/ array con sus roles
      */
-    public function listarUsuarios($param){
-        $listaActivos=[];
+    public function listarUsuarios($param)
+    {
+        $listaActivos = [];
         $listaUsuarios = $this->buscar($param);
-        if(count($listaUsuarios)>0){
-        foreach ($listaUsuarios as $usuario){
-     
-               $roles=[];
-               // $datosUSuario va a guardar un obj usuario y un array de roles de dicho usuario
-               $datosUsuario=[];
-                $usuarioRol= new AbmUsuarioRol();
-                $roles=$usuarioRol->buscarRolesUsuario($usuario);
-                array_push($datosUsuario,$usuario);
-                array_push($datosUsuario,$roles);
+        if (count($listaUsuarios) > 0) {
+            foreach ($listaUsuarios as $usuario) {
+
+                $roles = [];
+                // $datosUSuario va a guardar un obj usuario y un array de roles de dicho usuario
+                $datosUsuario = [];
+                $usuarioRol = new AbmUsuarioRol();
+                $roles = $usuarioRol->buscarDesRolesUsuario($usuario);
+                array_push($datosUsuario, $usuario);
+                array_push($datosUsuario, $roles);
                 array_push($listaActivos, $datosUsuario);
-                       
+            }
         }
-    }
         return $listaActivos;
     }
-
 }//clase
