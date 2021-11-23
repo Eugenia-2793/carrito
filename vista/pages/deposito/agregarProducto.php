@@ -185,7 +185,7 @@ include_once("../../estructura/cabecera.php");
             <div class="row mx-md-3 justify-content-center justify-content-sm-start mb-3">
                 <div class="col-md-12">
                     <label for=" sinopsis">Sinopsis</label>
-                    <textarea class="form-control" id="sinopsis" name="sinopsis" placeholder="Ingrese la sinopsis de la película" required></textarea>
+                    <textarea class="form-control" id="prodetalle" name="prodetalle" placeholder="Ingrese la sinopsis de la película" required></textarea>
                     <div class="invalid-feedback">
                         Debe ingresarse la sinopsis de la película
                     </div>
@@ -205,7 +205,6 @@ include_once("../../estructura/cabecera.php");
             <input id="accion" name="accion" value="crear" type="hidden">
             <input id="idproducto" name="idproducto" value="DEFAULT" type="hidden">
             <input id="protipo" name="protipo" value="pelicula" type="hidden">
-            <input id="prodetalle" name="prodetalle" value="Una peli..." type="hidden">
             <!-- Botón enviar -->
             <div class="d-grid gap-2 col-8 col-sm-4 col-md-3 mx-auto mb-5">
                 <input id="btn_agregarPelicula" class="btn btn-primary btn-lg" name="btn_agregarPelicula" type="submit" value="Enviar">

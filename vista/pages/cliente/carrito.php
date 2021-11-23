@@ -17,11 +17,10 @@ if (!$sesion->activa()) {
     list($sesionValidar, $error) = $sesion->validar();
     if ($sesionValidar) {
         $user = $sesion->getUsuario();
-        $name = $user->getusnombre();
-        $mail = $user->getusmail();
         $usrol = $sesion->getRol();
         $rol = $usrol[0]->getobjrol();
         $descrp = $rol->getroldescripcion();
+        var_dump($descrp);
         $Titulo = "Carrito";
         include_once("../../estructura/cabecera.php");
     } else {

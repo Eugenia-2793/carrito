@@ -13,7 +13,7 @@ class controlArchivos
         $retorno['imagen']['error'] = "";
 
         /* Reemplazamos los espacios vacios por _ para evitar problemas al subir el archivo */
-        $nombre = str_replace(" ", "_", $nombre);
+        $nombreImg = str_replace(" ", "_", $nombreImg);
         /* Obtenemos la extensión para reemplazar el nombre por el que entra por parametro */
         $pos = mb_strripos($nombre, ".");
         $cant = strlen($nombre);
@@ -84,6 +84,8 @@ class controlArchivos
     public function crearDescripcionPelicula($nombre)
     {
         $dir = "../../../uploads/";
+        /* Reemplazamos los espacios vacios por _ para evitar problemas al subir el archivo */
+        $nombre = str_replace(" ", "_", $nombre);
         //$pos = mb_strripos($nombre, ".");
         $texto = $this->verInformacion($_POST);
         //$name = substr($nombre, 0, $pos) . ".txt";

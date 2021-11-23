@@ -103,10 +103,16 @@ CREATE TABLE `menu` (
 --
 
 INSERT INTO `menu` (`idmenu`, `menombre`, `medescripcion`, `idpadre`, `medeshabilitado`) VALUES
-(1, 'acciones', 'menu de operaciones', NULL, NULL),
-(2, 'administrador', 'menu de rol administrador', 1, NULL),
-(3, 'deposito', 'menu del usuario deposito', 1, NULL),
-(4, 'cliente', 'menu del usuario cliente', 1, NULL);
+(0, 'Principal', 'menu padre de los roles', NULL, NULL),
+(1, 'Administrador', 'menu de rol administrador', 0, NULL),
+(2, 'Deposito', 'menu del rol deposito', 0, NULL),
+(3, 'Cliente', 'menu del rol cliente', 0, NULL),
+(4, 'Listar Usuarios', 'lista usuarios', 1, NULL),
+(5, 'Listar Roles', 'lista roles', 1, NULL),
+(6, 'Listar Productos', 'lista productos', 2, NULL),
+(7, 'Agregar Usuario', 'agregar usuario', 1, NULL),
+(8, 'Agregar Rol', 'agregar rol', 1, NULL),
+(9, 'Agregar Producto', 'agregar producto', 2, NULL);
 
 -- --------------------------------------------------------
 
@@ -124,9 +130,9 @@ CREATE TABLE `menurol` (
 --
 
 INSERT INTO `menurol` (`idmenu`, `idrol`) VALUES
-(2, 1),
-(3, 2),
-(4, 3);
+(1, 1),
+(2, 2),
+(3, 3);
 
 -- --------------------------------------------------------
 
@@ -136,11 +142,25 @@ INSERT INTO `menurol` (`idmenu`, `idrol`) VALUES
 
 CREATE TABLE `producto` (
   `idproducto` bigint(20) NOT NULL,
-  `pronombre` int(11) NOT NULL,
+  `pronombre` varchar(30) NOT NULL,
+  `protipo` varchar(20) NOT NULL,
   `prodetalle` varchar(512) NOT NULL,
   `procantstock` int(11) NOT NULL,
-  `precio` int(11) NOT NULL
+  `proprecio` int(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `producto`
+--
+
+INSERT INTO `producto` (`idproducto`, `pronombre`, `protipo`, `prodetalle`, `procantstock`, `proprecio`) VALUES
+(1, 'Hachiko', 'pelicula', 'Perrito', 5, 350),
+(2, 'Watchmen', 'pelicula', 'Vigilantes', 15, 350),
+(3, 'Combo 1', 'combo', '2 gaseosas grandes + 1 pochoclo grande', 20, 300),
+(4, 'Combo 2', 'combo', '2 gaseosas medianas + 1 pochoclo mediano', 15, 250),
+(5, 'Combo 3', 'combo', '2 gaseosas medianas + 2 choripanes', 20, 400),
+(6, 'Madagascar', 'pelicula', 'La película trata de cuatro animales del zoológico de Central Park, Nueva York, (Alex el león, Marty la cebra, Gloria la hipopótamo y Melman la jirafa) que han estado toda su vida en cautiverio, a los que una serie de casualidades acaba dejándolos en plena naturaleza en la isla de Madagascar. Allí descubrirán que la vida salvaje no es tal y como se la imaginaban.', 30, 500),
+(7, 'Black Widow', 'pelicula', 'En 1995, los agentes secretos rusos, el supersoldado Alexei Shostakov y la Viuda Negra Melina Vostokoff, se hacen pasar por una familia normal en Ohio con sus hijas de alquiler Natasha Romanoff y Yelena Belova. Cuando la misión de robar información de S.H.I.E.L.D. se completa, la familia escapa a Cuba y se reúne con su jefe, el general Dreykov, que hace que Romanoff y Belova sean llevadas a la Habitación Roja para su entrenamiento.', 20, 600);
 
 -- --------------------------------------------------------
 
@@ -158,9 +178,9 @@ CREATE TABLE `rol` (
 --
 
 INSERT INTO `rol` (`idrol`, `rodescripcion`) VALUES
-(1, 'administrador'),
-(2, 'deposito'),
-(3, 'cliente');
+(1, 'Administrador'),
+(2, 'Deposito'),
+(3, 'Cliente');
 
 -- --------------------------------------------------------
 
@@ -182,11 +202,9 @@ CREATE TABLE `usuario` (
 
 INSERT INTO `usuario` (`idusuario`, `usnombre`, `uspass`, `usmail`, `usdeshabilitado`) VALUES
 (0, 'Eugenia', 123456, 'eugenia@gmail.com', '0000-00-00 00:00:00'),
-(1, 'Maria', 123456, 'maria@gmail.com', '2021-11-01 14:40:33'),
-(2, 'Eldepo', 123456, 'eldepo@gmail.com', '0000-00-00 00:00:00'),
-(3, 'flor', 123456, 'flor@gmail.com', '2021-11-12 03:00:00'),
-(4, 'nohabilitado', 'conletrastambien', 'nohabilitado@gmail.com', '0000-00-00 00:00:00'),
-(5, 'hoy12', 123456, 'hoy12@gmail.com', '2021-11-26 03:00:00');
+(1, 'Aoshi', 123456, 'aoshi@gmail.com', '0000-00-00 00:00:00'),
+(2, 'Salome', 123456, 'salome@gmail.com', '0000-00-00 00:00:00'),
+(3, 'Bhima', 'bhima123', 'bhima@gmail.com', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -206,14 +224,12 @@ CREATE TABLE `usuariorol` (
 INSERT INTO `usuariorol` (`idusuario`, `idrol`) VALUES
 (0, 1),
 (1, 1),
+(1, 2),
+(1, 3),
 (2, 2),
-(2, 3),
-(3, 3),
-(4, 3),
-(5, 3);
---
--- Índices para tablas volcadas
---
+(3, 3);
+
+-- --------------------------------------------------------
 
 --
 -- Indices de la tabla `compra`
