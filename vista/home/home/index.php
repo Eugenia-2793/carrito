@@ -19,12 +19,13 @@ $arregloProductos = $abmProducto->buscar(null);
             foreach ($arregloProductos as $unProducto) {
                 $nompro = $unProducto->getProNombre();
                 $detallepro = $unProducto->getProDetalle();
+                $tipopro = $unProducto->getProTipo();
                 $stockpro = $unProducto->getProStock();
-                $preciopro = $unProducto->getPrecio();
-                if ($detallepro != "Película") {
+                $preciopro = $unProducto->getProPrecio();
+                if ($tipopro != "pelicula") {
                     // $obj = new controlArchivos();
                     // $archivo = $obj->obtenerUnaImg($nompro);
-                    echo    "<div class='d-grid col-lg-3 col-md-6 col-sm-4 mb-4 h-100'>
+                    echo    "<div class='d-grid col-lg-3 col-md-4 col-sm-6 mb-4 h-100'>
                                 <div class='imgProducto'> <img class='img-fluid' alt='$nompro' src='../../img/imageCap.jpg' width='100%'></div>
                                 <div class='d-grid align-items-end'>
                                     <input type='submit' name='Seleccion:$nompro' id='Seleccion:$nompro' class='btn btn-verProducto text-uppercase fw-bold' value='$nompro'>
@@ -52,9 +53,9 @@ $arregloProductos = $abmProducto->buscar(null);
             if ($sesion->activa()) {
                 $bandera = false;
                 for ($i = 0; $i < count($idrol) && !$bandera; $i++) {
-                    if ($idrol[$i] == "1" || $idrol[$i] == "2") {
+                    if ($selectRol == "2") {
                         echo "<div id='agregarPelis' class='d-grid col-lg-3 col-md-6 col-sm-4 mb-4'>
-                            <a class='btn d-flex justify-content-center align-items-center fs-1 bg-light rounded' href='../../pages/deposito/agregarProducto.php' role='button'><i class='fas fa-plus'></i></a>
+                            <a class='btn d-flex justify-content-center align-items-center fs-1 bg-light rounded' href='../../pages/Deposito/agregarProducto.php' role='button'><i class='fas fa-plus'></i></a>
                         </div>";
                         $bandera = true;
                     }
@@ -69,8 +70,8 @@ $arregloProductos = $abmProducto->buscar(null);
             <?php
             foreach ($arregloProductos as $unProducto) {
                 $nompro = $unProducto->getProNombre();
-                $detallepro = $unProducto->getProDetalle();
-                if ($detallepro == "Película") {
+                $tipopro = $unProducto->getProTipo();
+                if ($tipopro == "pelicula") {
                     $obj = new controlArchivos();
                     $archivo = $obj->obtenerUnaImg($nompro);
                     echo    "<div class='d-grid col-xl-2 col-lg-3 col-sm-4 mb-4'>
@@ -86,9 +87,9 @@ $arregloProductos = $abmProducto->buscar(null);
             if ($sesion->activa()) {
                 $bandera = false;
                 for ($i = 0; $i < count($idrol) && !$bandera; $i++) {
-                    if ($idrol[$i] == "1" || $idrol[$i] == "2") {
+                    if ($selectRol == "2") {
                         echo "<div id='agregarPelis' class='d-grid col-xl-2 col-lg-3 col-sm-4 mb-4'>
-                            <a class='btn d-flex justify-content-center align-items-center fs-1 bg-light rounded' href='../../pages/deposito/agregarProducto.php' role='button'><i class='fas fa-plus'></i></a>
+                            <a class='btn d-flex justify-content-center align-items-center fs-1 bg-light rounded' href='../../pages/Deposito/agregarProducto.php' role='button'><i class='fas fa-plus'></i></a>
                         </div>";
                         $bandera = true;
                     }
@@ -99,32 +100,6 @@ $arregloProductos = $abmProducto->buscar(null);
         <!-- Fin Cartelera -->
     </form>
 
-
-    <!-- Lista de productos -->
-    <!-- <div class="row row-cols-1 row-cols-md-3">
-        <div class="col mb-4">
-            <div class="card h-100">-->
-    <!-- Imagen Producto -->
-    <!--<img src="../../img/imageCap.jpg" class="card-img-top" alt="unProducto">-->
-    <!-- Nombre y Descripción del Producto -->
-    <!--<div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
-                </div>-->
-    <!-- Botones para añadir, modificar o eliminar Producto -->
-    <!--<div class="card-footer">
-                    <div class="d-grid gap-2">
-                        <button type="button" class="btn btn-primary">Añadir al Carrito <i class="fas fa-cart-plus"></i></button>
-
-                        <div class="btn-group btn-group-sm btn-block" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-success">Modificar</button>
-                            <button type="button" class="btn btn-danger">Eliminar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
 </div>
 
 

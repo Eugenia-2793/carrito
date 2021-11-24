@@ -15,20 +15,32 @@ $objProducto = new AbmProducto();
 /* Acción que permite: cargar un nuevo producto, borrar/deshabilitar y editar */
 if (isset($datos['accion'])) {
     $mensaje = "";
-    /* Editar */
+
+    /***  EDITAR ***/
     if ($datos['accion'] == 'editar') {
         if ($objProducto->modificacion($datos)) {
+            $obj = new controlArchivos();
+            $mensaje = $obj->control_portada($datos['pronombre']);
+            $link = $mensaje['imagen']['link'];
+            $error = $mensaje['imagen']['error'];
+
+            if ($datos['protipo'] == 'pelicula') {
+                $obj2 = new controlArchivos();
+                $obj2->crearDescripcionPelicula($datos['pronombre']);
+                $respuesta = $obj2->verInformacion($_POST);
+            }
             $resp = true;
         } else {
             $mensaje = "<b>ERROR: </b>";
         }
     }
-    /* Deshabilitar */
-    if ($datos['accion'] == 'deshabilitar') {
+
+    /*** DESHABILITAR ***/
+    /*if ($datos['accion'] == 'deshabilitar') {
         $datos['pronombre'] = $obj->getProNombre();
         $datos['procantstock'] = $obj->getProStock();
         $datos['prodetalle'] = $obj->getProDetalle();
-        $datos['precio'] = $obj->getPrecio();
+        $datos['precio'] = $obj->getProPrecio();
         if ($obj->getProDeshabilitado()) {
             $datos['prodeshabilitado'] = 0;
         } else {
@@ -39,12 +51,13 @@ if (isset($datos['accion'])) {
         } else {
             $mensaje = "<b>ERROR: </b>";
         }
-    }
-    /* Borrar */
+    }*/
+
+    /*** BORRAR ***/
     if ($datos['accion'] == 'borrar') {
         if ($objProducto->baja($datos)) {
             /* Si es una película debemos borrar los archivos también */
-            if ($datos['tipo'] == 'pelicula') {
+            if ($datos['protipo'] == 'pelicula') {
                 $obj2 = new controlArchivos();
                 $obj2->borrarArchivos($datos['pronombre']);
             }
@@ -53,7 +66,8 @@ if (isset($datos['accion'])) {
             $mensaje = "<b>ERROR: </b>";
         }
     }
-    /* Crear */
+
+    /*** AGREGAR / CREAR ***/
     if ($datos['accion'] == 'crear') {
         if ($objProducto->alta($datos)) {
             $obj = new controlArchivos();
@@ -61,7 +75,7 @@ if (isset($datos['accion'])) {
             $link = $mensaje['imagen']['link'];
             $error = $mensaje['imagen']['error'];
 
-            if ($datos['tipo'] == 'pelicula') {
+            if ($datos['protipo'] == 'pelicula') {
                 $obj2 = new controlArchivos();
                 $obj2->crearDescripcionPelicula($datos['pronombre']);
                 $respuesta = $obj2->verInformacion($_POST);
@@ -71,6 +85,7 @@ if (isset($datos['accion'])) {
             $mensaje = "<b>ERROR:</b> ¡Este producto ya existe! <br>";
         }
     }
+
     if ($resp) {
         $mensaje = "La acción <b>" . $datos['accion'] . " producto</b> se realizo correctamente.";
     } else {
@@ -92,7 +107,7 @@ $encuentraError = strpos(strtoupper($mensaje), 'ERROR');
                 </div>";
         } else {
             if ($datos['accion'] == 'crear') {
-                if ($datos['tipo'] == 'pelicula') {
+                if ($datos['protipo'] == 'pelicula') {
                     echo "<div class='alert alert-dark' role='alert'>
                             <div class='row px-2 my-3'>
                                 <div class='col-lg-7 col-xl-8'>$respuesta</div>

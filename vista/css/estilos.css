@@ -28,6 +28,35 @@ h6 {
   background-color: #9d0a3c;
 }
 
+/* Select Rol */
+select#selectRol {
+  appearance: none;
+  border: 0;
+  outline: 0;
+  height: 2.2em;
+  padding: 0 4em 0 1em;
+  background: url(https://upload.wikimedia.org/wikipedia/commons/9/9d/Caret_down_font_awesome_whitevariation.svg)
+      no-repeat right 0.8em center / 1.4em,
+    linear-gradient(
+      to left,
+      rgba(255, 255, 255, 0.3) 3em,
+      rgba(255, 255, 255, 0.2) 3em
+    );
+  color: white;
+  border-radius: 0.25em;
+  background-color: #ab0a41;
+  box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+#selectRol option {
+  background-color: #ab0a41;
+}
+
+#selectRol option:hover {
+  background-color: #9d0a3c;
+}
+
 /* Le saco los bordes al Toggler */
 
 /** Fondo claro **/
@@ -216,6 +245,13 @@ footer a:hover {
 /* Tablas */
 .table-responsive {
   white-space: nowrap;
+}
+
+div.td-detalles {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 300px;
 }
 
 /* Agregar Producto */

@@ -36,7 +36,7 @@ include_once("../../estructura/cabecera.php");
                 <!-- Precio -->
                 <div class="mb-3">
                     <label for="minutos">Precio</label>
-                    <input type="number" class="form-control" id="precio" name="precio" placeholder="Ej: 120" aria-describedby="cant" min="1" max="2000" required>
+                    <input type="number" class="form-control" id="proprecio" name="proprecio" placeholder="Ej: 120" aria-describedby="cant" min="1" max="2000" required>
                 </div>
                 <!-- Detalles -->
                 <div class="mb-3">
@@ -57,7 +57,7 @@ include_once("../../estructura/cabecera.php");
                 <!-- accion = crear, idusuario y tipo = combo (input oculto) -->
                 <input id="accion" name="accion" value="crear" type="hidden">
                 <input id="idproducto" name="idproducto" value="null" type="hidden">
-                <input id="tipo" name="tipo" value="combo" type="hidden">
+                <input id="protipo" name="protipo" value="combo" type="hidden">
                 <!-- Botón enviar -->
                 <div class="mb-5">
                     <input id="btn_agregarCombo" class="w-100 btn btn-lg btn-primary" name="btn_agregarCombo" type="submit" value="Enviar">
@@ -129,7 +129,6 @@ include_once("../../estructura/cabecera.php");
                 <div class="col-sm-6 col-lg-3 mb-3">
                     <label for="genero">Género</label>
                     <select class="form-select d-block w-100" id="genero" name="genero" required>
-                        <!--<option disabled>Choose...</option>-->
                         <option value="Acción">Acción</option>
                         <option value="Comedia">Comedia</option>
                         <option value="Drama">Drama</option>
@@ -154,14 +153,14 @@ include_once("../../estructura/cabecera.php");
                 <div class="col-sm-6 col-lg-3 mb-3">
                     <label for="minutos">Stock</label>
                     <input type="number" class="form-control" id="procantstock" name="procantstock" placeholder="Ej: 10" aria-describedby="cant" min="0" max="250" required>
-                    <div id="enPesos" class="form-text">
-                        Pesos
-                    </div>
                 </div>
                 <!-- Precio -->
                 <div class="col-sm-6 col-lg-3 mb-3">
                     <label for="minutos">Precio</label>
-                    <input type="number" class="form-control" id="precio" name="precio" placeholder="Ej: 120" aria-describedby="cant" min="1" max="2000" required>
+                    <input type="number" class="form-control" id="proprecio" name="proprecio" placeholder="Ej: 120" aria-describedby="cant" min="1" max="2000" required>
+                    <div id="enPesos" class="form-text">
+                        Pesos
+                    </div>
                 </div>
             </div>
             <!-- Edad -->
@@ -186,7 +185,7 @@ include_once("../../estructura/cabecera.php");
             <div class="row mx-md-3 justify-content-center justify-content-sm-start mb-3">
                 <div class="col-md-12">
                     <label for=" sinopsis">Sinopsis</label>
-                    <textarea class="form-control" id="sinopsis" name="sinopsis" placeholder="Ingrese la sinopsis de la película" required></textarea>
+                    <textarea class="form-control" id="prodetalle" name="prodetalle" placeholder="Ingrese la sinopsis de la película" required></textarea>
                     <div class="invalid-feedback">
                         Debe ingresarse la sinopsis de la película
                     </div>
@@ -205,8 +204,7 @@ include_once("../../estructura/cabecera.php");
             <!-- accion = crear, idproducto y tipo = pelicula (input oculto) -->
             <input id="accion" name="accion" value="crear" type="hidden">
             <input id="idproducto" name="idproducto" value="DEFAULT" type="hidden">
-            <input id="tipo" name="tipo" value="pelicula" type="hidden">
-            <input id="prodetalle" name="prodetalle" value="Película" type="hidden">
+            <input id="protipo" name="protipo" value="pelicula" type="hidden">
             <!-- Botón enviar -->
             <div class="d-grid gap-2 col-8 col-sm-4 col-md-3 mx-auto mb-5">
                 <input id="btn_agregarPelicula" class="btn btn-primary btn-lg" name="btn_agregarPelicula" type="submit" value="Enviar">
