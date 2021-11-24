@@ -28,7 +28,7 @@ class AbmUsuariorol
 
         if (isset($param['idusuario'])) {
             $obj = new UsuarioRol();
-            $obj->setear($param['idusuario'], null);
+            $obj->setear($param['idusuario'], $param['idrol']);
         }
         return $obj;
     }
@@ -76,8 +76,10 @@ class AbmUsuariorol
     public function baja($param)
     {
         $resp = false;
+        //var_dump($param);
         if ($this->seteadosCamposClaves($param)) {
             $elObjtArchivoE = $this->cargarObjetoConClave($param);
+            //var_dump($elObjtArchivoE);
             if ($elObjtArchivoE != null and $elObjtArchivoE->eliminar()) {
                 $resp = true;
             }

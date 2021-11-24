@@ -96,7 +96,8 @@ if (isset($datos['accion'])) {
 $encuentraError = strpos(strtoupper($mensaje), 'ERROR');
 ?>
 
-<div class="row mb-5">
+<!-- Mensaje Respuesta -->
+<div class="row mb-2">
     <div>
         <?php
 
@@ -124,10 +125,11 @@ $encuentraError = strpos(strtoupper($mensaje), 'ERROR');
 
         ?>
     </div>
-    <!-- Botones -->
-    <div class="mb-5">
-        <a class="btn btn-primary" href="listarProductos.php" role="button"><i class="fas fa-list"></i> Listar Productos</a>
-    </div>
+</div>
+
+<!-- Botones -->
+<div class="mb-4">
+    <a class="btn btn-primary" href="listarProductos.php" role="button"><i class="fas fa-list"></i> Listar Productos</a>
 </div>
 
 <?php
