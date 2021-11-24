@@ -53,13 +53,15 @@ $listaUsuario = $objAbmUsuario->listarUsuarios(null);
             echo '<td>' . $objAbmUsuario[0]->getuspass() .    '</td>';
             echo '<td>' . $objAbmUsuario[0]->getusmail() .  '</td>';
             echo '<td>' . $objAbmUsuario[0]->getusdeshabilitado() .'</td>';
-            //echo '<td>'.$roles. '</td>';
-            //echo '<td> <a href="../../pages/roles/listar.php"> ver <a/></td>';
-            echo '<td>
+         
+            /*echo '<td>
                      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                      '.$roles. '
                      </button>
-                  </td>';
+                  </td>';*/
+             echo '<td> '.$roles. ' </td>';
+
+
 
             ?>
 <!-- Modal------------------------------------------------------------------------------ -->
@@ -82,7 +84,7 @@ $listaUsuario = $objAbmUsuario->listarUsuarios(null);
            echo ' <input id="idusuario" name="idusuario" value="' . $id . '" type="hidden">';
          
            foreach($objAbmUsuario [1] as $rol){
-              $roles = $roles. "". $rol. ' / ';
+              //$roles = $roles. "". $rol. ' / ';
               //echo "";
               echo ' <input id="idrol" name="idrol" value="' . $rol. '" type="checkbox">'. $rol;
         
