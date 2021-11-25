@@ -16,15 +16,27 @@ $detalle = $unProducto->getProDetalle();
 $protipo = $unProducto->getProTipo();
 $stock = $unProducto->getProStock();
 $precio = $unProducto->getProPrecio();
+
+$encuentraRol = false;
+
+if ($sesion->activa()) {
+    foreach ($idrol as $unIdRol) {
+        if ($unIdRol  == 2) {
+            $encuentraRol = true;
+        }
+    }
+}
+
+if ($encuentraRol) {
 ?>
 
-<div class='content p-3'>
-    <h2 class='h2 mb-3 text-center'>Modificar Producto</h2>
+    <div class='content p-3'>
+        <h2 class='h2 mb-3 text-center'>Modificar Producto</h2>
 
-    <!-- Tipo Producto -->
-    <?php
-    if ($protipo == 'combo') {
-        echo "<!-- Modificar Combo -->
+        <!-- Tipo Producto -->
+        <?php
+        if ($protipo == 'combo') {
+            echo "<!-- Modificar Combo -->
         <div id='modificarCombo'>
             <form id='modificarProducto' name='modificarProducto' method='POST' action='abmProducto.php' data-toggle='validator' enctype='multipart/form-data'>
                 <div class='form-signin mx-auto'>
@@ -73,8 +85,8 @@ $precio = $unProducto->getProPrecio();
                 </div>
             </form>
         </div>";
-    } else {
-        echo "<!-- Modificar Película -->
+        } else {
+            echo "<!-- Modificar Película -->
         <div id='modificarPelícula'>
             <form id='modificarProducto' name='modificarProducto' method='POST' action='abmProducto.php' data-toggle='validator' enctype='multipart/form-data'>
                 <div class='row mx-md-3 justify-content-center justify-content-md-start'>
@@ -220,11 +232,16 @@ $precio = $unProducto->getProPrecio();
                 </div>
             </form>
         </div>";
-    }
-    ?>
+        }
+        ?>
 
-</div>
+    </div>
 
 <?php
-include_once('../../estructura/pie.php');
+} else {
+    include_once("../../pages/login/sinPermiso.php");
+}
+
+
+include_once("../../estructura/pie.php");
 ?>

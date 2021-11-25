@@ -1,7 +1,6 @@
 <?php
 include_once '../../../configuracion.php';
 
-
 $sesion = new Session();
 $datos = data_submitted();
 print_r($datos);
@@ -15,7 +14,6 @@ if (!$sesion->activa()) {
         $usrol = $sesion->getRol();
         $rol = $usrol[0]->getobjrol();
         $descrp = $rol->getroldescripcion();
-        var_dump($descrp);
         $Titulo = "Carrito";
         include_once("../../estructura/cabecera.php");
     } else {
