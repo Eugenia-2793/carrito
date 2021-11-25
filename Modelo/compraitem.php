@@ -8,6 +8,7 @@ class CompraItem
     private $cicantidad;
     private $itemprecio;
     private $mensajeoperacion;
+    protected $cart_contents = array();
 
 
     public function __construct()

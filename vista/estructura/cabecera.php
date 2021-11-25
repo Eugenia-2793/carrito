@@ -66,6 +66,12 @@ $menus = $abmmenu->buscar(null);
                             <span>Contacto</span>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="../../pages/cliente/listarProductos.php">
+                            <i class="fas fa-info-circle d-lg-none d-xl-none"></i>
+                            <span>Productos</span>
+                        </a>
+                    </li>
                     <?php
                     /* Mostramos los roles según corresponda */
                     /*if ($sesion->activa()) {

@@ -133,12 +133,13 @@ class AbmMenuRol
         //listo todos los obj MenuRol
         $listaUsRol = $this->buscar(null);
         //print_r($listaUsRol);
-        if ($listaUsRol != "") {
+        if (count($listaUsRol) > 0) {
             $roles = [];
             //agrego todos los roles que tenga el Menu en el array $roles
-            foreach ($listaUsRol as $MenuRol) {
-                if ($MenuRol->getIdMenu()->getIdMenu() == $elObjtMenu->getIdMenu()) {
-                    $roldescrip = $MenuRol->getIdrol()->getRodescripcion();
+            foreach ($listaUsRol as $menurol) {
+                if ($menurol->getIdMenu()->getIdMenu() == $elObjtMenu->getIdMenu()) {
+                    $roldescrip = $menurol->getIdRol()->getroldescripcion(); 
+                    // echo $roldescrip;
                     array_push($roles, $roldescrip);
                 }
             }
