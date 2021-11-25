@@ -20,7 +20,7 @@ if (isset($datos['accion'])) {
 
     /***  EDITAR ***/
     if ($datos['accion'] == 'editar') {
-
+        $datos['uspass'] = md5($datos['uspass']);
         $unabmUser = new AbmUsuario();
         $unUser = $unabmUser->buscar($filtro); // Usuario
         $idRolesUser = $objUsuarioRol->buscarRolesUsuario($unUser[0]); // Roles actuales del usuario
@@ -80,8 +80,35 @@ if (isset($datos['accion'])) {
         }
     }
 
+    /***  EDITAR PERFIL ***/
+    if ($datos['accion'] == 'editarPerfil') {
+        if ($datos['uspass'] == "null") {
+            $unabmUser = new AbmUsuario();
+            $unUser = $unabmUser->buscar($filtro);
+            $pass = $unUser[0]->getuspass();
+            $datos['uspass'] = $pass;
+        } else {
+            $datos['uspass'] = md5($datos['uspass']);
+        }
+        if ($objUsuario->modificacion($datos)) {
+            $resp = true;
+        } else {
+            $mensaje = "<b>ERROR: </b>";
+        }
+    }
+
     /*** BORRAR ***/
     if ($datos['accion'] == 'borrar') {
+        // Quitamos los roles del usuario
+        $abmusuariorol = new AbmUsuarioRol;
+        $user = $objUsuario->buscar($filtro);
+        $idrol = $abmusuariorol->buscarRolesUsuario($user[0]);
+        foreach ($idrol as $unRol) {
+            $filtroRolDelete = array(); // Rol actual de la colección de roles y el id de usuario
+            $filtroRolDelete['idusuario'] = $datos['idusuario'];
+            $filtroRolDelete['idrol'] = $unRol;
+            $objUsuarioRol->baja($filtroRolDelete);
+        }
         if ($objUsuario->baja($datos)) {
             $resp = true;
         } else {
@@ -91,7 +118,7 @@ if (isset($datos['accion'])) {
 
     /*** CREAR ***/
     if ($datos['accion'] == 'crear') {
-        //print_r($datos);
+        $datos['uspass'] = md5($datos['uspass']);
         if ($objUsuario->alta($datos)) {
             // if ($objUsuario->altaUsuarioRolExistente($datos)) {
             $resp = true;

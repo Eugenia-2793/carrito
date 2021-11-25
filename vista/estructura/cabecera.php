@@ -149,7 +149,7 @@ $menus = $abmmenu->buscar(null);
                             </a>
 
                             <div class='dropdown-menu dropdown-menu-end' aria-labelledby='navbarDropdown-Usuario'>
-                                <a class='dropdown-item' href='../../pages/usuario/perfil.php'>
+                                <a class='dropdown-item' href='../../pages/perfil/perfil.php'>
                                     Ver Perfil
                                 </a>";
                         $selectRol = "";
