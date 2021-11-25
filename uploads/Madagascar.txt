@@ -1,12 +1,12 @@
 <h3>Información de la película</h3>
                           <p><b>Título:</b> Madagascar <br />
-                          <b>Actores:</b> Ben Stiller, Chris Rock, David Schwimmer, Jada Pinkett Smith <br />
-                          <b>Director:</b> Eric Darnell, Tom McGrath <br />
-                          <b>Guión:</b> Eric Darnell, Tom McGrath, Mark Burton <br />
-                          <b>Producción:</b> Mireille Soria <br />
-                          <b>A&ntilde;o:</b> 2005 <br />
-                          <b>Nacionalidad:</b> Estados Unidos <br />
-                          <b>Genero:</b> Comedia <br />
-                          <b>Duración:</b> 86 minutos<br />
+                          <b>Actores:</b> un leon y un hipopotamos <br />
+                          <b>Director:</b> marcos travaglini <br />
+                          <b>Guión:</b> escrito <br />
+                          <b>Producción:</b> alguna <br />
+                          <b>A&ntilde;o:</b> 2020 <br />
+                          <b>Nacionalidad:</b> arg <br />
+                          <b>Genero:</b> Acción <br />
+                          <b>Duración:</b> 200 minutos<br />
                           <b>Restricciones de edad:</b> Apta para todo público <br />
-                          <b>Sinopsis:</b> La película trata de cuatro animales del zoológico de Central Park, Nueva York, (Alex el león, Marty la cebra, Gloria la hipopótamo y Melman la jirafa) que han estado toda su vida en cautiverio, a los que una serie de casualidades acaba dejándolos en plena naturaleza en la isla de Madagascar. Allí descubrirán que la vida salvaje no es tal y como se la imaginaban. <br />
+                          <b>Sinopsis:</b> . <br />

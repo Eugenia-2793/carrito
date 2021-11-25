@@ -1,10 +1,10 @@
 <?php
-$Titulo = "ABM Usuarios";
+$Titulo = "ABM Menu";
 include_once("../../estructura/cabecera.php");
 
 $datos = data_submitted();
 $resp = false;
-$objTrans = new AbmUsuario();
+$objTrans = new AbmMenu();
 
 
 /* Accion que permite: cargar una nueva persona, borrar y editar */
@@ -65,8 +65,8 @@ $encuentraError = strpos(strtoupper($mensaje), 'ERROR');
     </div>
 </div>
 
-<a class="dropdown-item" href="../../pages/usuario/listar.php">
-    <span class="fas fa-users fa-fw" aria-hidden="true" title="Usuarios"> </span> Volver a Usuarios
+<a class="dropdown-item" href="../../pages/menu/listar.php">
+    <span class="fas fa-users fa-fw" aria-hidden="true" title="menu"> </span> Volver a Menu
 </a>
 
 <?php

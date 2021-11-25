@@ -1,20 +1,5 @@
 <?php
 include_once '../../../configuracion.php';
-include_once '../../../control/Session.php';
-include_once '../../../control/AbmUsuario.php';
-include_once '../../../control/AbmRol.php';
-include_once '../../../control/AbmUsuarioRol.php';
-include_once '../../../control/AbmProducto.php';
-include_once '../../../control/AbmMenu.php';
-include_once '../../../control/AbmMenuRol.php';
-include_once '../../../modelo/Usuario.php';
-include_once '../../../modelo/Rol.php';
-include_once '../../../modelo/UsuarioRol.php';
-include_once '../../../modelo/producto.php';
-include_once '../../../modelo/menu.php';
-include_once '../../../modelo/menurol.php';
-include_once '../../../modelo/conector/BaseDatos.php';
-include_once '../../../modelo/Rol.php';
 
 $sesion = new Session();
 
@@ -79,6 +64,12 @@ $menus = $abmmenu->buscar(null);
                         <a class="nav-link" aria-current="page" href="../../home/home/contacto.php">
                             <i class="fas fa-info-circle d-lg-none d-xl-none"></i>
                             <span>Contacto</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="../../pages/cliente/listarProductos.php">
+                            <i class="fas fa-info-circle d-lg-none d-xl-none"></i>
+                            <span>Productos</span>
                         </a>
                     </li>
                     <?php

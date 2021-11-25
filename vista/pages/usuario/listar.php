@@ -61,51 +61,6 @@ $listaUsuario = $objAbmUsuario->listarUsuarios(null);
                   </td>';*/
              echo '<td> '.$roles. ' </td>';
 
-
-
-            ?>
-<!-- Modal------------------------------------------------------------------------------ -->
-<!-- Modal------------------------------------------------------------------------------ -->
-<!-- Modal------------------------------------------------------------------------------ -->
-<!-- Modal------------------------------------------------------------------------------ -->
-
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Roles</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <!----usnombre------->
-        
-      
-        <?php 
-           echo ' <input id="idusuario" name="idusuario" value="' . $id . '" type="hidden">';
-         
-           foreach($objAbmUsuario [1] as $rol){
-              //$roles = $roles. "". $rol. ' / ';
-              //echo "";
-              echo ' <input id="idrol" name="idrol" value="' . $rol. '" type="checkbox">'. $rol;
-        
-            }
-        ?>
-
-        <!----------->
-      </div>
-      <div class="modal-footer">
-        <input class="btn btn-primary" id="accion" name="accion" value="guardar" type="submit" formaction="abmUsuario.php"> 
-        <input class="btn btn-primary" id="accion" name="accion" value="borrar" type="submit" formaction=""> 
-      </div>
-    </div>
-  </div>
-</div>
-
-<!------------------------------------------------------------------------------------------->
-<!-- Modal------------------------------------------------------------------------------ -->
-<!-- Modal------------------------------------------------------------------------------ -->
-<!-- Modal------------------------------------------------------------------------------ -->
-           <?php
             //<!---------en listas usussarios saca el id y lo manda por boton-------------->
             echo "<td  class='text-center'>
                    <button type='submit' class='btn btn-success btn-sm' value=".$id." name='accion' id='accion'>
