@@ -11,7 +11,6 @@ class AbmRol
      */
     private function cargarObjeto($param)
     {
-        print_r($param);
         $obj = null;
         if (
             array_key_exists('idrol', $param)
@@ -58,12 +57,13 @@ class AbmRol
      * ALTA
      * @param array $param
      */
-    public function alta($param){
+    public function alta($param)
+    {
         $resp = false;
         $elObjtRol = $this->cargarObjeto($param);
-      
-        if ($elObjtRol!=null and $elObjtRol->insertar()){
-           $resp = true;
+
+        if ($elObjtRol != null and $elObjtRol->insertar()) {
+            $resp = true;
         }
         return $resp;
     }
