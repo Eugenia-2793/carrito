@@ -17,47 +17,6 @@ $listaUsuario = $objAbmUsuario->listarUsuarios(null);
     <a class="btn btn-primary" href="nuevo.php" role="button"><i class="fas fa-plus"></i> Nuevo Usuario</a>
   </div>
 
-<<<<<<< HEAD
-<!-- Listado de usuarios -->
-<div class="row mb-5" id="">
-  <form id="Usuario"  name="Usuario" method="POST" action="editar.php" data-toggle="validator">
-    <div class="table-responsive">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th scope="">#</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Password</th>
-            <th scope="col">Mail</th>
-            <th scope="col">habilitado</th>
-            <th scope="col"><a href="../roles/listar.php"> Rol (editar) </a></th> 
-            <th scope="col" class='text-center'>Editar (usuario)<th>
-          </tr>
-        </thead>
-        <?php
-
-        if (count($listaUsuario) > 0) {
-        // $i = 1;
-          echo '<tbody>';
-          foreach ($listaUsuario as $objAbmUsuario) {
-             //$id =  $objAbmUsuario->getidusuario();
-             $id = $objAbmUsuario[0]->getidusuario();
-             $nombre = $objAbmUsuario[0]->getusnombre();
-            
-            $roles="";
-            foreach($objAbmUsuario [1] as $rol){
-              $roles = $roles. "". $rol. ' / ';
-            }
-
-            echo '<tr class="align-middle">';
-            echo '<th scope="row">' . $id. '</th>';
-            echo '<td>' . $nombre .  '</td>';
-            echo '<td>' . $objAbmUsuario[0]->getuspass() .    '</td>';
-            echo '<td>' . $objAbmUsuario[0]->getusmail() .  '</td>';
-            echo '<td>' . $objAbmUsuario[0]->getusdeshabilitado() .'</td>';
-         
-            /*echo '<td>
-=======
   <!-- Listado de usuarios -->
   <div class="row mb-5" id="">
     <form id="Usuario" name="Usuario" method="POST" action="editar.php" data-toggle="validator">
@@ -97,18 +56,9 @@ $listaUsuario = $objAbmUsuario->listarUsuarios(null);
               //echo '<td>'.$roles. '</td>';
               //echo '<td> <a href="../../pages/roles/listar.php"> ver <a/></td>';
               echo '<td>
->>>>>>> master
                      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                      ' . $roles . '
                      </button>
-<<<<<<< HEAD
-                  </td>';*/
-             echo '<td> '.$roles. ' </td>';
-
-            //<!---------en listas usussarios saca el id y lo manda por boton-------------->
-            echo "<td  class='text-center'>
-                   <button type='submit' class='btn btn-success btn-sm' value=".$id." name='accion' id='accion'>
-=======
                   </td>';
 
           ?>
@@ -158,7 +108,6 @@ $listaUsuario = $objAbmUsuario->listarUsuarios(null);
               //<!---------en listas usussarios saca el id y lo manda por boton-------------->
               echo "<td  class='text-center'>
                    <button type='submit' class='btn btn-success btn-sm' value=" . $id . " name='accion' id='accion'>
->>>>>>> master
                    <i class='fa fa-pen'> </i>
                    </button>    
                    <button class='btn btn-danger btn-sm' type='submit' value=" . $id . " formaction='eliminar.php' name='idusuario' id='idusuario'>
