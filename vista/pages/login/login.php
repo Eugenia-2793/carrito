@@ -1,7 +1,6 @@
 <?php
 $Titulo = "Login";
 include_once '../../../configuracion.php';
-include_once '../../../control/Session.php';
 
 $sesion = new Session();
 

@@ -14,17 +14,29 @@ $unProducto = $listProductos[0];
 $pronombre = $unProducto->getProNombre();
 $detalle = $unProducto->getProDetalle();
 $protipo = $unProducto->getProTipo();
+
+$encuentraRol = false;
+
+if ($sesion->activa()) {
+    foreach ($idrol as $unIdRol) {
+        if ($unIdRol  == 2) {
+            $encuentraRol = true;
+        }
+    }
+}
+
+if ($encuentraRol) {
 ?>
 
-<section>
-    <div class="row my-5">
-        <form class="mb-5" id="eliminarProducto" method="POST" action="abmProducto.php">
-            <div class="d-flex justify-content-center">
-                <?php
-                echo "<input class='d-none' id='idproducto' name='idproducto' type='hidden' value='" . $id . "'>";
-                echo "<input class='d-none' id='pronombre' name='pronombre' type='hidden' value='" . $pronombre . "'>";
-                echo "<input class='d-none' id='protipo' name='protipo' type='hidden' value='" . $protipo . "'>";
-                echo "<div class='card text-center border border-3 border-primary' style='width: 25rem;'>
+    <section>
+        <div class="row my-5">
+            <form class="mb-5" id="eliminarProducto" method="POST" action="abmProducto.php">
+                <div class="d-flex justify-content-center">
+                    <?php
+                    echo "<input class='d-none' id='idproducto' name='idproducto' type='hidden' value='" . $id . "'>";
+                    echo "<input class='d-none' id='pronombre' name='pronombre' type='hidden' value='" . $pronombre . "'>";
+                    echo "<input class='d-none' id='protipo' name='protipo' type='hidden' value='" . $protipo . "'>";
+                    echo "<div class='card text-center border border-3 border-primary' style='width: 25rem;'>
                 <div class='card-body'>
                     <h4 class='card-title'>¡Atención!</h4>
                     <p class='card-text'>¿Realmente desea eliminar este producto?</p>
@@ -32,12 +44,17 @@ $protipo = $unProducto->getProTipo();
                     <button href='#' class='btn btn-primary' id='accion' name='accion' type='submit' value='noAccion' style='width: 3rem;'>No</button>
                 </div>
             </div>";
-                ?>
-            </div>
-        </form>
-    </div>
-</section>
+                    ?>
+                </div>
+            </form>
+        </div>
+    </section>
 
 <?php
+} else {
+    include_once("../../pages/login/sinPermiso.php");
+}
+
+
 include_once("../../estructura/pie.php");
 ?>

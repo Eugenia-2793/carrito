@@ -1,20 +1,5 @@
 <?php
 include_once '../../../configuracion.php';
-include_once '../../../control/Session.php';
-include_once '../../../control/AbmUsuario.php';
-include_once '../../../control/AbmRol.php';
-include_once '../../../control/AbmUsuarioRol.php';
-include_once '../../../control/AbmProducto.php';
-include_once '../../../control/AbmMenu.php';
-include_once '../../../control/AbmMenuRol.php';
-include_once '../../../modelo/Usuario.php';
-include_once '../../../modelo/Rol.php';
-include_once '../../../modelo/UsuarioRol.php';
-include_once '../../../modelo/producto.php';
-include_once '../../../modelo/menu.php';
-include_once '../../../modelo/menurol.php';
-include_once '../../../modelo/conector/BaseDatos.php';
-include_once '../../../modelo/Rol.php';
 
 $sesion = new Session();
 
@@ -158,7 +143,7 @@ $menus = $abmmenu->buscar(null);
                             </a>
 
                             <div class='dropdown-menu dropdown-menu-end' aria-labelledby='navbarDropdown-Usuario'>
-                                <a class='dropdown-item' href='../../pages/usuario/perfil.php'>
+                                <a class='dropdown-item' href='../../pages/perfil/perfil.php'>
                                     Ver Perfil
                                 </a>";
                         $selectRol = "";
