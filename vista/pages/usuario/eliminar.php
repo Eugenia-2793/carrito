@@ -1,27 +1,26 @@
 <?php
-$Titulo = "Eliminar Rol";
+$Titulo = "Eliminar Usuario";
 include_once("../../estructura/cabecera.php");
 
 $datos = data_submitted();
-$objAbmRol = new AbmRol();
+$objAbmUsuario = new AbmUsuario();
 $filtro = array();
-$filtro['idrol'] = $datos['idrol'];
-$unrol = $objAbmRol->buscar($filtro);
-$listaRoles = $objAbmRol->buscar($filtro);
-$unRol = $listaRoles[0];
-$id = $unRol->getidrol();
+$filtro['idusuario'] = $datos['idusuario'];
+$listaUsers = $objAbmUsuario->buscar($filtro);
+$unUser = $listaUsers[0];
+$id = $unUser->getidusuario();
 ?>
 
 <section>
     <div class="row my-5">
-        <form class="mb-5" id="eliminarRol" method="POST" action="abmRol.php">
+        <form class="mb-5" id="eliminarUsuario" method="POST" action="abmUsuario.php">
             <div class="d-flex justify-content-center">
                 <?php
-                echo "<input class='d-none' id='idrol' name='idrol' type='hidden' value='" . $id . "'>";
+                echo "<input class='d-none' id='idusuario' name='idusuario' type='hidden' value='" . $id . "'>";
                 echo "<div class='card text-center border border-3 border-primary' style='width: 25rem;'>
                 <div class='card-body'>
                     <h4 class='card-title'>¡Atención!</h4>
-                    <p class='card-text'>¿Realmente desea eliminar este rol?</p>
+                    <p class='card-text'>¿Realmente desea eliminar este usuario?</p>
                     <button href='#' class='btn btn-primary' id='accion' name='accion' type='submit' value='borrar' style='width: 3rem;'>Sí</button>
                     <button href='#' class='btn btn-primary' id='accion' name='accion' type='submit' value='noAccion' style='width: 3rem;'>No</button>
                 </div>

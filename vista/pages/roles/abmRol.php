@@ -1,8 +1,13 @@
 <?php
+include_once '../../../configuracion.php';
+$datos = data_submitted();
+if ($datos['accion'] == 'noAccion') {
+    header('Location: listar.php');
+}
+
 $Titulo = "ABM Rol";
 include_once("../../estructura/cabecera.php");
 
-$datos = data_submitted();
 $resp = false;
 $objTrans = new AbmRol();
 
@@ -10,6 +15,8 @@ $objTrans = new AbmRol();
 /* Accion que permite: cargar una nueva persona, borrar y editar */
 if (isset($datos['accion'])) {
     $mensaje = "";
+
+    /***  EDITAR ***/
     if ($datos['accion'] == 'editar') {
         if ($objTrans->modificacion($datos)) {
             $resp = true;
@@ -17,6 +24,8 @@ if (isset($datos['accion'])) {
             $mensaje = "<b>ERROR: </b>";
         }
     }
+
+    /*** BORRAR ***/
     if ($datos['accion'] == 'borrar') {
         if ($objTrans->baja($datos)) {
             $resp = true;
@@ -24,6 +33,8 @@ if (isset($datos['accion'])) {
             $mensaje = "<b>ERROR: </b>";
         }
     }
+
+    /*** CREAR ***/
     if ($datos['accion'] == 'crear') {
         if ($objTrans->alta($datos)) {
             $resp = true;
@@ -31,9 +42,9 @@ if (isset($datos['accion'])) {
             $mensaje = "<b>ERROR:</b> definir la clave primaria para no repetir";
         }
     }
-    if ($resp) {
-        $mensaje = "La acción <b>" . $datos['accion'] . " rol</b> se realizo correctamente.s";
 
+    if ($resp) {
+        $mensaje = "La acción <b>" . $datos['accion'] . " rol</b> se realizo correctamente.";
     } else {
         $mensaje .= "La acción <b>" . $datos['accion'] . " rol</b> no pudo concretarse.";
     }
@@ -42,17 +53,18 @@ if (isset($datos['accion'])) {
 $encuentraError = strpos(strtoupper($mensaje), 'ERROR');
 ?>
 
-<div class="row mb-5">
+<!-- Mensaje Respuesta -->
+<div class="row mb-2">
     <div>
         <?php
 
         if ($encuentraError > 0) {
-            echo "<div class='alert alert-danger d-flex align-items-center mt-5' role='alert'>
+            echo "<div class='alert alert-danger d-flex align-items-center' role='alert'>
         <svg class='bi flex-shrink-0 me-2' width='24' height='24' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
         <div>" . $mensaje . "</div>
         </div>";
         } else {
-            echo "<div class='alert alert-success d-flex align-items-center mt-5' role='alert'>
+            echo "<div class='alert alert-success d-flex align-items-center' role='alert'>
         <svg class='bi flex-shrink-0 me-2' width='24' height='24' role='img' aria-label='Success:'><use xlink:href='#check-circle-fill'/></svg>
         <div>" . $mensaje . "</div>
         </div>";
@@ -62,9 +74,10 @@ $encuentraError = strpos(strtoupper($mensaje), 'ERROR');
     </div>
 </div>
 
-<a class="dropdown-item" href="../../pages/roles/listar.php">
-    <span class="fas fa-users fa-fw" aria-hidden="true" title="roles"> </span> Volver a Roles
-</a>
+<!-- Botones -->
+<div class="mb-4">
+    <a class="btn btn-dark" href="../../pages/roles/listar.php" role="button"><i class="fas fa-angle-double-left"></i> Regresar</a>
+</div>
 
 <?php
 include_once("../../estructura/pie.php");

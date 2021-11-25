@@ -151,7 +151,7 @@ class CompraEstadoTipo
                 }
             }
         } else {
-            $this->setmensajeoperacion("CompraEstadoTipo->listar: " . $base->getError());
+            //$this->setmensajeoperacion("CompraEstadoTipo->listar: " . $base->getError());
         }
 
         return $arreglo;

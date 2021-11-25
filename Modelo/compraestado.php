@@ -203,7 +203,7 @@ class CompraEstado
                 }
             }
         } else {
-            $this->setmensajeoperacion("CompraEstado->listar: " . $base->getError());
+            //$this->setmensajeoperacion("CompraEstado->listar: " . $base->getError());
         }
 
         return $arreglo;
