@@ -171,7 +171,7 @@ class AbmCompraItem
             $secargo = $this->alta($producto);
               if($secargo){
                 array_push($items, $producto);
-                $actualizarprecio= $this->actualizarprecio($items);
+               // $actualizarprecio= $this->actualizarprecio($items);
               }//if
          }//for
       //return $items ;
@@ -233,13 +233,9 @@ class AbmCompraItem
         $unacompra = $objCompra->buscar($idcompra);
         $actualizacompra= array();
         foreach($unacompra as $parametros){
-
         }
-        print_r($unacompra);
-        echo $precio= $unacompra['comprecio'];
-        
-        
-
+        //print_r($unacompra);
+        //echo $precio= $unacompra['comprecio'];
 
     }//function
 

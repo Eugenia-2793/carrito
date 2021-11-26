@@ -6,8 +6,6 @@ $objAbmCompra = new AbmCompra();
 $listaCompra = $objAbmCompra->listarCompras(null);
 $encuentraRol = false;
 // print_r($listaCompra);
-
-
 ?>
 
   <section>
@@ -67,8 +65,7 @@ $encuentraRol = false;
              </td>';
 
          $i++;
-               echo '</tbody>';
-               echo '</table>';
+               
 
     }}
              ?>
@@ -80,6 +77,7 @@ $encuentraRol = false;
   </section>
 
 <?php
-
+echo '</tbody>';
+echo '</table>';
 include_once("../../estructura/pie.php");
 ?>

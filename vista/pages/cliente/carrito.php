@@ -1,3 +1,5 @@
+
+
 <?php
 $Titulo = "ver compras";
 include_once '../../estructura/cabecera.php';
@@ -24,7 +26,7 @@ $AbmObjCompra = new AbmCompra;
 $filtro= $datos['idcompra'];
 $compraunica = $AbmObjCompra->buscar($filtro);
 //$precio = $AbmObjCompra->precio($itemsdecompra);
-$mostrarCompra = $AbmObjCompra->mostrarCompra($compraunica);
+//$mostrarCompra = $AbmObjCompra->mostrarCompra($compraunica);
 
 ?>
 
@@ -38,39 +40,36 @@ $mostrarCompra = $AbmObjCompra->mostrarCompra($compraunica);
           <table class="table table-striped">
             <thead>
               <tr>
-                <th scope="col">Producto</th>
+                <th scope="col">Nro de compra</th>
                 <th scope="col">Cantidad</th>
                 <th scope="col">Precio</th>
-                <th scope="col" class='text-center'>Estado</th>
                 <th scope="col" class='text-center'>Borrar</th>
               </tr>
             </thead>
 
             <?php 
             
-            // if (count($lositems) > 0) {
-            //     $i = 1;
-            //     echo '<tbody>';
-            //     foreach ($lositems as $item) {
-            //         print_r($lositems);
-            //       $id = $item[0]->getIdCompraItem();
-            //       $nombre = $item[0]->getIdProducto();
-            //       $compra = $item[0]->getIdCompra();
-            //       $cantidad = $item[0]->getCiCantidad();
-            //       $precio = $item[0]->getitemPrecio();
+    //          if (count($compraunica) > 0) {
+    //              $i = 1;
+    //              foreach ($compraunica as $unica) {
+    //              echo '<tbody>';
+         
+    //                $idcompra  = $unica->getIdCompraItem();
+    //                $nombre = $unica->getIdProducto();
+    //                $compra = $unica->getIdCompra();
+    //                $cantidad = $unica->getCiCantidad();
+    //                $precio = $unica->getitemPrecio();
 
-            //       echo '<td>' . $idproducto .  '</td>';
-            //       echo '<td>' . $cantidad .  '</td>';
-            //       echo '<td>' . $precio .  '</td>';
-            //       echo '<td>' . $compra .  '</td>';
-            //       echo '<td>  <input type=submit id="borrar" name="borrar">  </td>';
+    //                echo '<td>' . $idcompra .  '</td>';
+    //                echo '<td>' . $cantidad .  '</td>';
+    //                echo '<td>' . $precio .  '</td>';
+    //                echo '<td>  <input type=submit id="borrar" name="borrar">  </td>';
 
-    //             }
-    // echo '</tbody>';
-    // echo '</table>';
-    //         }
-    ?>
-
+    //              }
+    echo '</tbody>';
+      echo '</table>';
+    //          }
+    // ?>
 
 
 
