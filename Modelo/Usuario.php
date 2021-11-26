@@ -97,7 +97,8 @@ class Usuario
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "SELECT * FROM Usuario WHERE idusuario = " . $this->getidusuario();
+        $id= $this->getidusuario();
+        $sql = "SELECT * FROM Usuario WHERE idusuario = $id ";
         if ($base->Iniciar()) {
             $res = $base->Ejecutar($sql);
             if ($res > -1) {

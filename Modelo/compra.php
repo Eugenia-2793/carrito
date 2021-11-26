@@ -20,10 +20,15 @@ class Compra
 
     public function setear($idcompra, $cofecha, $idusuario, $comprecio)
     {
+    //    echo "</br>---------------------------------</br>";
+    //    echo $idcompra, $cofecha,  $comprecio;
+    //    print_r($idusuario,);
+    //    echo "</br>---------------------------------</br>";
+     
         $this->setIdCompra($idcompra);
         $this->setCoFecha($cofecha);
         $this->setIdUsuario($idusuario);
-        $this->setIdUsuario($comprecio);
+        $this->setcomPrecio($comprecio);
     }
 
     public function getIdCompra()
@@ -83,7 +88,6 @@ class Compra
             if ($res > -1) {
                 if ($res > 0) {
                     $row = $base->Registro();
-
                     $objUsuario = NULL;
                     if ($row['idusuario'] != null) {
                         $objUsuario = new Usuario();
@@ -91,8 +95,10 @@ class Compra
                         $objUsuario->cargar();
                     }
 
-                    $this->setear($row['idcompra'], $row['cofecha'], $objUsuario, $row['comprecio']);
-                    $resp = true;
+                   // $this->setear($row['idcompra'], $row['cofecha'], $objUsuario, $row['comprecio']);
+                   $this->setear($row['idcompra'], $row['cofecha'], $row['idusuario'], $row['comprecio']);
+                    
+                   $resp = true;
                 }
             }
         } else {
@@ -101,12 +107,15 @@ class Compra
         return $resp;
     }
 
+    /** INSERTAR **/
     public function insertar()
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "INSERT INTO compra (cofecha, idusuario, comprecio) VALUES ('{$this->getCoFecha()}','{$this->getIdUsuario()->getIdUsuario()}', '{$this->getcomPrecio()}');";
-        if ($base->Iniciar()) {
+        $sql = "INSERT INTO compra (cofecha,idusuario,comprecio) VALUES ('".$this->getCoFecha()."','". $this->getIdUsuario()->getidusuario() .  "', '".$this->getcomPrecio()."');" ; 
+        //echo $sql;
+      
+       if ($base->Iniciar()) {
             if ($elid = $base->Ejecutar($sql)) {
                 $this->setIdCompra($elid);
                 $resp = true;
@@ -176,14 +185,12 @@ class Compra
                         $objUsuario->setIdUsuario($row['idusuario']);
                         $objUsuario->cargar();
                     }
-                    //el idpadre????
-                    //$obj->setear($row['idcompra'], $row['cofecha'], $objUsuario, $row['idpadre'], $row['medeshabilitado']);
                    $obj->setear($row['idcompra'], $row['cofecha'], $objUsuario, $row['comprecio']);
                    array_push($arreglo, $obj);
                 }
             }
         } else {
-            //$this->setmensajeoperacion("Compra->listar: " . $base->getError());
+           // $this->setmensajeoperacion("Compra->listar: " . $base->getError());
         }
 
         return $arreglo;

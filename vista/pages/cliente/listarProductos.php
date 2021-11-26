@@ -2,79 +2,77 @@
 $Titulo = "Listar Productos";
 include_once("../../estructura/cabecera.php");
 
-$colProducto = new AbmProducto();
-$listaProducto = $colProducto->buscar(null);
-//print_r($listaProducto);
+$objAbmProducto = new AbmProducto();
+$listaProducto = $objAbmProducto->buscar(null);
+
+$encuentraRol = false;
+
+if ($sesion->activa()) {
+    foreach ($idrol as $unIdRol) {
+        if ($unIdRol  == 3) {
+            $encuentraRol = true;
+        }
+    }
+}
+
+if ($encuentraRol) {
 ?>
+    <section>
+        <h2>Listar Productos</h2>
 
-<!-- <style>
-    .cart-link{width: 100%;text-align: right;display: block;font-size: 22px;}
-</style> -->
+        <!-- Listado de Productos -->
+        <div class="row mb-5">
+            <form id="Productos" name="Productos" method="POST" action="verCarrito.php" data-toggle="validator">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nombre</th>
+                                <th scope="col" class='text-center'>Tipo</th>
+                                <th scope="col" class='text-center'>Precio</th>
+                                <th scope="col" class='text-center'>Comprar</th>
+                            </tr>
+                        </thead>
+                        <?php
 
+                        if (count($listaProducto) > 0) {
+                            $i = 1;
+                            echo '<tbody>';
+                            foreach ($listaProducto as $objAbmProducto) {
+                                $id =  $objAbmProducto->getIdProducto();
+                                $nombre = $objAbmProducto->getProNombre();
+                                $detalle =  $objAbmProducto->getProDetalle();
+                                $tipo = $objAbmProducto->getProTipo();
+                                //$stock = $objAbmProducto->getProStock();
+                                $precio = $objAbmProducto->getProPrecio();
 
-<section>
-<div class="container">
-    <h2>Comprar Productos</h2>
+                                echo '<tr class="align-middle">';
+                                echo '<td >' . $nombre .  '</td>';
+                                echo '<td class="text-center">' . $tipo .  '</td>';
+                                echo '<td class="text-center">' . $precio .  '</td>';
+                                echo "<td  class='text-center'>
+                                          <input type='checkbox' name='producto[]' value='". $id."'> 
+                                     </td>";
 
-    <a href="verCarrito.php" class="cart-link" title="View Cart"><i class="glyphicon glyphicon-shopping-cart"></i></a>
+                                $i++;
+                            }
+                            echo '</tbody>';
+                            echo '</table>';
+                        }
 
-  <div id="products" class="row list-group">
-        <?php
-        //get rows query
-        /*$query = $db->query("SELECT * FROM products ORDER BY id DESC LIMIT 10");
-        if($query->num_rows > 0){ 
-            while($row = $query->fetch_assoc()){*/
+                        ?>
 
-        if (count($listaProducto) > 0 ) {
-           
-            echo '<tbody>';
-            foreach ($listaProducto as $colProducto) {
-                if(($es = $colProducto->getProStock()) >= 1 ){
-               $id = $colProducto->getidProducto();
-               $nombre = $colProducto->getProNombre();
-               $detalle = $colProducto->getProDetalle();
-               $precio = $colProducto->getProPrecio();
-
-          ?>
-        <div class="item col-lg-4">
-            <div class="thumbnail">
-                <div class="caption">
-                    <h4 class="list-group-item-heading"><?php echo $nombre; ?></h4>
-                    <p class="list-group-item-text"><?php echo $detalle; ?></p>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p class="lead"><?php echo '$'. $precio; ?></p>
-                        </div>
-                        <!---------------->
-                        <form id="productos" name="productos" method="POST" action="carritoAccion.php" data-toggle="validator">
-                        <div class="col-md-6">
-                            <input type="hidden" class="btn btn-success" id="producto" name="producto" value="<?php echo $id; ?>">
-                            <input class="btn btn-success" type="submit" value="Agregar al carrito">
-                        </div>
-                        </form>
-                        <!---------------->
-                    </div>
+                    <input class="btn btn-success" type="submit" id="enviar" name="enviar" value="Agregar al carrito">                
                 </div>
-            </div>
-        </div>
-        <?php } } }else{ ?>
-        <p>Product(s) not found.....</p>
-        <?php } ?>
-      </div>
-    </div>
-
-  <!--------------------------------------------------------------------->
-
-
-
-
-
-
-
-
-
-</section>
+            </form>
+           </div>
+    </section>
 
 <?php
+} else {
+    include_once("../../pages/login/sinPermiso.php");
+}
+
+
 include_once("../../estructura/pie.php");
 ?>

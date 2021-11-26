@@ -68,12 +68,8 @@ class AbmUsuario
         $elObjtUsuario = $this->cargarObjeto($param);
 
         if ($elObjtUsuario != null and $elObjtUsuario->insertar()) {
-            //nuevo--------------------------------------------
-            //Recupero id nueva del objeto insertado //rol name nuevoRol
-            $param['idusuario'] = $elObjtUsuario->getidusuario();
+           $param['idusuario'] = $elObjtUsuario->getidusuario();
             $resp = $this->altaUsuarioRolIngresante($param);
-            //---------------------------------------------------
-            $resp = true;
         }
         return $resp;
     }

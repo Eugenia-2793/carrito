@@ -10,21 +10,22 @@ class AbmCompra
      */
     private function cargarObjeto($param)
     {
-        //print_r ($param);
         $obj = null;
         if (
             array_key_exists('idcompra', $param) and array_key_exists('cofecha', $param)
             and array_key_exists('idusuario', $param) and array_key_exists('comprecio', $param)
+           
         ) {
-
             //creo objeto estadotipos
             $objUsuario = new Usuario();
-            $objUsuario->getIdUsuario($param['idusuario']);
+            $objUsuario->setidusuario($param['idusuario']);       
             $objUsuario->cargar();
+           
 
-            //agregarle los otros objetos
+            //agregarle los otros objetos (aca se rompe)
             $obj = new Compra();
             $obj->setear($param['idcompra'], $param['cofecha'], $objUsuario, $param['comprecio']);
+         
         }
         return $obj;
     }
@@ -39,12 +40,16 @@ class AbmCompra
      */
     private function cargarObjetoConClave($param)
     {
+        print_r($param);
         $obj = null;
         if (isset($param['idcompra'])) {
             $obj = new Compra();
             $obj->setear($param['idcompra'], null, null, null);
         }
         return $obj;
+        echo "</br>el print pero cargando con clave</br>";
+        print_r($obj);
+        echo "</br>-------------------------------------</br>";
     }
 
  
@@ -69,15 +74,29 @@ class AbmCompra
      * @return boolean
      */
     public function alta($param)
-    {
+    { 
+        //print_r($param);
         $resp = false;
         $param['idcompra'] = null;
-        $elObjtArchivoE = $this->cargarObjeto($param);
-        //print_r($elObjtArchivoE);
-        if ($elObjtArchivoE != null and $elObjtArchivoE->insertar()) {
-            $resp = true;
-        }
+        $elObjCompra = $this->cargarObjeto($param);
+       if ($elObjCompra != null and $elObjCompra->insertar()) {
+           $resp = true;
+        //ahora le seteo el estado iniciada a la nueva compra
+        $param['idcompra'] = $elObjCompra->getidusuario();
+        $resp = $this->altaEstadoNueva($param);
+       }
         return $resp;
+    }
+
+    /**
+     * Carga un objeto con los datos pasados por parámetro y lo 
+     * Inserta en la base de datos
+     * @param array $param
+     * @return boolean
+     */
+    public function altaEstadoNueva($param)
+    { 
+
     }
 
   
@@ -87,7 +106,7 @@ class AbmCompra
      * @param array $param
      * @return boolean
      */
-    /* public function baja($param){
+     public function baja($param){
         $resp = false;
         if ($this->seteadosCamposClaves($param)){
             $elObjtArchivoE = $this->cargarObjetoConClave($param);
@@ -97,7 +116,7 @@ class AbmCompra
         }
         
         return $resp;
-    } */
+    } 
 
 
     /**
@@ -142,4 +161,57 @@ class AbmCompra
         $arreglo = Compra::listar($where);
         return $arreglo;
     }
-}
+
+    /**
+     * Si la compra existe trae los productos/items que tiene
+     * permite buscar un objeto
+     * @param array $param
+     * @return array
+     */
+    public function existeCompra($param)
+    {
+        $id = $param['idusuario'];
+        $existeObj = $this->cargarObjetoConClave($id);
+       // print_r($existeObj);
+        //recuperar los productos
+
+    }
+
+        /**
+     * inicia una compra
+     * permite buscar un objeto
+     * @param array $param
+     * @return array
+     */
+    public function nuevaCompra($param)
+    {    
+        $id= $param['idusuario'];
+        $DateAndTime = date('y-m-d h:i:s ', time()); 
+
+        $datos = array('idcompra'=> '', 'cofecha' => $DateAndTime, 'idusuario' => $id, 'comprecio' => 0 );
+        $nuevoObj = $this->alta($datos); //booleano
+        
+        
+
+
+        //$compraEstadoTipo = new AbmCompraEstadoTipo;
+        //$nuevoObj = $compraEstadoTipo->asignartipo();
+        //con poner el compra estado tipo ya me deberia cargar el que yo quiero¿
+
+
+        //print_r($nuevoObj);
+
+    }
+
+    /*
+ INSERT INTO `compraestadotipo` (`idcompraestadotipo`, `cetdescripcion`, `cetdetalle`) VALUES
+(1, 'iniciada', 'cuando el usuario : cliente inicia la compra de uno o mas productos del carrito'),
+(2, 'aceptada', 'cuando el usuario administrador da ingreso a uno de las compras en estado = 1 '),
+(3, 'enviada', 'cuando el usuario administrador envia a uno de las compras en estado =2 '),
+(4, 'cancelada', 'un usuario administrador podra cancelar una compra en cualquier estado y un usuario cliente solo en estado=1 ');
+ */
+
+    
+
+
+}//clase
