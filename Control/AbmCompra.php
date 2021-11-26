@@ -40,16 +40,12 @@ class AbmCompra
      */
     private function cargarObjetoConClave($param)
     {
-        print_r($param);
         $obj = null;
         if (isset($param['idcompra'])) {
             $obj = new Compra();
             $obj->setear($param['idcompra'], null, null, null);
         }
         return $obj;
-        echo "</br>el print pero cargando con clave</br>";
-        print_r($obj);
-        echo "</br>-------------------------------------</br>";
     }
 
  
@@ -205,7 +201,6 @@ class AbmCompra
         $existeObj = $this->cargarObjetoConClave($id);
        // print_r($existeObj);
         //recuperar los productos
-
     }
 
         /**

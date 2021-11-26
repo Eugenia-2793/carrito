@@ -30,7 +30,6 @@ class AbmProducto
     private function cargarObjetoConClave($param)
     {
         $obj = null;
-
         if (isset($param['idproducto'])) {
             $obj = new Producto();
             $obj->setear($param['idproducto'], null, null, null, null, null);
@@ -134,4 +133,31 @@ class AbmProducto
         $arreglo = Producto::listar($where);
         return $arreglo;
     }
-}
+
+
+
+
+    /**
+     * Recupera los productos por id en cantidad.
+     * permite buscar un objeto
+     * @param array $param
+     * @return array
+     */
+    public function buscarProductoporId($datos)
+    {
+     //Array ( [producto] => Array ( [0] => 1 [1] => 2 ) )
+     $productos = array();
+     foreach($datos['producto'] as $producto){
+      $idProducto['idproducto'] = $producto;
+      $unProducto = $this->buscar($idProducto);
+      array_push($productos, $unProducto);
+     }
+     //productos es un arreglo de arreglos
+      return $productos;
+
+    }
+
+
+}//clase
+
+

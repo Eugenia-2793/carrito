@@ -122,7 +122,7 @@ $menus = $abmmenu->buscar(null);
 
                     <!-- Icon carrito -->
                     <li class='nav-item'>
-                        <a class='nav-link' href='../../pages/cliente/verCarrito.php' role='button' aria-haspopup='true' aria-expanded='false'>
+                        <a class='nav-link' href='../../pages/cliente/verCompra.php' role='button' aria-haspopup='true' aria-expanded='false'>
                             <i class='fas fa-shopping-cart'></i> <span class='d-lg-none'>Carrito</span>
                         </a>
                     </li>
