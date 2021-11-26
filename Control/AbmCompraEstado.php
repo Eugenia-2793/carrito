@@ -10,27 +10,34 @@ class AbmCompraEstado
      */
     private function cargarObjeto($param)
     {
-        //print_r ($param);
+        //Los param llegan bien Array ( [idcompraestado] => [idcompra] => 19 [idcompraestadotipo] => 1 [cefechaini] => 21-11-26 12:50:44 [cefechafin] => 0000-00-00 00:00:00 )
         $obj = null;
         if (
-            array_key_exists('idcompraestadotipoestado', $param) and array_key_exists('idcompra', $param)
+            array_key_exists('idcompraestado', $param) and array_key_exists('idcompra', $param)
             and array_key_exists('idcompraestadotipo', $param) and array_key_exists('cefechaini', $param)
             and array_key_exists('cefechafin', $param)
         ) {
 
             //creo objeto estadotipos
-            $objProducto = new Compra();
-            $objProducto->getIdCompra($param['idcompra']);
-            $objProducto->cargar();
+            $objcompra = new Compra();
+            $objcompra->setIdCompra($param['idcompra']);
+            $objcompra->cargar(); //primer error
+            // echo "</br> ------------- la compra </br> ";
+            // print_r($objcompra);
 
             //creo objeto usuario
-            $objCompra = new CompraEstadoTipo();
-            $objCompra->setIdCompraEstadoTipo($param['idcompraestadotipo']);
-            $objCompra->cargar();
+            $objCompraEstadoTipo = new CompraEstadoTipo();
+            $objCompraEstadoTipo->setIdCompraEstadoTipo($param['idcompraestadotipo']);
+            $objCompraEstadoTipo->cargar();
+            // echo "</br> ------------- el estado tipo </br> ";
+            // print_r($objCompraEstadoTipo);
 
             //agregarle los otros objetos
             $obj = new CompraEstado();
-            $obj->setear($param['idcompraestadotipoestado'], $objProducto, $objCompra, $param['cefechaini'], $param['cefechafin']);
+            $obj->setear($param['idcompraestado'], $objcompra, $objCompraEstadoTipo, $param['cefechaini'], $param['cefechafin']);
+        //    echo "</br>  ya hecha la funcion cargar objeto </br>";
+        //    print_r($obj);
+
         }
         return $obj;
     }
@@ -45,9 +52,9 @@ class AbmCompraEstado
     private function cargarObjetoConClave($param)
     {
         $obj = null;
-        if (isset($param['idcompraestadotipoestado'])) {
+        if (isset($param['idcompraestado'])) {
             $obj = new CompraEstado();
-            $obj->setear($param['idcompraestadotipoestado'], null, null, null, null);
+            $obj->setear($param['idcompraestado'], null, null, null, null);
         }
         return $obj;
     }
@@ -60,7 +67,7 @@ class AbmCompraEstado
     private function seteadosCamposClaves($param)
     {
         $resp = false;
-        if (isset($param['idcompraestadotipoestado']))
+        if (isset($param['idcompraestado']))
             $resp = true;
         return $resp;
     }
@@ -73,8 +80,9 @@ class AbmCompraEstado
      */
     public function alta($param)
     {
+        echo "entra al alta de Abmcompraestado </br>";
         $resp = false;
-        $param['idcompraestadotipoestado'] = null;
+        $param['idcompraestado'] = null;
         $elObjtArchivoE = $this->cargarObjeto($param);
         //print_r($elObjtArchivoE);
         if ($elObjtArchivoE != null and $elObjtArchivoE->insertar()) {
@@ -131,8 +139,8 @@ class AbmCompraEstado
     {
         $where = " true ";
         if ($param <> NULL) {
-            if (isset($param['idcompraestadotipoestado']))
-                $where .= " and idcompraestadotipoestado =" . $param['idcompraestadotipoestado'];
+            if (isset($param['idcompraestado']))
+                $where .= " and idcompraestado =" . $param['idcompraestado'];
             if (isset($param['idcompra']))
                 $where .= " and idcompra =" . $param['idcompra'];
             if (isset($param['idcompraestadotipo']))

@@ -82,7 +82,7 @@ class AbmCompra
        if ($elObjCompra != null and $elObjCompra->insertar()) {
            $resp = true;
         //ahora le seteo el estado iniciada a la nueva compra
-        $param['idcompra'] = $elObjCompra->getidusuario();
+        $param['idcompra'] = $elObjCompra->getIdCompra();
         $resp = $this->altaEstadoNueva($param);
        }
         return $resp;
@@ -96,7 +96,19 @@ class AbmCompra
      */
     public function altaEstadoNueva($param)
     { 
+        echo "</br>entra a altaEstadoNueva </br>";
+        $resp = false;
+        $compraEstadoTipo = new AbmCompraEstado;
+        $datos= ['idcompraestado' => null, 'idcompra' => $param['idcompra'], 'idcompraestadotipo' => 1, 'cefechaini' => $param['cofecha'] , 'cefechafin' => '0000-00-00 00:00:00'];
+        //idcompraestado, idcompra, idcompraestadotipo, cefechaini, cefechafin
+        //echo "</br> </br>";
+        //Array ( [idcompraestado] => [idcompra] => 14 [idcompraestadotipo] => 1 [cefechaini] => 21-11-26 12:27:42 [cefechafin] => 0000-00-00 00:00:00 )
+        if ($compraEstadoTipo->alta($datos)) {
+            $resp = true;
+        }
 
+        return $resp;
+       
     }
 
   
@@ -190,7 +202,10 @@ class AbmCompra
 
         $datos = array('idcompra'=> '', 'cofecha' => $DateAndTime, 'idusuario' => $id, 'comprecio' => 0 );
         $nuevoObj = $this->alta($datos); //booleano
-        
+        if($nuevoObj){  
+            echo "todo salio bien :)";
+
+        }
         
 
 

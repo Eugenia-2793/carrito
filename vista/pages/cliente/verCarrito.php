@@ -37,12 +37,12 @@ $compra = $AbmObjCompra->buscar($filtro);
 if(!($compra == null)){
    //existe compra - continuar. - traer los items de esta compra.
    echo "entro primero";
-   //$existe = $AbmObjCompra->existeCompra($filtro);
+  //$existe = $AbmObjCompra->existeCompra($filtro);
 
 }else{
     //no existe compra - continuar. - acomodar los productos seleccionador.
    echo "entro segundo";
-   //$nueva = $AbmObjCompra->nuevaCompra($filtro);
+   $nueva = $AbmObjCompra->nuevaCompra($filtro);
    
 }
 
