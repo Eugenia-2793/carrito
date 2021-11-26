@@ -6,7 +6,7 @@ $datos = data_submitted();
 // print_r($datos);
 // echo "</br>--------------------</br>";
 
-$AbmObjCompra = new AbmCompra;
+$AbmObjCompra = new AbmCompraEstado;
 $id = $AbmObjCompra->recuperarIdusuario();
 $filtro= array();
 $filtro['idusuario'] = $id;

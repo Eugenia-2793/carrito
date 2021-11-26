@@ -171,10 +171,10 @@ class AbmCompraItem
             $secargo = $this->alta($producto);
               if($secargo){
                 array_push($items, $producto);
-               // $actualizarprecio= $this->actualizarprecio($producto);
+                $actualizarprecio= $this->actualizarprecio($items);
               }//if
          }//for
-      return $items ;
+      //return $items ;
     }
 
     /**
@@ -225,14 +225,21 @@ class AbmCompraItem
      * @param array $param
      * @return array
      */
-    public function actualizarprecio($producto){
+    public function actualizarprecio($productos){
         //ver si madno el objeto o por parametrosss-----------------------terminar.
         //modificar precio de una compra.
-       $objCompra = new AbmCompra;
-        $idcompra= $producto['idcompra'];
-        $itemprecio= $producto['itemprecio'];
-        echo "</br>el id de compra = $idcompra el itemprecio = $itemprecio</br>";
-        $unacompra = $objCompra->buscar($idcompra);  
+        $objCompra = new AbmCompra;
+        $idcompra= $productos[0]['idcompra'];
+        $unacompra = $objCompra->buscar($idcompra);
+        $actualizacompra= array();
+        foreach($unacompra as $parametros){
+
+        }
+        print_r($unacompra);
+        echo $precio= $unacompra['comprecio'];
+        
+        
+
 
     }//function
 

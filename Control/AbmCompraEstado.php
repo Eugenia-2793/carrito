@@ -147,4 +147,34 @@ class AbmCompraEstado
         $arreglo = CompraEstado::listar($where);
         return $arreglo;
     }
-}
+
+     //---------------------------------------PARA ADMINISTRAr--------------------------------------------------
+    //-----------------------------------------------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------------------------------
+     
+      /** 
+     * Busca todos los usuariorol correspondientes a un objusuario
+     * Lista todos los roles que tiene el usuario
+     * @param object
+     * @return array devuelve las descripciones de cada rol de dicho usuario
+     */
+    public function buscarDesEstadocompra($elObjtCompra)
+    {
+        $listaEstCom = [];
+        $listaEstCom = $this->buscar(null); //obj usuariorol
+
+        if (count($listaEstCom) > 0) { // $listaEstCom != ""
+            $estados = [];
+            //Agrego TODOS los estados que tenga el usuario en el array $estados
+            foreach ($listaEstCom as $compraestado) {
+                if ($compraestado->getIdCompra()->getIdCompra() == $elObjtCompra->getIdCompra()) {
+                    $estadodescript = $compraestado->getIdCompraEstadoTipo()->getCetDescripcion();
+                    array_push($estados, $estadodescript);
+                }
+            }
+        }
+        return $estados;
+    }
+
+
+}//clase

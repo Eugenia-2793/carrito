@@ -3,20 +3,73 @@ $Titulo = "ver compras";
 include_once '../../estructura/cabecera.php';
 
 $datos = data_submitted();
-// echo "</br>Por data_submited</br>";
-// print_r($datos);
-// echo "</br>--------------------</br>";
+//  echo "</br>Por data_submited</br>";
+//  print_r($datos);
+//  echo "</br>--------------------</br>";
 //Array ( [idproducto] => Array ( [0] => 1 [1] => 2 ) [idcompra] => 27 [proprecio] => Array ( [0] => 350 [1] => 350 ) [cicantidad] => Array ( [0] => 2 [1] => 2 ) )
 
 //HACER.
 //mando los datos a crear items y luego los listo con el estado de la compra,
 //esto queda en vista del usuario como algo q solo puede eliminar.
 
-
 $AbmObjItem = new AbmCompraItem;
-$lositems = $AbmObjItem->altavariositems($datos);
+$AbmObjItem->altavariositems($datos);
+$filtro= $datos['idcompra'];
+$itemsdecompra = $AbmObjItem->buscar($filtro);
+// $cantidad = count($itemsdecompra);
+// echo $cantidad;
+//print_r($itemsdecompra);
 
-print_r($lositems);
+$AbmObjCompra = new AbmCompra;
+$filtro= $datos['idcompra'];
+$compraunica = $AbmObjCompra->buscar($filtro);
+//$precio = $AbmObjCompra->precio($itemsdecompra);
+$mostrarCompra = $AbmObjCompra->mostrarCompra($compraunica);
+
+?>
+
+<section>
+    <h2>Estado de compra</h2>
+
+    <!-- Listado de usuarios -->
+    <div class="row mb-5" id="">
+      <form id="Usuario" name="Usuario" method="POST" action="editar.php" data-toggle="validator">
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Producto</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Precio</th>
+                <th scope="col" class='text-center'>Estado</th>
+                <th scope="col" class='text-center'>Borrar</th>
+              </tr>
+            </thead>
+
+            <?php 
+            
+            // if (count($lositems) > 0) {
+            //     $i = 1;
+            //     echo '<tbody>';
+            //     foreach ($lositems as $item) {
+            //         print_r($lositems);
+            //       $id = $item[0]->getIdCompraItem();
+            //       $nombre = $item[0]->getIdProducto();
+            //       $compra = $item[0]->getIdCompra();
+            //       $cantidad = $item[0]->getCiCantidad();
+            //       $precio = $item[0]->getitemPrecio();
+
+            //       echo '<td>' . $idproducto .  '</td>';
+            //       echo '<td>' . $cantidad .  '</td>';
+            //       echo '<td>' . $precio .  '</td>';
+            //       echo '<td>' . $compra .  '</td>';
+            //       echo '<td>  <input type=submit id="borrar" name="borrar">  </td>';
+
+    //             }
+    // echo '</tbody>';
+    // echo '</table>';
+    //         }
+    ?>
 
 
 
@@ -34,5 +87,9 @@ print_r($lositems);
 
 
 
+
+
+
+<?php
 include_once("../../estructura/pie.php");
 ?>

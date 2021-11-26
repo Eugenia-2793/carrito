@@ -228,7 +228,35 @@ class AbmCompra
 (4, 'cancelada', 'un usuario administrador podra cancelar una compra en cualquier estado y un usuario cliente solo en estado=1 ');
  */
 
-    
+ /**
+ * cargo el datos de la comrpa.
+ * permite buscar un objeto
+ * @param array $param
+ * @return array
+ */
+    public function listarCompras($param)
+    { 
+        $listaActivos = [];
+        $listaCompras = $this->buscar($param);
+        if (count($listaCompras) > 0) {
+            foreach ($listaCompras as $compra) {
+                $estado = [];
+                // $datoscompra va a guardar un obj usuario y un array de estado de la compra
+                $datoscompra=[];
+                $compraEstado = new AbmCompraEstado();
+                $estado = $compraEstado->buscarDesEstadocompra($compra);
+                array_push($datoscompra, $compra);
+                array_push($datoscompra, $estado);
+                array_push($listaActivos, $datoscompra);
+
+            }
+        } 
+        return $listaActivos;      
+    }
+
+
+
+
 
 
 }//clase
