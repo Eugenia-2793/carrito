@@ -96,10 +96,12 @@ else{ //si no hay productos seleccionados
 //-------------------------PRODUCTOS-------------------------------------
 ?>
 
-<!--------------BOTONES---------------------------->
+<!--------------BOTONES--ver que paso con el de volver sin recargar :(-------------------------->
 
 
-<button class="btn btn-warning" onclick="goBack()">Seguir Comprando</button>
+<!--<button class="btn btn-warning" onclick="goBack()">Seguir Comprando</button>-->
+<a href="listarProductos.php" class="btn btn-warning" >ver Productos</a>
+
 <button class="btn btn-success" type="submit"> Finalizar Compra</button> 
 
   <script>

@@ -160,7 +160,31 @@ class AbmCompraItem
      */
     public function altavariositems($param)
     { 
-        
+        $acomodados= $this->acomodar($param);
+
+    }
+
+        /**
+     * Puede traer un obj específico o toda la lista si el parámetro es null
+     * permite buscar un objeto
+     * @param array $param
+     * @return array
+     */
+    public function acomodar($param)
+    { 
+      //param = Array ( [idproducto] => Array ( [0] => 1 [1] => 3 ) [idcompra] => 27 [proprecio] => Array ( [0] => 350 [1] => 300 ) [cicantidad] => Array ( [0] => 3 [1] => 1 ) )
+    //    $acomodado=array('idproducto' => '', 'idcompra' =>'', 'proprecio' => '', 'cicantidad' => '' );
+    foreach($acoomdado as  $producto);
+    $acomodado[0]=array('idproducto' => '', 'idcompra' =>'', 'proprecio' => '', 'cicantidad' => '' );
+    
+    
+          //    $arreglo[0]=['idproducto' => ''];
+    //    $arreglo[1]=['idcompra'   => ''];
+    //    $arreglo[2]=['proprecio'  => ''];
+    //    $arreglo[3]=['cicantidad' => ''];
+
+      }
+
     }
 
 
