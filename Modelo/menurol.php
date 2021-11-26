@@ -53,7 +53,7 @@ class MenuRol
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "SELECT * FROM menurol WHERE idmenu = " . $this->getIdMenu()->getIdMenu() . " and idrol = " . $this->getIdRol()->getIdRol();
+        $sql = "SELECT * FROM menurol WHERE idmenu = " . $this->getIdMenu() . " and idrol = " . $this->getIdRol();
         if ($base->Iniciar()) {
             $res = $base->Ejecutar($sql);
             if ($res > -1) {
@@ -105,11 +105,18 @@ class MenuRol
     public function eliminar()
     {
         $resp = false;
+        $idmenu = $this->getIdMenu();
+        $idrol = $this->getIdRol();
         $base = new BaseDatos();
-        $sql = "DELETE * FROM menurol WHERE idmenu = " . $this->getIdMenu()->getIdMenu() . " and idrol = " . $this->getIdRol()->getIdRol();
+        //$sql = "DELETE FROM menurol WHERE idmenu = " . $this->getIdMenu() . " AND idrol = " . $this->getIdRol() . "";
+        $sql = "DELETE FROM menurol WHERE idmenu = '$idmenu' AND idrol = '$idrol'";
         if ($base->Iniciar()) {
+            echo "eliminar menurol: ";
+            echo "<br>";
+            echo "<br>";
             if ($base->Ejecutar($sql)) {
-                return true;
+                echo "ejecuto eliminar menurol: ";
+                $resp = true;
             } else {
                 $this->setmensajeoperacion("MenuRol->eliminar: " . $base->getError());
             }

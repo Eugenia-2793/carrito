@@ -68,11 +68,9 @@ class AbmMenuRol
      */
     public function alta($param)
     {
-        // print_r($param);
         $resp = false;
         //Creo objeto con los datos
         $elObj = $this->cargarObjeto($param);
-        //print_r($elObjtArchivo);
         //Verifico que el objeto no sea nulo y lo inserto en BD 
         if ($elObj != null and $elObj->insertar()) {
             $resp = true;
@@ -94,9 +92,11 @@ class AbmMenuRol
             $elObjtArchivoE = $this->cargarObjetoConClave($param);
             if ($elObjtArchivoE != null and $elObjtArchivoE->eliminar()) {
                 $resp = true;
+                echo "baja abmmenurol: ";
+                echo "<br>";
+                echo "<br>";
             }
         }
-
         return $resp;
     }
 

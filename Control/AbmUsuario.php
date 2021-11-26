@@ -63,6 +63,7 @@ class AbmUsuario
      */
     public function alta($param)
     {
+        $param['uspass'] = md5($param['uspass']);
         $resp = false;
         $param['idusuario'] = null;
         $elObjtUsuario = $this->cargarObjeto($param);
@@ -73,7 +74,7 @@ class AbmUsuario
             $param['idusuario'] = $elObjtUsuario->getidusuario();
             $resp = $this->altaUsuarioRolIngresante($param);
             //---------------------------------------------------
-            $resp = true;
+            //$resp = true;
         }
         return $resp;
     }
@@ -81,7 +82,7 @@ class AbmUsuario
     //---------------------funciones de alta extra-------------------
 
     /**
-     * instanciamos el usuariorl y asinamos un rol al nuevo
+     * instanciamos el usuarirol y asignamos un rol al nuevo
      * que por defecto es el cliente. 
      * DESDE REGISTRO
      * @param array $param
@@ -132,9 +133,43 @@ class AbmUsuario
         if ($this->seteadosCamposClaves($param)) {
             $elObjtUsuario = $this->cargarObjetoConClave($param);
             if ($elObjtUsuario != null and $elObjtUsuario->eliminar()) {
+                $param['idusuario'] = $elObjtUsuario->getidusuario();
+                //$resp = $this->bajaUsuarioRolIngresante($param);
                 $resp = true;
             }
         }
+        return $resp;
+    }
+
+
+    /**
+     * instanciamos el usuariorl y asinamos un rol al nuevo
+     * que por defecto es el cliente. 
+     * DESDE REGISTRO
+     * @param array $param
+     * @return boolean
+     */
+    public function bajaUsuarioRolIngresante($datos)
+    {
+        $resp = false;
+        $objUsuario = new AbmUsuario();
+        $objUsuarioRol = new AbmUsuarioRol();
+        $filtro = array();
+        $filtro['idusuario'] = $datos['idusuario'];
+        $abmusuariorol = new AbmUsuarioRol;
+        $user = $objUsuario->buscar($filtro);
+        $idrol = $abmusuariorol->buscarRolesUsuario($user[0]);
+        $bandera = true;
+        for ($i = 0; $i < count($idrol) && $bandera; $i++) {
+            $filtroRolDelete = array();
+            $filtroRolDelete['idusuario'] = $datos['idusuario'];
+            $filtroRolDelete['idrol'] = $idrol[$i];
+            if (!($objUsuarioRol->baja($filtroRolDelete))) {
+                $bandera = false;
+            }
+        }
+        $resp = $bandera;
+
         return $resp;
     }
 
@@ -146,6 +181,18 @@ class AbmUsuario
      */
     public function modificacion($param)
     {
+        $filtro = array();
+        $filtro['idusuario'] = $param['idusuario'];
+        /* Si el usuario envia el input de password vacío significa que no la modifica,
+        por ende, debo asignarle la contraseña actual a $param */
+        if ($param['uspass'] == "null") {
+            $unabmUser = new AbmUsuario();
+            $unUser = $unabmUser->buscar($filtro);
+            $pass = $unUser[0]->getuspass();
+            $param['uspass'] = $pass;
+        } else {
+            $param['uspass'] = md5($param['uspass']);
+        }
         $resp = false;
         if ($this->seteadosCamposClaves($param)) {
             $buscar2 = array();
@@ -162,6 +209,91 @@ class AbmUsuario
                 }
             }
         }
+        return $resp;
+    }
+
+
+    /**
+     * MODIFICAR USUARIOROL
+     * @param array $param
+     * @return boolean
+     */
+    public function modificarUsuarioRol($param)
+    {
+        $resp = false;
+        $filtro = array();
+        $filtro['idusuario'] = $param['idusuario'];
+        $param['uspass'] = md5($param['uspass']);
+        $unabmUser = new AbmUsuario();
+        $objUsuarioRol = new AbmUsuarioRol();
+        $unUser = $unabmUser->buscar($filtro); // Usuario
+        $idRolesUser = $objUsuarioRol->buscarRolesUsuario($unUser[0]); // Roles actuales del usuario
+
+        $nuevoRol = $param['nuevoRol'];
+        $filtroRol = array(); // Rol actual de la colección de roles y el id de usuario
+        $filtroRol['idusuario'] = $param['idusuario'];
+
+        $bandera = true;
+        for ($i = 0; $i < count($nuevoRol) && $bandera; $i++) {
+            $filtroRol['idrol'] = $nuevoRol[$i];
+            $existerol = $objUsuarioRol->buscar($filtroRol);
+            // Comprobamos que el usuario no tenga el rol con el id actual de la iteracion para agregarlo
+            if ($existerol == null) {
+                if (!($objUsuarioRol->alta($filtroRol))) {
+                    $bandera = false;
+                }
+            }
+        }
+
+        /*
+        // Agregamos los nuevos roles
+        foreach ($nuevoRol as $idNuevoRol) {
+            $filtroRol['idrol'] = $idNuevoRol[$i];
+            $existerol = $objUsuarioRol->buscar($filtroRol);
+            // Comprobamos que el usuario no tenga el rol con el id actual de la iteracion para agregarlo
+            if ($existerol == null) {
+                $objUsuarioRol->alta($filtroRol);
+            }
+        }
+        */
+
+        if ($bandera) {
+            // Creamos un arreglo con los roles que debemos quitar
+            $noRoles = []; // Arreglo con los roles que no tiene el usuario
+            foreach ($idRolesUser as $unRol) {
+                $encuentra = true;
+                // Verifico que hayan roles en nuevoRol, si no, le asigno todos los roles de idRolesUser
+                if ($nuevoRol != null) {
+                    for ($i = 0; $i < count($nuevoRol); $i++) {
+                        if ($nuevoRol[$i] == $unRol) {
+                            $encuentra = false;
+                        }
+                    }
+                    if ($encuentra) {
+                        array_push($noRoles, $unRol);
+                    }
+                } else {
+                    array_push($noRoles, $unRol);
+                }
+            }
+
+            // Quitamos los roles que ya no estén
+            foreach ($noRoles as $unNoRol) {
+                $filtroRolDelete = array(); // Rol actual de la colección de roles y el id de usuario
+                $filtroRolDelete['idusuario'] = $param['idusuario'];
+                $filtroRolDelete['idrol'] = $unNoRol;
+
+                $existeNorol = $objUsuarioRol->buscar($filtroRolDelete);
+                // Comprobamos que el usuario no tenga el rol con el id actual de la iteracion para eliminarlo
+                if ($existeNorol != null) {
+                    if (!($objUsuarioRol->baja($filtroRolDelete))) {
+                        $bandera = false;
+                    }
+                }
+            }
+        }
+        $resp = $bandera;
+
         return $resp;
     }
 

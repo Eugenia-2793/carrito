@@ -9,16 +9,16 @@ $Titulo = "ABM Rol";
 include_once("../../estructura/cabecera.php");
 
 $resp = false;
-$objTrans = new AbmRol();
+$objRol = new AbmRol();
 
 
-/* Accion que permite: cargar una nueva persona, borrar y editar */
+/* Acción que permite: editar, borrar y crear un rol */
 if (isset($datos['accion'])) {
     $mensaje = "";
 
     /***  EDITAR ***/
     if ($datos['accion'] == 'editar') {
-        if ($objTrans->modificacion($datos)) {
+        if ($objRol->modificacion($datos)) {
             $resp = true;
         } else {
             $mensaje = "<b>ERROR: </b>";
@@ -27,7 +27,7 @@ if (isset($datos['accion'])) {
 
     /*** BORRAR ***/
     if ($datos['accion'] == 'borrar') {
-        if ($objTrans->baja($datos)) {
+        if ($objRol->baja($datos)) {
             $resp = true;
         } else {
             $mensaje = "<b>ERROR: </b>";
@@ -36,7 +36,7 @@ if (isset($datos['accion'])) {
 
     /*** CREAR ***/
     if ($datos['accion'] == 'crear') {
-        if ($objTrans->alta($datos)) {
+        if ($objRol->alta($datos)) {
             $resp = true;
         } else {
             $mensaje = "<b>ERROR:</b> definir la clave primaria para no repetir";

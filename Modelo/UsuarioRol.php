@@ -116,7 +116,6 @@ class UsuarioRol
         $base = new BaseDatos();
         $idUser = $this->getobjusuario();
         $idRol = $this->getobjrol();
-        //$sql = "DELETE FROM usuariorol WHERE idusuario = " . $this->getobjusuario() . "and idrol =" . $this->getobjrol();
         $sql = "DELETE FROM usuariorol WHERE idUsuario = '$idUser' AND idRol = '$idRol'";
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {

@@ -122,7 +122,9 @@ class Rol
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "DELETE FROM rol WHERE idrol=" . $this->getidrol();
+        $idRol = $this->getidrol();
+        $sql = "DELETE FROM usuariorol WHERE idrol = '$idRol'";
+        //$sql = "DELETE FROM rol WHERE idrol=" . $this->getidrol();
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 return true;

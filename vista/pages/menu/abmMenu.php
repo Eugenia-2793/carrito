@@ -1,37 +1,24 @@
 <?php
 include_once '../../../configuracion.php';
+
 $datos = data_submitted();
 if ($datos['accion'] == 'noAccion') {
     header('Location: listar.php');
 }
 
-$Titulo = "ABM Usuario";
+$Titulo = "ABM Menu";
 include_once("../../estructura/cabecera.php");
 
 $resp = false;
-$objUsuario = new AbmUsuario();
-$objUsuarioRol = new AbmUsuarioRol();
+$objTrans = new AbmMenu();
 
-/* Acción que permite: editar, borrar y crear un usuario */
+/* Acción que permite: editar, borrar y crear un menú */
 if (isset($datos['accion'])) {
     $mensaje = "";
 
     /***  EDITAR ***/
     if ($datos['accion'] == 'editar') {
-        if ($objUsuario->modificarUsuarioRol($datos)) {
-            if ($objUsuario->modificacion($datos)) {
-                $resp = true;
-            } else {
-                $mensaje = "<b>ERROR: </b>";
-            }
-        } else {
-            $mensaje = "<b>ERROR: </b>";
-        }
-    }
-
-    /***  EDITAR PERFIL ***/
-    if ($datos['accion'] == 'editarPerfil') {
-        if ($objUsuario->modificacion($datos)) {
+        if ($objTrans->modificacion($datos)) {
             $resp = true;
         } else {
             $mensaje = "<b>ERROR: </b>";
@@ -40,14 +27,8 @@ if (isset($datos['accion'])) {
 
     /*** BORRAR ***/
     if ($datos['accion'] == 'borrar') {
-        // Le damos de baja al usuariorol
-        if ($objUsuario->bajaUsuarioRolIngresante($datos)) {
-            // Le damos de baja al usuario
-            if ($objUsuario->baja($datos)) {
-                $resp = true;
-            } else {
-                $mensaje = "<b>ERROR: </b>";
-            }
+        if ($objTrans->baja($datos)) {
+            $resp = true;
         } else {
             $mensaje = "<b>ERROR: </b>";
         }
@@ -55,7 +36,7 @@ if (isset($datos['accion'])) {
 
     /*** CREAR ***/
     if ($datos['accion'] == 'crear') {
-        if ($objUsuario->alta($datos)) {
+        if ($objTrans->alta($datos)) {
             $resp = true;
         } else {
             $mensaje = "<b>ERROR:</b> definir la clave primaria para no repetir. ";
@@ -94,17 +75,10 @@ $encuentraError = strpos(strtoupper($mensaje), 'ERROR');
 </div>
 
 <!-- Botones -->
+<div class="mb-4">
+    <a class="btn btn-dark" href="../../pages/menu/listar.php" role="button"><i class="fas fa-angle-double-left"></i> Regresar</a>
+</div>
+
 <?php
-if ($datos['accion'] == 'editarPerfil') {
-    echo "<div class='mb-4'>
-            <a class='btn btn-dark' href='../../pages/perfil/perfil.php' role='button'><i class='fas fa-angle-double-left'></i> Regresar</a>
-        </div>";
-} else {
-    echo "<div class='mb-4'>
-            <a class='btn btn-dark' href='../../pages/usuario/listar.php' role='button'><i class='fas fa-angle-double-left'></i> Regresar</a>
-        </div>";
-}
-
-
 include_once("../../estructura/pie.php");
 ?>

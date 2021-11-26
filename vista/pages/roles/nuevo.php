@@ -21,7 +21,7 @@ if ($encuentraRol) {
 		<form id="nueva" name="nueva" method="POST" action="abmRol.php" data-toggle="validator">
 			<div class="form-signin mx-auto">
 				<!--Clave primaria-->
-				<input id="idrol" name="idrol" value="null" type="hidden">
+				<input id="idrol" name="idrol" value="DEFAULT" type="hidden">
 
 				<!-- Nombre-->
 				<div class="mb-2">
