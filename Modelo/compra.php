@@ -83,7 +83,6 @@ class Compra
         $resp = false;
         $base = new BaseDatos();
         $sql = "SELECT * FROM compra WHERE idcompra = " . $this->getIdCompra();
-        echo $sql;
         if ($base->Iniciar()) {
             $res = $base->Ejecutar($sql);
             if ($res > -1) {

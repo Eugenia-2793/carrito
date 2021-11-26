@@ -96,7 +96,6 @@ class AbmCompra
      */
     public function altaEstadoNueva($param)
     { 
-        echo "</br>entra a altaEstadoNueva </br>";
         $resp = false;
         $compraEstadoTipo = new AbmCompraEstado;
         $datos= ['idcompraestado' => null, 'idcompra' => $param['idcompra'], 'idcompraestadotipo' => 1, 'cefechaini' => $param['cofecha'] , 'cefechafin' => '0000-00-00 00:00:00'];
@@ -175,6 +174,26 @@ class AbmCompra
     }
 
     /**
+     * Recupera el id del usuario log
+     * @param array $param
+     * @return array
+     */
+    public function recuperarIdusuario()
+    {
+        $sesion = new Session();
+        if ($sesion->activa()) {
+            $user = $sesion->getidUser();
+            $objAbmUsuario = new AbmUsuario();
+            $filtro = array();
+            $filtro['idusuario'] = $user;
+            $unUsuario = $objAbmUsuario->buscar($filtro);
+        // Info usuario
+            $id = $unUsuario[0]->getidusuario();
+        }
+      return $id;
+    }
+
+    /**
      * Si la compra existe trae los productos/items que tiene
      * permite buscar un objeto
      * @param array $param
@@ -203,19 +222,9 @@ class AbmCompra
         $datos = array('idcompra'=> '', 'cofecha' => $DateAndTime, 'idusuario' => $id, 'comprecio' => 0 );
         $nuevoObj = $this->alta($datos); //booleano
         if($nuevoObj){  
-            echo "todo salio bien :)";
-
+            echo "</br> se dio de alta el objcompra con el tipo de estado. Todo salio bien :)</br>";
         }
-        
-
-
-        //$compraEstadoTipo = new AbmCompraEstadoTipo;
-        //$nuevoObj = $compraEstadoTipo->asignartipo();
-        //con poner el compra estado tipo ya me deberia cargar el que yo quiero¿
-
-
-        //print_r($nuevoObj);
-
+       return $id;
     }
 
     /*

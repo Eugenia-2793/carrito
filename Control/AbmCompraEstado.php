@@ -21,22 +21,18 @@ class AbmCompraEstado
             //creo objeto estadotipos
             $objcompra = new Compra();
             $objcompra->setIdCompra($param['idcompra']);
-            $objcompra->cargar(); //primer error
-            // echo "</br> ------------- la compra </br> ";
-            // print_r($objcompra);
+            $objcompra->cargar(); 
+
 
             //creo objeto usuario
             $objCompraEstadoTipo = new CompraEstadoTipo();
             $objCompraEstadoTipo->setIdCompraEstadoTipo($param['idcompraestadotipo']);
             $objCompraEstadoTipo->cargar();
-            // echo "</br> ------------- el estado tipo </br> ";
-            // print_r($objCompraEstadoTipo);
+
 
             //agregarle los otros objetos
             $obj = new CompraEstado();
             $obj->setear($param['idcompraestado'], $objcompra, $objCompraEstadoTipo, $param['cefechaini'], $param['cefechafin']);
-        //    echo "</br>  ya hecha la funcion cargar objeto </br>";
-        //    print_r($obj);
 
         }
         return $obj;
@@ -80,11 +76,9 @@ class AbmCompraEstado
      */
     public function alta($param)
     {
-        echo "entra al alta de Abmcompraestado </br>";
         $resp = false;
         $param['idcompraestado'] = null;
         $elObjtArchivoE = $this->cargarObjeto($param);
-        //print_r($elObjtArchivoE);
         if ($elObjtArchivoE != null and $elObjtArchivoE->insertar()) {
             $resp = true;
         }
