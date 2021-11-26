@@ -147,15 +147,17 @@ class AbmProducto
     {
      //Array ( [producto] => Array ( [0] => 1 [1] => 2 ) )
      $productos = array();
-     foreach($datos['producto'] as $producto){
-      $idProducto['idproducto'] = $producto;
-      $unProducto = $this->buscar($idProducto);
-      array_push($productos, $unProducto);
-     }
-     //productos es un arreglo de arreglos
+      if(!($datos == null)){
+        $productos = array();
+          foreach($datos['producto'] as $producto){
+             $idProducto['idproducto'] = $producto;
+             $unProducto = $this->buscar($idProducto);
+            array_push($productos, $unProducto);
+           }//foreach
+      }//if
+      //productos es un arreglo de arreglos
       return $productos;
-
-    }
+    }//function
 
 
 }//clase

@@ -1,29 +1,11 @@
 <?php
-include_once '../../../configuracion.php';
+$Titulo = "ver compras";
+include_once '../../estructura/cabecera.php';
 
-$sesion = new Session();
 $datos = data_submitted();
 print_r($datos);
+echo "</br>--------------------</br>";
+//Array ( [idproducto] => Array ( [0] => 1 [1] => 2 ) [idcompra] => 27 [proprecio] => Array ( [0] => 350 [1] => 350 ) [cicantidad] => Array ( [0] => 2 [1] => 2 ) )
 
-if (!$sesion->activa()) {
-    header('Location: ../login/login.php');
-} else {
-    list($sesionValidar, $error) = $sesion->validar();
-    if ($sesionValidar) {
-        $user = $sesion->getUsuario();
-        $usrol = $sesion->getRol();
-        $rol = $usrol[0]->getobjrol();
-        $descrp = $rol->getroldescripcion();
-        $Titulo = "Carrito";
-        include_once("../../estructura/cabecera.php");
-    } else {
-        header('Location: ../login/cerrarSesion.php');
-    }
-}
-?>
-
-
-
-<?php
 include_once("../../estructura/pie.php");
 ?>

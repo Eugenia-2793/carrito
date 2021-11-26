@@ -198,9 +198,8 @@ class AbmCompra
     public function existeCompra($param)
     {
         $id = $param['idusuario'];
-        $existeObj = $this->cargarObjetoConClave($id);
-       // print_r($existeObj);
-        //recuperar los productos
+        $existeObj = $this->buscar($id); 
+        return $existeObj;
     }
 
         /**
@@ -216,10 +215,8 @@ class AbmCompra
 
         $datos = array('idcompra'=> '', 'cofecha' => $DateAndTime, 'idusuario' => $id, 'comprecio' => 0 );
         $nuevoObj = $this->alta($datos); //booleano
-        if($nuevoObj){  
-            echo "</br> se dio de alta el objcompra con el tipo de estado. Todo salio bien :)</br>";
-        }
-       return $id;
+        
+       return $nuevoObj;
     }
 
     /*

@@ -43,7 +43,7 @@ if ($encuentraRol) {
                                 $nombre = $objAbmProducto->getProNombre();
                                 $detalle =  $objAbmProducto->getProDetalle();
                                 $tipo = $objAbmProducto->getProTipo();
-                                //$stock = $objAbmProducto->getProStock();
+                                $stock = $objAbmProducto->getProStock();
                                 $precio = $objAbmProducto->getProPrecio();
 
                                 echo '<tr class="align-middle">';
@@ -63,7 +63,10 @@ if ($encuentraRol) {
                         ?>
 
                     <!-- <input class="btn btn-success" type="submit" value="Agregar al carrito">   -->
-                    <button class="btn btn-success" type="submit"> Agregar al carrito</button>              
+                       
+                     <div class="mb-2 d-flex justify-content-end">
+                        <button class="btn btn-success" type="submit"> Agregar al carrito</button>    
+                     </div>      
                 </div>
             </form>
            </div>
