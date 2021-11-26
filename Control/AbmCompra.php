@@ -200,6 +200,7 @@ class AbmCompra
         $id = $param['idusuario'];
         $existeObj = $this->buscar($id); 
         return $existeObj;
+        
     }
 
         /**

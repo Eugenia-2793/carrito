@@ -148,4 +148,20 @@ class AbmCompraItem
         $arreglo = CompraItem::listar($where);
         return $arreglo;
     }
-}
+
+
+   
+   
+    /**
+     * Puede traer un obj específico o toda la lista si el parámetro es null
+     * permite buscar un objeto
+     * @param array $param
+     * @return array
+     */
+    public function altavariositems($param)
+    { 
+        
+    }
+
+
+}//clase

@@ -5,11 +5,6 @@ include_once '../../estructura/cabecera.php';
 $datos = data_submitted();
 // print_r($datos);
 // echo "</br>--------------------</br>";
-//recuperar id usuario si 
-//hacer una funcion que si el ususario con ese id no tiene una compra pendiente, que cree una nueva. si
-//creo una nueva compra, con estado y estadotipo.si
-//->>>teniendo la compra, y los productos(cantiddad, precio), creo el item.
-//compora, producto e item tienen precio.
 
 $AbmObjCompra = new AbmCompra;
 $id = $AbmObjCompra->recuperarIdusuario();
@@ -98,20 +93,14 @@ else{ //si no hay productos seleccionados
   </div>";
 }
 
-
-
-
-
-
 //-------------------------PRODUCTOS-------------------------------------
 ?>
 
-
 <!--------------BOTONES---------------------------->
 
-   
+
 <button class="btn btn-warning" onclick="goBack()">Seguir Comprando</button>
-<button class="btn btn-success" type="submit"> Finalizar Compra</button>  
+<button class="btn btn-success" type="submit"> Finalizar Compra</button> 
 
   <script>
       function goBack() {

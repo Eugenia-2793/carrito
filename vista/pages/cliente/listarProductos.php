@@ -22,7 +22,7 @@ if ($encuentraRol) {
 
         <!-- Listado de Productos -->
         <div class="row mb-5">
-            <form id="Productos" name="Productos" method="POST" action="verCompra.php" data-toggle="validator">
+            <form id="Productos" name="Productos" method="POST" action="verCarrito.php" data-toggle="validator">
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
