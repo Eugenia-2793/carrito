@@ -68,7 +68,7 @@ if(!($productos == null)){ //verifico que existan productos
      //paso los datos a la tabla para visualizarlos
          echo '<input type="hidden" id="idproducto[]" name="idproducto[]" value="'.$id.'">';
          echo '<input type="hidden" id="idcompra" name="idcompra" value="'.$idcompra.'">';
-         echo '<input type="hidden" id="proprecio[]" name="proprecio[]" value="'. $precio.'" >';
+         echo '<input type="hidden" id="itemprecio[]" name="itemprecio[]" value="'. $precio.'" >';
          echo '<tr class="align-middle">';
          echo '<td >' . $nombre .  '</td>';
          echo '<td class="text-center">' . $tipo .  '</td>';

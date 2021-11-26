@@ -161,11 +161,24 @@ class AbmCompraItem
     public function altavariositems($param)
     { 
         $acomodados= $this->acomodar($param);
-
+        $precioActualizado = $this->precioActualizadado($acomodados);
+        // print_r($precioActualizado); 
+        $cant = count($precioActualizado);
+        $items = array();
+        // echo "<br/> cantidad:". $cant;
+        for($i=0; $i < $cant; $i++){
+            $producto = $precioActualizado[$i];
+            $secargo = $this->alta($producto);
+              if($secargo){
+                array_push($items, $producto);
+               // $actualizarprecio= $this->actualizarprecio($producto);
+              }//if
+         }//for
+      return $items ;
     }
 
-        /**
-     * Puede traer un obj específico o toda la lista si el parámetro es null
+    /**
+     * hacer un arreglo de datos de item. acomodados
      * permite buscar un objeto
      * @param array $param
      * @return array
@@ -173,19 +186,59 @@ class AbmCompraItem
     public function acomodar($param)
     { 
       //param = Array ( [idproducto] => Array ( [0] => 1 [1] => 3 ) [idcompra] => 27 [proprecio] => Array ( [0] => 350 [1] => 300 ) [cicantidad] => Array ( [0] => 3 [1] => 1 ) )
-    //    $acomodado=array('idproducto' => '', 'idcompra' =>'', 'proprecio' => '', 'cicantidad' => '' );
-    foreach($acoomdado as  $producto);
-    $acomodado[0]=array('idproducto' => '', 'idcompra' =>'', 'proprecio' => '', 'cicantidad' => '' );
-    
-    
-          //    $arreglo[0]=['idproducto' => ''];
-    //    $arreglo[1]=['idcompra'   => ''];
-    //    $arreglo[2]=['proprecio'  => ''];
-    //    $arreglo[3]=['cicantidad' => ''];
+        $cant = count($param['idproducto']);
+        $listado[] = array('idcompraitem'=> '','idproducto' => '', 'idcompra' =>'', 'cicantidad' => '' , 'itemprecio' => '');
+        for($i=0; $i < $cant; $i++){
+           $listado[$i]['idcompraitem'] = null;
+           $listado[$i]['idproducto'] = $param['idproducto'][$i];
+           $listado[$i]['idcompra'] = $param['idcompra'];
+           $listado[$i]['cicantidad'] = $param['cicantidad'][$i];
+           $listado[$i]['itemprecio'] = $param['itemprecio'][$i];
+          
+        }
+        return $listado;
+    }//finfuction
 
-      }
+    /**
+     * Puede traer un obj específico o toda la lista si el parámetro es null
+     * permite buscar un objeto
+     * @param array $param
+     * @return array
+     */
+    public function precioActualizadado($acomodados)
+    { 
+      $cant = count($acomodados);
+      for($i=0; $i < $cant; $i++){
+        $precio = $acomodados[$i]['itemprecio'] ;
+        $cantidad = $acomodados[$i]['cicantidad'];
+        $total = $precio * $cantidad;
+        $acomodados[$i]['itemprecio'] = $total;
+     }//for
+     return $acomodados;
+    }//function
 
-    }
+
+    //actualizarprecio(producto)
+        /**
+     * Puede traer un obj específico o toda la lista si el parámetro es null
+     * permite buscar un objeto
+     * @param array $param
+     * @return array
+     */
+    public function actualizarprecio($producto){
+        //ver si madno el objeto o por parametrosss-----------------------terminar.
+        //modificar precio de una compra.
+       $objCompra = new AbmCompra;
+        $idcompra= $producto['idcompra'];
+        $itemprecio= $producto['itemprecio'];
+        echo "</br>el id de compra = $idcompra el itemprecio = $itemprecio</br>";
+        $unacompra = $objCompra->buscar($idcompra);  
+
+    }//function
+
+
+
+
 
 
 }//clase
