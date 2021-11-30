@@ -112,7 +112,9 @@ INSERT INTO `menu` (`idmenu`, `menombre`, `medescripcion`, `idpadre`, `medeshabi
 (6, 'Listar Productos', 'lista productos', 2, '0000-00-00 00:00:00'),
 (7, 'Agregar Usuario', 'agregar usuario', 1, '0000-00-00 00:00:00'),
 (8, 'Agregar Rol', 'agregar rol', 1, '0000-00-00 00:00:00'),
-(9, 'Agregar Producto', 'agregar producto', 2, '0000-00-00 00:00:00');
+(9, 'Agregar Producto', 'agregar producto', 2, '0000-00-00 00:00:00'),
+(8, 'Listar Menus', 'listar menu', 1, '0000-00-00 00:00:00'),
+(9, 'Agregar Menú', 'agregar menu', 1, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
