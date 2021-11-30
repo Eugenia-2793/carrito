@@ -103,16 +103,16 @@ CREATE TABLE `menu` (
 --
 
 INSERT INTO `menu` (`idmenu`, `menombre`, `medescripcion`, `idpadre`, `medeshabilitado`) VALUES
-(0, 'Principal', 'menu padre de los roles', NULL, NULL),
-(1, 'Administrador', 'menu de rol administrador', 0, NULL),
-(2, 'Deposito', 'menu del rol deposito', 0, NULL),
-(3, 'Cliente', 'menu del rol cliente', 0, NULL),
-(4, 'Listar Usuarios', 'lista usuarios', 1, NULL),
-(5, 'Listar Roles', 'lista roles', 1, NULL),
-(6, 'Listar Productos', 'lista productos', 2, NULL),
-(7, 'Agregar Usuario', 'agregar usuario', 1, NULL),
-(8, 'Agregar Rol', 'agregar rol', 1, NULL),
-(9, 'Agregar Producto', 'agregar producto', 2, NULL);
+(0, 'Principal', 'menu padre de los roles', 0, '0000-00-00 00:00:00'),
+(1, 'Administrador', 'menu de rol administrador', 0, '0000-00-00 00:00:00'),
+(2, 'Deposito', 'menu del rol deposito', 0, '0000-00-00 00:00:00'),
+(3, 'Cliente', 'menu del rol cliente', 0, '0000-00-00 00:00:00'),
+(4, 'Listar Usuarios', 'lista usuarios', 1, '0000-00-00 00:00:00'),
+(5, 'Listar Roles', 'lista roles', 1, '0000-00-00 00:00:00'),
+(6, 'Listar Productos', 'lista productos', 2, '0000-00-00 00:00:00'),
+(7, 'Agregar Usuario', 'agregar usuario', 1, '0000-00-00 00:00:00'),
+(8, 'Agregar Rol', 'agregar rol', 1, '0000-00-00 00:00:00'),
+(9, 'Agregar Producto', 'agregar producto', 2, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -128,11 +128,18 @@ CREATE TABLE `menurol` (
 --
 -- Volcado de datos para la tabla `menurol`
 --
-
 INSERT INTO `menurol` (`idmenu`, `idrol`) VALUES
+(0, 0),
 (1, 1),
 (2, 2),
-(3, 3);
+(3, 3),
+(4, 1),
+(5, 1),
+(6, 2),
+(7, 1),
+(8, 1),
+(9, 2);
+
 
 -- --------------------------------------------------------
 
@@ -178,6 +185,7 @@ CREATE TABLE `rol` (
 --
 
 INSERT INTO `rol` (`idrol`, `rodescripcion`) VALUES
+(0, 'Menu'),
 (1, 'Administrador'),
 (2, 'Deposito'),
 (3, 'Cliente');
@@ -202,9 +210,11 @@ CREATE TABLE `usuario` (
 
 INSERT INTO `usuario` (`idusuario`, `usnombre`, `uspass`, `usmail`, `usdeshabilitado`) VALUES
 (0, 'Eugenia', 123456, 'eugenia@gmail.com', '0000-00-00 00:00:00'),
-(1, 'Aoshi', 123456, 'aoshi@gmail.com', '0000-00-00 00:00:00'),
-(2, 'Salome', 123456, 'salome@gmail.com', '0000-00-00 00:00:00'),
-(3, 'Bhima', 'bhima123', 'bhima@gmail.com', '0000-00-00 00:00:00');
+(1, 'Maria', 123456, 'maria@gmail.com', '2021-11-01 14:40:33'),
+(2, 'Eldepo', 'eldepo', 'eldepo@gmail.com', '0000-00-00 00:00:00'),
+(3, 'flor', 'flor', 'flor@gmail.com', '2021-11-12 03:00:00'),
+(4, 'nohabilitado', 'conletrastambien', 'nohabilitado@gmail.com', '0000-00-00 00:00:00'),
+(5, 'hoy12', 123456, 'hoy12@gmail.com', '2021-11-26 03:00:00');
 
 -- --------------------------------------------------------
 

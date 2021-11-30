@@ -224,4 +224,38 @@ class AbmMenu
         $arreglo = Menu::listar($where);
         return $arreglo;
     }
+
+
+
+    /**
+     * busca todos los menu
+     * Busca los roles que tienen esos menu 
+     *
+     * @return array multidimensional con arrays de objusuario/ array con sus roles
+     */
+    public function listarMenu($param)
+    {
+        $listaActivos = [];
+        $listaMenus = $this->buscar($param);
+        if (count($listaMenus) > 0) {
+            foreach ($listaMenus as $menu) {
+
+                $roles = [];
+                // $datosmenu va a guardar un obj menu y un array de roles de dicho menu
+                $datosMenu = [];
+                $menuRol = new AbmMenuRol();
+                $roles = $menuRol->buscarRolesMenu($menu);
+                array_push($datosMenu, $menu);
+                array_push($datosMenu, $roles);
+                array_push($listaActivos, $datosMenu);
+            }
+        }
+        return $listaActivos;
+    }
+
+
+
+
+
+
 }

@@ -3,6 +3,7 @@ include_once '../../../configuracion.php';
 
 $sesion = new Session();
 $datos = data_submitted();
+print_r($datos);
 
 $encuentraRol = false;
 if (!$sesion->activa()) {
