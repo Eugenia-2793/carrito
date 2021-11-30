@@ -88,8 +88,9 @@ class Menu
     public function cargar()
     {
         $resp = false;
+        $idmenu = $this->getIdMenu();
         $base = new BaseDatos();
-        $sql = "SELECT * FROM menu WHERE idmenu = " . $this->getIdMenu();
+        $sql = "SELECT * FROM menu WHERE idmenu = '$idmenu'";
         if ($base->Iniciar()) {
             $res = $base->Ejecutar($sql);
             if ($res > -1) {
@@ -143,8 +144,10 @@ class Menu
     public function eliminar()
     {
         $resp = false;
+        $idMenu = $this->getIdMenu();
         $base = new BaseDatos();
-        $sql = "DELETE FROM menu WHERE idmenu=" . $this->getIdMenu();
+        //$sql = "DELETE FROM menu WHERE idmenu=" . $this->getIdMenu();
+        $sql = "DELETE FROM menu WHERE idmenu = '$idMenu'";
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 return true;

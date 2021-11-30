@@ -6,6 +6,7 @@ class AbmUsuariorol
     {
         $obj = null;
         if (array_key_exists('idusuario', $param) and array_key_exists('idrol', $param)) {
+
             $objusuario = new Usuario();
             $objusuario->setIdusuario($param['idusuario']);
             $objusuario->cargar();

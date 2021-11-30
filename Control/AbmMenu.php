@@ -75,6 +75,48 @@ class AbmMenu
     }
 
 
+    /**
+     * Creamos un nuevo menu con el nombre del nuevo rol
+     * y idpadre = 0 por defecto. 
+     * @param array $param
+     * @return boolean
+     */
+    public function altaMenu($datos)
+    {
+        $resp = false;
+        $nombreMenu = $datos['rodescripcion'];
+        $param = ['idmenu' => "DEFAULT", 'menombre' => $nombreMenu, 'medescripcion' => "menu de rol " . $nombreMenu, 'idpadre' => 0, 'medeshabilitado' => "0000-00-00 00:00:00"];
+
+        $elObjtMenu = $this->cargarObjeto($param);
+
+        if ($elObjtMenu != null and $elObjtMenu->insertar()) {
+            $param['idrol'] = $datos['idrol'];
+            $param['idmenu'] = $elObjtMenu->getIdMenu();
+            $resp = $this->altaMenuRol($param);;
+        }
+        return $resp;
+    }
+
+
+    /**
+     * Creamos un nuevo menurol con el idrol y el idmenu
+     * @param array $param
+     * @return boolean
+     */
+    public function altaMenuRol($datos)
+    {
+        $resp = false;
+        $idmenu = $datos['idmenu'];
+        $idrol = $datos['idrol'];
+        $elObjtMenuRol = new AbmMenuRol();
+        $param = ['idmenu' => $idmenu, 'idrol' => $idrol];
+
+        if ($elObjtMenuRol->alta($param)) {
+            $resp = true;
+        }
+        return $resp;
+    }
+
 
     /**
      * Por lo general no se usa ya que se utiliza borrado lógico ( es decir pasar de activo a inactivo)
@@ -90,6 +132,48 @@ class AbmMenu
             if ($elObjtMenu != null and $elObjtMenu->eliminar()) {
                 $resp = true;
             }
+        }
+        return $resp;
+    }
+
+
+    /**
+     * Creamos un nuevo menu con el nombre del nuevo rol
+     * y idpadre = 0 por defecto. 
+     * @param array $param
+     * @return boolean
+     */
+    public function bajaMenu($param)
+    {
+        $resp = false;
+        $datos['idmenu'] = $param[0]->getIdMenu()->getIdMenu();
+        $datos['idrol'] = $param[0]->getIdRol()->getidrol();
+
+        if ($this->seteadosCamposClaves($datos)) {
+            $elObjtMenu = $this->cargarObjetoConClave($datos);
+            if ($elObjtMenu != null and $elObjtMenu->eliminar()) {
+                $resp = $this->bajaMenuRol($datos);
+            }
+        }
+        return $resp;
+    }
+
+
+    /**
+     * Creamos un nuevo menurol con el idrol y el idmenu
+     * @param array $datos
+     * @return boolean
+     */
+    public function bajaMenuRol($datos)
+    {
+        $resp = false;
+        $elObjtMenuRol = new AbmMenuRol();
+
+        if ($elObjtMenuRol->baja($datos)) {
+            $resp = true;
+            echo "bajamenurol de abmmenu: ";
+            echo "<br>";
+            echo "<br>";
         }
         return $resp;
     }

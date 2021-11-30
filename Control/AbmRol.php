@@ -33,7 +33,7 @@ class AbmRol
         $obj = null;
         if (isset($param['idrol'])) {
             $obj = new Rol();
-            $obj->setear($param['idrol'], ""); //???---------------------------2 o 3?
+            $obj->setear($param['idrol'], "");
         }
         return $obj;
     }
@@ -61,9 +61,12 @@ class AbmRol
     {
         $resp = false;
         $elObjtRol = $this->cargarObjeto($param);
+        $elObjtMenu = new AbmMenu();
 
         if ($elObjtRol != null and $elObjtRol->insertar()) {
-            $resp = true;
+            //Recupero id nuevo del objeto insertado doy de alta un nuevo menú
+            $param['idrol'] = $elObjtRol->getidrol();
+            $resp = $elObjtMenu->altaMenu($param);
         }
         return $resp;
     }
@@ -77,10 +80,18 @@ class AbmRol
     public function baja($param)
     {
         $resp = false;
+        $elObjtMenu = new AbmMenu;
+        $objMenuRol = new AbmMenuRol;
+        $menuRol = $objMenuRol->buscar($param);
+
         if ($this->seteadosCamposClaves($param)) {
             $elObjtrol = $this->cargarObjetoConClave($param);
             if ($elObjtrol != null and $elObjtrol->eliminar()) {
-                $resp = true;
+                //Recupero idrol para dar de baja el menurol
+                $resp = $elObjtMenu->bajaMenu($menuRol);
+                echo "baja de abmrol: ";
+                echo "<br>";
+                echo "<br>";
             }
         }
         return $resp;
