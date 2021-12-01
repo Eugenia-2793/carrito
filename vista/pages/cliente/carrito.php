@@ -1,5 +1,3 @@
-
-
 <?php
 $Titulo = "ver compras";
 include_once '../../estructura/cabecera.php';
@@ -40,10 +38,11 @@ $compraunica = $AbmObjCompra->buscar($filtro);
           <table class="table table-striped">
             <thead>
               <tr>
-                <th scope="col">Nro de compra</th>
+                <th scope="col">Producto</th>
                 <th scope="col">Cantidad</th>
                 <th scope="col">Precio</th>
-                <th scope="col" class='text-center'>Borrar</th>
+                <th scope="col">Estado</th>
+                <th scope="col" class='text-center'>Cancelar</th>
               </tr>
             </thead>
 

@@ -28,7 +28,6 @@ $encuentraRol = false;
                 <th scope="col">Coprecio</th>
                 <th scope="col">Estado</th>
                 <th scope="col" class='text-center'>Cambiar estado</th>
-                <th scope="col" class='text-center'>Borrar</th>
               </tr>
             </thead>
             <?php
@@ -58,12 +57,6 @@ $encuentraRol = false;
                <i class="fa fa-pen"></i>
              </button> 
              </td>';
-       echo '<td class="text-center"> 
-               <button class="btn btn-danger btn-sm" type="submit" value="' . $idcompra. '" formaction="eliminar.php" name="idcompra" id="idcompra">
-               <i class="fas fa-trash-alt"></i>
-             </button> 
-             </td>';
-
          $i++;
                
 
