@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-11-2021 a las 17:28:37
+-- Tiempo de generación: 25-11-2021 a las 17:24:22
 -- Versión del servidor: 10.4.21-MariaDB
--- Versión de PHP: 8.0.11
+-- Versión de PHP: 8.0.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -65,10 +65,10 @@ CREATE TABLE `compraestadotipo` (
 --
 
 INSERT INTO `compraestadotipo` (`idcompraestadotipo`, `cetdescripcion`, `cetdetalle`) VALUES
-(1, 'iniciada', 'cuando el usuario : cliente inicia la compra de uno o mas productos del carrito'),
-(2, 'aceptada', 'cuando el usuario administrador da ingreso a uno de las compras en estado = 1 '),
-(3, 'enviada', 'cuando el usuario administrador envia a uno de las compras en estado =2 '),
-(4, 'cancelada', 'un usuario administrador podra cancelar una compra en cualquier estado y un usuario cliente solo en estado=1 ');
+(1, 'iniciada', 'Cuando el usuario cliente inicia la compra de uno o mas productos del carrito'),
+(2, 'aceptada', 'Cuando el usuario administrador da ingreso a una de las compras en estado = 1'),
+(3, 'enviada', 'Cuando el usuario administrador envia a una de las compras en estado = 2'),
+(4, 'cancelada', 'Un usuario administrador podra cancelar una compra en cualquier estado y un usuario cliente solo en estado = 1');
 
 -- --------------------------------------------------------
 
@@ -103,18 +103,20 @@ CREATE TABLE `menu` (
 --
 
 INSERT INTO `menu` (`idmenu`, `menombre`, `medescripcion`, `idpadre`, `medeshabilitado`) VALUES
-(0, 'Principal', 'menu padre de los roles', 0, '0000-00-00 00:00:00'),
+(0, 'Principal', 'menu padre de los roles', NULL, '0000-00-00 00:00:00'),
 (1, 'Administrador', 'menu de rol administrador', 0, '0000-00-00 00:00:00'),
 (2, 'Deposito', 'menu del rol deposito', 0, '0000-00-00 00:00:00'),
 (3, 'Cliente', 'menu del rol cliente', 0, '0000-00-00 00:00:00'),
-(4, 'Listar Usuarios', 'lista usuarios', 1, '0000-00-00 00:00:00'),
-(5, 'Listar Roles', 'lista roles', 1, '0000-00-00 00:00:00'),
-(6, 'Listar Productos', 'lista productos', 2, '0000-00-00 00:00:00'),
-(7, 'Agregar Usuario', 'agregar usuario', 1, '0000-00-00 00:00:00'),
-(8, 'Agregar Rol', 'agregar rol', 1, '0000-00-00 00:00:00'),
-(9, 'Agregar Producto', 'agregar producto', 2, '0000-00-00 00:00:00'),
-(8, 'Listar Menus', 'listar menu', 1, '0000-00-00 00:00:00'),
-(9, 'Agregar Menú', 'agregar menu', 1, '0000-00-00 00:00:00');
+(4, 'Listar Usuarios', '../../pages/usuario/listar.php', 1, '0000-00-00 00:00:00'),
+(5, 'Agregar Usuario', '../../pages/usuario/nuevo.php', 1, '0000-00-00 00:00:00'),
+(6, 'Listar Roles', '../../pages/roles/listar.php', 1, '0000-00-00 00:00:00'),
+(7, 'Agregar Rol', '../../pages/roles/nuevo.php', 1, '0000-00-00 00:00:00'),
+(8, 'Listar Productos', '../../pages/deposito/listarProductos.php', 2, '0000-00-00 00:00:00'),
+(9, 'Agregar Producto', '../../pages/deposito/agregarProducto.php', 2, '0000-00-00 00:00:00'),
+(10, 'Listar Menus', '../../pages/menu/listar.php', 1, '0000-00-00 00:00:00'),
+(11, 'Agregar Menú', '../../pages/menu/nuevo.php', 1, '0000-00-00 00:00:00'),
+(12, 'Listar Compras', '../../pages/carritos/listar.php', 1, '0000-00-00 00:00:00'),
+(13, 'Listar Productos', '../../pages/cliente/listarProductos.php', 3, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -130,18 +132,11 @@ CREATE TABLE `menurol` (
 --
 -- Volcado de datos para la tabla `menurol`
 --
+
 INSERT INTO `menurol` (`idmenu`, `idrol`) VALUES
-(0, 0),
 (1, 1),
 (2, 2),
-(3, 3),
-(4, 1),
-(5, 1),
-(6, 2),
-(7, 1),
-(8, 1),
-(9, 2);
-
+(3, 3);
 
 -- --------------------------------------------------------
 
@@ -169,7 +164,7 @@ INSERT INTO `producto` (`idproducto`, `pronombre`, `protipo`, `prodetalle`, `pro
 (4, 'Combo 2', 'combo', '2 gaseosas medianas + 1 pochoclo mediano', 15, 250),
 (5, 'Combo 3', 'combo', '2 gaseosas medianas + 2 choripanes', 20, 400),
 (6, 'Madagascar', 'pelicula', 'La película trata de cuatro animales del zoológico de Central Park, Nueva York, (Alex el león, Marty la cebra, Gloria la hipopótamo y Melman la jirafa) que han estado toda su vida en cautiverio, a los que una serie de casualidades acaba dejándolos en plena naturaleza en la isla de Madagascar. Allí descubrirán que la vida salvaje no es tal y como se la imaginaban.', 30, 500),
-(7, 'Black Widow', 'pelicula', 'En 1995, los agentes secretos rusos, el supersoldado Alexei Shostakov y la Viuda Negra Melina Vostokoff, se hacen pasar por una familia normal en Ohio con sus hijas de alquiler Natasha Romanoff y Yelena Belova. Cuando la misión de robar información de S.H.I.E.L.D. se completa, la familia escapa a Cuba y se reúne con su jefe, el general Dreykov, que hace que Romanoff y Belova sean llevadas a la Habitación Roja para su entrenamiento.', 20, 600);
+(7, 'Black Widow', 'pelicula', 'En 1995, los agentes secretos rusos, el supersoldado Alexei Shostakov y la Viuda Negra Melina Vostokoff, se hacen pasar por una familia normal en Ohio con sus hijas de alquiler Natasha Romanoff y Yelena Belova. Cuando la misión de robar información de S.H.I.E.L.D. se completa, la familia escapa a Cuba y se reúne con su jefe, el general Dreykov, que hace que Romanoff y Belova sean llevadas a la Habitación Roja para su entrenamiento.', 22, 600);
 
 -- --------------------------------------------------------
 
@@ -187,7 +182,6 @@ CREATE TABLE `rol` (
 --
 
 INSERT INTO `rol` (`idrol`, `rodescripcion`) VALUES
-(0, 'Menu'),
 (1, 'Administrador'),
 (2, 'Deposito'),
 (3, 'Cliente');
@@ -211,12 +205,12 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`idusuario`, `usnombre`, `uspass`, `usmail`, `usdeshabilitado`) VALUES
-(0, 'Eugenia', 123456, 'eugenia@gmail.com', '0000-00-00 00:00:00'),
-(1, 'Maria', 123456, 'maria@gmail.com', '2021-11-01 14:40:33'),
-(2, 'Eldepo', 'eldepo', 'eldepo@gmail.com', '0000-00-00 00:00:00'),
-(3, 'flor', 'flor', 'flor@gmail.com', '2021-11-12 03:00:00'),
-(4, 'nohabilitado', 'conletrastambien', 'nohabilitado@gmail.com', '0000-00-00 00:00:00'),
-(5, 'hoy12', 123456, 'hoy12@gmail.com', '2021-11-26 03:00:00');
+(0, 'Eugenia', 'e10adc3949ba59abbe56e057f20f883e', 'eugenia@gmail.com', '0000-00-00 00:00:00'),
+(1, 'Aoshi', 'e10adc3949ba59abbe56e057f20f883e', 'aoshi@gmail.com', '0000-00-00 00:00:00'),
+(2, 'Salome', 'e10adc3949ba59abbe56e057f20f883e', 'salome@gmail.com', '0000-00-00 00:00:00'),
+(3, 'Bhima', '93ca8c23ed6bd58ae16de366c9cc341a', 'bhima@gmail.com', '0000-00-00 00:00:00'),
+(4, 'Maria', '372e49d242e450b924196e30818b8c1e', 'maria@gmail.com', '0000-00-00 00:00:00'),
+(5, 'Eldepo', '93ca8c23ed6bd58ae16de366c9cc341a', 'depo@hotmail.com', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -239,9 +233,14 @@ INSERT INTO `usuariorol` (`idusuario`, `idrol`) VALUES
 (1, 2),
 (1, 3),
 (2, 2),
-(3, 3);
+(3, 3),
+(4, 2),
+(4, 3),
+(5, 3);
 
--- --------------------------------------------------------
+--
+-- Índices para tablas volcadas
+--
 
 --
 -- Indices de la tabla `compra`
@@ -351,19 +350,19 @@ ALTER TABLE `menu`
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `idproducto` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `idproducto` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `rol`
 --
 ALTER TABLE `rol`
-  MODIFY `idrol` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `idrol` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idusuario` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `idusuario` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Restricciones para tablas volcadas
