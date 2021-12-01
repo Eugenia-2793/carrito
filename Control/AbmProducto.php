@@ -147,8 +147,7 @@ class AbmProducto
     {
      //Array ( [producto] => Array ( [0] => 1 [1] => 2 ) )
      $productos = array();
-      if(!($datos == null)){
-        $productos = array();
+      if(!(empty($datos['producto']))){
           foreach($datos['producto'] as $producto){
              $idProducto['idproducto'] = $producto;
              $unProducto = $this->buscar($idProducto);

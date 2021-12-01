@@ -254,6 +254,26 @@ class AbmCompra
         return $listaActivos;      
     }
 
+        //actualizarprecio(producto)
+        /**
+     * Puede traer un obj específico o toda la lista si el parámetro es null
+     * permite buscar un objeto
+     * @param array $param
+     * @return array
+     */
+    public function actualizarprecio($items, $filtro){
+       
+        $idcompra= $filtro;
+        
+        $actualizarcompraprecio= array();
+        foreach($items as $item){
+            //print_r($producto);
+            // $precioitem = $producto[0]['itemprecio'];
+            //echo "</br> precio item : $precioitem</br>";
+        }
+
+    }//function
+
 
 
 

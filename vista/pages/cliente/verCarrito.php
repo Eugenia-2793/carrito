@@ -1,33 +1,10 @@
 <?php
-$Titulo = "ver compras";
+$Titulo = "ver carrito";
 include_once '../../estructura/cabecera.php';
 
 $datos = data_submitted();
-// print_r($datos);
-// echo "</br>--------------------</br>";
-
-$AbmObjCompra = new AbmCompra;
-$id = $AbmObjCompra->recuperarIdusuario();
-$filtro= array();
-$filtro['idusuario'] = $id;
-$compra = $AbmObjCompra->buscar($filtro);
-
-
-if(!($compra == null)){
-   //existe compra - continuar. - traer los items de esta compra.
-   //echo "entro primero <br/>";
-   $existe = $AbmObjCompra->existeCompra($filtro);
-   $idcompra = $existe[0]->getIdCompra();
-  
-}else{
-    //no existe compra - continuar. - acomodar los productos seleccionador.
-  //echo "entro segundo </br>";
-   $nueva = $AbmObjCompra->nuevaCompra($filtro); //id de la compra
-   if($nueva){
-    $existe = $AbmObjCompra->existeCompra($filtro);
-    $idcompra = $existe[0]->getIdCompra();
-   }
-}
+$idcompra = $datos['idcompra'];
+//print_r($datos);
 
 //-------------------------PRODUCTOS-------------------------------------
 //-----------------------------------------------------------------------
@@ -39,7 +16,7 @@ if(!($productos == null)){ //verifico que existan productos
    
   <!-- Listado de Productos -->
   <div class="row mb-5" id="">
-    <form id="carrito" name="carrito" method="POST" action="carrito.php" data-toggle="validator">
+    <form id="carrito" name="carrito" method="POST" action="AccionCrearItems.php" data-toggle="validator">
       <div class="table-responsive">
         <table class="table table-striped">
           <thead>
@@ -69,6 +46,7 @@ if(!($productos == null)){ //verifico que existan productos
          echo '<input type="hidden" id="idproducto[]" name="idproducto[]" value="'.$id.'">';
          echo '<input type="hidden" id="idcompra" name="idcompra" value="'.$idcompra.'">';
          echo '<input type="hidden" id="itemprecio[]" name="itemprecio[]" value="'. $precio.'" >';
+        
          echo '<tr class="align-middle">';
          echo '<td >' . $nombre .  '</td>';
          echo '<td class="text-center">' . $tipo .  '</td>';
@@ -76,9 +54,6 @@ if(!($productos == null)){ //verifico que existan productos
               <input  type="number" max="'.$stock.'" min="1" id="cicantidad[]" name="cicantidad[]" value="1" >
               </td>';
          echo '<td  class="text-center" > x $'.$precio.'</td>';
-        //  echo '<input type="hidden" id="original" value="'.$precio.'">';
-   
-
     }//if de stock
    $i++;
   }//foreach

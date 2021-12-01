@@ -186,7 +186,9 @@ class AbmCompraItem
     public function acomodar($param)
     { 
       //param = Array ( [idproducto] => Array ( [0] => 1 [1] => 3 ) [idcompra] => 27 [proprecio] => Array ( [0] => 350 [1] => 300 ) [cicantidad] => Array ( [0] => 3 [1] => 1 ) )
-        $cant = count($param['idproducto']);
+      //Por data_submited
+      //Array ( [idproducto] => Array ( [0] => 1 [1] => 7 ) [idcompra] => 31 [cicantidad] => Array ( [0] => 1 [1] => [2] => [3] => [4] => [5] => [6] => 2 ) [itemprecio] => Array ( [0] => 350 [1] => 350 [2] => 300 [3] => 250 [4] => 400 [5] => 500 [6] => 600 ) ) 
+      $cant = count($param['idproducto']);
         $listado[] = array('idcompraitem'=> '','idproducto' => '', 'idcompra' =>'', 'cicantidad' => '' , 'itemprecio' => '');
         for($i=0; $i < $cant; $i++){
            $listado[$i]['idcompraitem'] = null;
@@ -233,6 +235,7 @@ class AbmCompraItem
         $unacompra = $objCompra->buscar($idcompra);
         $actualizacompra= array();
         foreach($unacompra as $parametros){
+            echo "esto que hace?";
         }
         //print_r($unacompra);
         //echo $precio= $unacompra['comprecio'];

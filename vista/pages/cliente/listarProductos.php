@@ -2,11 +2,7 @@
 $Titulo = "Listar Productos";
 include_once("../../estructura/cabecera.php");
 
-$objAbmProducto = new AbmProducto();
-$listaProducto = $objAbmProducto->buscar(null);
-
 $encuentraRol = false;
-
 if ($sesion->activa()) {
     foreach ($idrol as $unIdRol) {
         if ($unIdRol  == 3) {
@@ -14,8 +10,37 @@ if ($sesion->activa()) {
         }
     }
 }
-
 if ($encuentraRol) {
+
+//creo la compra y muestro productos para que se carguen dinamicamente
+$AbmObjCompra = new AbmCompra;
+$id = $AbmObjCompra->recuperarIdusuario();
+$filtro= array();
+$filtro['idusuario'] = $id;
+$compra = $AbmObjCompra->buscar($filtro);
+
+
+if(!($compra == null)){
+   //existe compra - continuar. - traer los items de esta compra.
+   //echo "entro primero <br/>";
+   $existe = $AbmObjCompra->existeCompra($filtro);
+   $idcompra = $existe[0]->getIdCompra();
+  
+}else{
+    //no existe compra - continuar. - acomodar los productos seleccionador.
+  //echo "entro segundo </br>";
+   $nueva = $AbmObjCompra->nuevaCompra($filtro); //id de la compra
+   if($nueva){
+    $existe = $AbmObjCompra->existeCompra($filtro);
+    $idcompra = $existe[0]->getIdCompra();
+   }
+}
+
+//-------------------------PRODUCTOS-------------------------------------
+//-----------------------------------------------------------------------
+
+$objAbmProducto = new AbmProducto();
+$listaProducto = $objAbmProducto->buscar(null);
 ?>
     <section>
         <h2>Listar Productos</h2>
@@ -53,6 +78,7 @@ if ($encuentraRol) {
                                 echo "<td  class='text-center'>
                                           <input type='checkbox' name='producto[]' value='". $id."'> 
                                      </td>";
+                                echo '<input type="hidden" id="idcompra" name="idcompra" value="'.$idcompra.'">';
 
                                 $i++;
                             }
@@ -71,7 +97,7 @@ if ($encuentraRol) {
             </form>
            </div>
     </section>
-
+ 
 <?php
 } else {
     include_once("../../pages/login/sinPermiso.php");
