@@ -10,21 +10,22 @@ class AbmCompra
      */
     private function cargarObjeto($param)
     {
-        //print_r ($param);
         $obj = null;
         if (
             array_key_exists('idcompra', $param) and array_key_exists('cofecha', $param)
             and array_key_exists('idusuario', $param) and array_key_exists('comprecio', $param)
+           
         ) {
-
             //creo objeto estadotipos
             $objUsuario = new Usuario();
-            $objUsuario->getIdUsuario($param['idusuario']);
+            $objUsuario->setidusuario($param['idusuario']);       
             $objUsuario->cargar();
+           
 
-            //agregarle los otros objetos
+            //agregarle los otros objetos (aca se rompe)
             $obj = new Compra();
             $obj->setear($param['idcompra'], $param['cofecha'], $objUsuario, $param['comprecio']);
+         
         }
         return $obj;
     }
@@ -69,15 +70,40 @@ class AbmCompra
      * @return boolean
      */
     public function alta($param)
-    {
+    { 
+        //print_r($param);
         $resp = false;
         $param['idcompra'] = null;
-        $elObjtArchivoE = $this->cargarObjeto($param);
-        //print_r($elObjtArchivoE);
-        if ($elObjtArchivoE != null and $elObjtArchivoE->insertar()) {
+        $elObjCompra = $this->cargarObjeto($param);
+       if ($elObjCompra != null and $elObjCompra->insertar()) {
+           $resp = true;
+        //ahora le seteo el estado iniciada a la nueva compra
+        $param['idcompra'] = $elObjCompra->getIdCompra();
+        $resp = $this->altaEstadoNueva($param);
+       }
+        return $resp;
+    }
+
+    /**
+     * Carga un objeto con los datos pasados por parámetro y lo 
+     * Inserta en la base de datos
+     * @param array $param
+     * @return boolean
+     */
+    public function altaEstadoNueva($param)
+    { 
+        $resp = false;
+        $compraEstadoTipo = new AbmCompraEstado;
+        $datos= ['idcompraestado' => null, 'idcompra' => $param['idcompra'], 'idcompraestadotipo' => 1, 'cefechaini' => $param['cofecha'] , 'cefechafin' => '0000-00-00 00:00:00'];
+        //idcompraestado, idcompra, idcompraestadotipo, cefechaini, cefechafin
+        //echo "</br> </br>";
+        //Array ( [idcompraestado] => [idcompra] => 14 [idcompraestadotipo] => 1 [cefechaini] => 21-11-26 12:27:42 [cefechafin] => 0000-00-00 00:00:00 )
+        if ($compraEstadoTipo->alta($datos)) {
             $resp = true;
         }
+
         return $resp;
+       
     }
 
   
@@ -87,7 +113,7 @@ class AbmCompra
      * @param array $param
      * @return boolean
      */
-    /* public function baja($param){
+     public function baja($param){
         $resp = false;
         if ($this->seteadosCamposClaves($param)){
             $elObjtArchivoE = $this->cargarObjetoConClave($param);
@@ -97,7 +123,7 @@ class AbmCompra
         }
         
         return $resp;
-    } */
+    } 
 
 
     /**
@@ -142,4 +168,95 @@ class AbmCompra
         $arreglo = Compra::listar($where);
         return $arreglo;
     }
-}
+
+    /**
+     * Recupera el id del usuario log
+     * @param array $param
+     * @return array
+     */
+    public function recuperarIdusuario()
+    {
+        $sesion = new Session();
+        if ($sesion->activa()) {
+            $user = $sesion->getidUser();
+            $objAbmUsuario = new AbmUsuario();
+            $filtro = array();
+            $filtro['idusuario'] = $user;
+            $unUsuario = $objAbmUsuario->buscar($filtro);
+        // Info usuario
+            $id = $unUsuario[0]->getidusuario();
+        }
+      return $id;
+    }
+
+    /**
+     * Si la compra existe trae los productos/items que tiene
+     * permite buscar un objeto
+     * @param array $param
+     * @return array
+     */
+    public function existeCompra($param)
+    {
+        $id = $param['idusuario'];
+        $existeObj = $this->buscar($id); 
+        return $existeObj;
+        
+    }
+
+        /**
+     * inicia una compra
+     * permite buscar un objeto
+     * @param array $param
+     * @return array
+     */
+    public function nuevaCompra($param)
+    {    
+        $id= $param['idusuario'];
+        $DateAndTime = date('y-m-d h:i:s ', time()); 
+
+        $datos = array('idcompra'=> '', 'cofecha' => $DateAndTime, 'idusuario' => $id, 'comprecio' => 0 );
+        $nuevoObj = $this->alta($datos); //booleano
+        
+       return $nuevoObj;
+    }
+
+    /*
+ INSERT INTO `compraestadotipo` (`idcompraestadotipo`, `cetdescripcion`, `cetdetalle`) VALUES
+(1, 'iniciada', 'cuando el usuario : cliente inicia la compra de uno o mas productos del carrito'),
+(2, 'aceptada', 'cuando el usuario administrador da ingreso a uno de las compras en estado = 1 '),
+(3, 'enviada', 'cuando el usuario administrador envia a uno de las compras en estado =2 '),
+(4, 'cancelada', 'un usuario administrador podra cancelar una compra en cualquier estado y un usuario cliente solo en estado=1 ');
+ */
+
+ /**
+ * cargo el datos de la comrpa.
+ * permite buscar un objeto
+ * @param array $param
+ * @return array
+ */
+    public function listarCompras($param)
+    { 
+        $listaActivos = [];
+        $listaCompras = $this->buscar($param);
+        if (count($listaCompras) > 0) {
+            foreach ($listaCompras as $compra) {
+                $estado = [];
+                // $datoscompra va a guardar un obj usuario y un array de estado de la compra
+                $datoscompra=[];
+                $compraEstado = new AbmCompraEstado();
+                $estado = $compraEstado->buscarDesEstadocompra($compra);
+                array_push($datoscompra, $compra);
+                array_push($datoscompra, $estado);
+                array_push($listaActivos, $datoscompra);
+
+            }
+        } 
+        return $listaActivos;      
+    }
+
+
+
+
+
+
+}//clase

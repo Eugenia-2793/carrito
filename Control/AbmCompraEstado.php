@@ -10,27 +10,30 @@ class AbmCompraEstado
      */
     private function cargarObjeto($param)
     {
-        //print_r ($param);
+        //Los param llegan bien Array ( [idcompraestado] => [idcompra] => 19 [idcompraestadotipo] => 1 [cefechaini] => 21-11-26 12:50:44 [cefechafin] => 0000-00-00 00:00:00 )
         $obj = null;
         if (
-            array_key_exists('idcompraestadotipoestado', $param) and array_key_exists('idcompra', $param)
+            array_key_exists('idcompraestado', $param) and array_key_exists('idcompra', $param)
             and array_key_exists('idcompraestadotipo', $param) and array_key_exists('cefechaini', $param)
             and array_key_exists('cefechafin', $param)
         ) {
 
             //creo objeto estadotipos
-            $objProducto = new Compra();
-            $objProducto->getIdCompra($param['idcompra']);
-            $objProducto->cargar();
+            $objcompra = new Compra();
+            $objcompra->setIdCompra($param['idcompra']);
+            $objcompra->cargar(); 
+
 
             //creo objeto usuario
-            $objCompra = new CompraEstadoTipo();
-            $objCompra->setIdCompraEstadoTipo($param['idcompraestadotipo']);
-            $objCompra->cargar();
+            $objCompraEstadoTipo = new CompraEstadoTipo();
+            $objCompraEstadoTipo->setIdCompraEstadoTipo($param['idcompraestadotipo']);
+            $objCompraEstadoTipo->cargar();
+
 
             //agregarle los otros objetos
             $obj = new CompraEstado();
-            $obj->setear($param['idcompraestadotipoestado'], $objProducto, $objCompra, $param['cefechaini'], $param['cefechafin']);
+            $obj->setear($param['idcompraestado'], $objcompra, $objCompraEstadoTipo, $param['cefechaini'], $param['cefechafin']);
+
         }
         return $obj;
     }
@@ -45,9 +48,9 @@ class AbmCompraEstado
     private function cargarObjetoConClave($param)
     {
         $obj = null;
-        if (isset($param['idcompraestadotipoestado'])) {
+        if (isset($param['idcompraestado'])) {
             $obj = new CompraEstado();
-            $obj->setear($param['idcompraestadotipoestado'], null, null, null, null);
+            $obj->setear($param['idcompraestado'], null, null, null, null);
         }
         return $obj;
     }
@@ -60,7 +63,7 @@ class AbmCompraEstado
     private function seteadosCamposClaves($param)
     {
         $resp = false;
-        if (isset($param['idcompraestadotipoestado']))
+        if (isset($param['idcompraestado']))
             $resp = true;
         return $resp;
     }
@@ -74,9 +77,8 @@ class AbmCompraEstado
     public function alta($param)
     {
         $resp = false;
-        $param['idcompraestadotipoestado'] = null;
+        $param['idcompraestado'] = null;
         $elObjtArchivoE = $this->cargarObjeto($param);
-        //print_r($elObjtArchivoE);
         if ($elObjtArchivoE != null and $elObjtArchivoE->insertar()) {
             $resp = true;
         }
@@ -131,8 +133,8 @@ class AbmCompraEstado
     {
         $where = " true ";
         if ($param <> NULL) {
-            if (isset($param['idcompraestadotipoestado']))
-                $where .= " and idcompraestadotipoestado =" . $param['idcompraestadotipoestado'];
+            if (isset($param['idcompraestado']))
+                $where .= " and idcompraestado =" . $param['idcompraestado'];
             if (isset($param['idcompra']))
                 $where .= " and idcompra =" . $param['idcompra'];
             if (isset($param['idcompraestadotipo']))
@@ -145,4 +147,34 @@ class AbmCompraEstado
         $arreglo = CompraEstado::listar($where);
         return $arreglo;
     }
-}
+
+     //---------------------------------------PARA ADMINISTRAr--------------------------------------------------
+    //-----------------------------------------------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------------------------------
+     
+      /** 
+     * Busca todos los usuariorol correspondientes a un objusuario
+     * Lista todos los roles que tiene el usuario
+     * @param object
+     * @return array devuelve las descripciones de cada rol de dicho usuario
+     */
+    public function buscarDesEstadocompra($elObjtCompra)
+    {
+        $listaEstCom = [];
+        $listaEstCom = $this->buscar(null); //obj usuariorol
+
+        if (count($listaEstCom) > 0) { // $listaEstCom != ""
+            $estados = [];
+            //Agrego TODOS los estados que tenga el usuario en el array $estados
+            foreach ($listaEstCom as $compraestado) {
+                if ($compraestado->getIdCompra()->getIdCompra() == $elObjtCompra->getIdCompra()) {
+                    $estadodescript = $compraestado->getIdCompraEstadoTipo()->getCetDescripcion();
+                    array_push($estados, $estadodescript);
+                }
+            }
+        }
+        return $estados;
+    }
+
+
+}//clase

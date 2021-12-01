@@ -1,90 +1,79 @@
 <?php
-include_once '../../../configuracion.php';
+$Titulo = "ver compras";
+include_once '../../estructura/cabecera.php';
 
-$sesion = new Session();
 $datos = data_submitted();
-print_r($datos);
+//  echo "</br>Por data_submited</br>";
+//  print_r($datos);
+//  echo "</br>--------------------</br>";
+//Array ( [idproducto] => Array ( [0] => 1 [1] => 2 ) [idcompra] => 27 [proprecio] => Array ( [0] => 350 [1] => 350 ) [cicantidad] => Array ( [0] => 2 [1] => 2 ) )
 
-$encuentraRol = false;
-if (!$sesion->activa()) {
-    header('Location: ../login/login.php');
-} else {
-    list($sesionValidar, $error) = $sesion->validar();
-    if ($sesionValidar) {
+//HACER.
+//mando los datos a crear items y luego los listo con el estado de la compra,
+//esto queda en vista del usuario como algo q solo puede eliminar.
 
-        $user = $sesion->getUsuario();
-        $usrol = $sesion->getRol();
-        $rol = $usrol[0]->getobjrol();
-        $descrp = $rol->getroldescripcion();
+$AbmObjItem = new AbmCompraItem;
+$AbmObjItem->altavariositems($datos);
+$filtro= $datos['idcompra'];
+$itemsdecompra = $AbmObjItem->buscar($filtro);
+// $cantidad = count($itemsdecompra);
+// echo $cantidad;
+//print_r($itemsdecompra);
 
-        $abmusuariorol = new AbmUsuarioRol;
-        $idrol = $abmusuariorol->buscarRolesUsuario($user);
+$AbmObjCompra = new AbmCompra;
+$filtro= $datos['idcompra'];
+$compraunica = $AbmObjCompra->buscar($filtro);
+//$precio = $AbmObjCompra->precio($itemsdecompra);
+//$mostrarCompra = $AbmObjCompra->mostrarCompra($compraunica);
 
-        $Titulo = "Carrito";
-        foreach ($idrol as $unIdRol) {
-            if ($unIdRol  == 3) {
-                $encuentraRol = true;
-            }
-        }
-        include_once("../../estructura/cabecera.php");
-    } else {
-        header('Location: ../login/cerrarSesion.php');
-    }
-}
-
-
-if ($encuentraRol) {
 ?>
 
-    <div class="container2">
-        <h2 class="mb-3 text-center">Carrito de Compras</h2>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Producto</th>
-                    <th scope="col">Cantidad</th>
-                    <th scope="col">Acción</th>
-                    <th scope="col">Total</th>
-                </tr>
-            </thead>
-            <tbody id="items">
-                <tr>
-                    <th scope="row">id</th>
-                    <td>Café</td>
-                    <td>1</td>
-                    <td>
-                        <button class="btn btn-info btn-sm">
-                            +
-                        </button>
-                        <button class="btn btn-danger btn-sm">
-                            -
-                        </button>
-                    </td>
-                    <td>$ <span>500</span></td>
-                </tr>
-            </tbody>
-            <tfoot>
-                <tr id="footer">
-                    <th scope="row" colspan="5">Carrito vacío - comience a comprar!</th>
-                    <th scope="row" colspan="2">Total productos</th>
-                    <td>10</td>
-                    <td>
-                        <button class="btn btn-danger btn-sm" id="vaciar-carrito">
-                            Vaciar todo
-                        </button>
-                    </td>
-                    <td class="font-weight-bold">$ <span>5000</span></td>
-                </tr>
-            </tfoot>
-        </table>
-    </div>
+<section>
+    <h2>Estado de compra</h2>
 
+    <!-- Listado de usuarios -->
+    <div class="row mb-5" id="">
+      <form id="Usuario" name="Usuario" method="POST" action="editar.php" data-toggle="validator">
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Producto</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Estado</th>
+                <th scope="col" class='text-center'>Cancelar</th>
+              </tr>
+            </thead>
+
+            <?php 
+            
+    //          if (count($compraunica) > 0) {
+    //              $i = 1;
+    //              foreach ($compraunica as $unica) {
+    //              echo '<tbody>';
+         
+    //                $idcompra  = $unica->getIdCompraItem();
+    //                $nombre = $unica->getIdProducto();
+    //                $compra = $unica->getIdCompra();
+    //                $cantidad = $unica->getCiCantidad();
+    //                $precio = $unica->getitemPrecio();
+
+    //                echo '<td>' . $idcompra .  '</td>';
+    //                echo '<td>' . $cantidad .  '</td>';
+    //                echo '<td>' . $precio .  '</td>';
+    //                echo '<td>  <input type=submit id="borrar" name="borrar">  </td>';
+
+    //              }
+    echo '</tbody>';
+      echo '</table>';
+    //          }
+    // ?>
 
 <?php
-} else {
-    include_once("../../pages/login/sinPermiso.php");
-}
+//  else {
+//     include_once("../../pages/login/sinPermiso.php");
+// }
 
 
 include_once("../../estructura/pie.php");

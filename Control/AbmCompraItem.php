@@ -148,4 +148,100 @@ class AbmCompraItem
         $arreglo = CompraItem::listar($where);
         return $arreglo;
     }
-}
+
+
+   
+   
+    /**
+     * Puede traer un obj específico o toda la lista si el parámetro es null
+     * permite buscar un objeto
+     * @param array $param
+     * @return array
+     */
+    public function altavariositems($param)
+    { 
+        $acomodados= $this->acomodar($param);
+        $precioActualizado = $this->precioActualizadado($acomodados);
+        // print_r($precioActualizado); 
+        $cant = count($precioActualizado);
+        $items = array();
+        // echo "<br/> cantidad:". $cant;
+        for($i=0; $i < $cant; $i++){
+            $producto = $precioActualizado[$i];
+            $secargo = $this->alta($producto);
+              if($secargo){
+                array_push($items, $producto);
+               // $actualizarprecio= $this->actualizarprecio($items);
+              }//if
+         }//for
+      //return $items ;
+    }
+
+    /**
+     * hacer un arreglo de datos de item. acomodados
+     * permite buscar un objeto
+     * @param array $param
+     * @return array
+     */
+    public function acomodar($param)
+    { 
+      //param = Array ( [idproducto] => Array ( [0] => 1 [1] => 3 ) [idcompra] => 27 [proprecio] => Array ( [0] => 350 [1] => 300 ) [cicantidad] => Array ( [0] => 3 [1] => 1 ) )
+        $cant = count($param['idproducto']);
+        $listado[] = array('idcompraitem'=> '','idproducto' => '', 'idcompra' =>'', 'cicantidad' => '' , 'itemprecio' => '');
+        for($i=0; $i < $cant; $i++){
+           $listado[$i]['idcompraitem'] = null;
+           $listado[$i]['idproducto'] = $param['idproducto'][$i];
+           $listado[$i]['idcompra'] = $param['idcompra'];
+           $listado[$i]['cicantidad'] = $param['cicantidad'][$i];
+           $listado[$i]['itemprecio'] = $param['itemprecio'][$i];
+          
+        }
+        return $listado;
+    }//finfuction
+
+    /**
+     * Puede traer un obj específico o toda la lista si el parámetro es null
+     * permite buscar un objeto
+     * @param array $param
+     * @return array
+     */
+    public function precioActualizadado($acomodados)
+    { 
+      $cant = count($acomodados);
+      for($i=0; $i < $cant; $i++){
+        $precio = $acomodados[$i]['itemprecio'] ;
+        $cantidad = $acomodados[$i]['cicantidad'];
+        $total = $precio * $cantidad;
+        $acomodados[$i]['itemprecio'] = $total;
+     }//for
+     return $acomodados;
+    }//function
+
+
+    //actualizarprecio(producto)
+        /**
+     * Puede traer un obj específico o toda la lista si el parámetro es null
+     * permite buscar un objeto
+     * @param array $param
+     * @return array
+     */
+    public function actualizarprecio($productos){
+        //ver si madno el objeto o por parametrosss-----------------------terminar.
+        //modificar precio de una compra.
+        $objCompra = new AbmCompra;
+        $idcompra= $productos[0]['idcompra'];
+        $unacompra = $objCompra->buscar($idcompra);
+        $actualizacompra= array();
+        foreach($unacompra as $parametros){
+        }
+        //print_r($unacompra);
+        //echo $precio= $unacompra['comprecio'];
+
+    }//function
+
+
+
+
+
+
+}//clase
