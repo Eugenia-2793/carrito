@@ -39,7 +39,7 @@ if ($encuentraRol) {
                 <!-- <th scope="col">Password</th> -->
                 <th scope="col">Mail</th>
                 <th scope="col">Habilitado</th>
-                <th scope="col"><a href="../roles/listar.php"> Rol (editar) </a></th>
+                <th scope="col"><a href="../roles/listar.php">Rol (editar)</a></th>
                 <th scope="col" class='text-center'>Editar (usuario)</th>
               </tr>
             </thead>

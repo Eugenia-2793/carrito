@@ -12,7 +12,7 @@ include_once("../../../control/controlSubeArchivos.php");
 $resp = false;
 $objProducto = new AbmProducto();
 
-/* Acción que permite: cargar un nuevo producto, borrar/deshabilitar y editar */
+/* Acción que permite: editar, borrar y crear un producto */
 if (isset($datos['accion'])) {
     $mensaje = "";
 
@@ -34,24 +34,6 @@ if (isset($datos['accion'])) {
             $mensaje = "<b>ERROR: </b>";
         }
     }
-
-    /*** DESHABILITAR ***/
-    /*if ($datos['accion'] == 'deshabilitar') {
-        $datos['pronombre'] = $obj->getProNombre();
-        $datos['procantstock'] = $obj->getProStock();
-        $datos['prodetalle'] = $obj->getProDetalle();
-        $datos['precio'] = $obj->getProPrecio();
-        if ($obj->getProDeshabilitado()) {
-            $datos['prodeshabilitado'] = 0;
-        } else {
-            $datos['prodeshabilitado'] = 1;
-        }
-        if ($objProducto->modificacion($datos)) {
-            $resp = true;
-        } else {
-            $mensaje = "<b>ERROR: </b>";
-        }
-    }*/
 
     /*** BORRAR ***/
     if ($datos['accion'] == 'borrar') {

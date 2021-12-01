@@ -70,24 +70,11 @@ $compraunica = $AbmObjCompra->buscar($filtro);
     //          }
     // ?>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <?php
+//  else {
+//     include_once("../../pages/login/sinPermiso.php");
+// }
+
+
 include_once("../../estructura/pie.php");
 ?>
