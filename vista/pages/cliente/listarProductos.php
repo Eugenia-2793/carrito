@@ -22,7 +22,16 @@ $compra = $AbmObjCompra->buscar($filtro);
 //buscoel estado de esas compras 
 
 $cuantas = count($compra);
-echo "cuantas compra tiene este usuario". $cuantas. "</br>";
+//echo "cuantas compra tiene este usuario". $cuantas. "</br>";
+
+
+
+
+
+//aca hacer un forech con cantidad de compras y que la ulltima ver si esta en 1
+
+
+
 
 
 //-------------------------------------------------
@@ -37,7 +46,7 @@ if(!($compra == null)){
    //al ingresar
    $nueva = $AbmObjCompra->nuevaCompra($filtro); //id de la compra
    $idcompra= $nueva;
-   echo "id de la compra nueva:". $idcompra;
+   //echo "id de la compra nueva:". $idcompra;
    if($nueva){
        $id = $AbmObjCompra->recuperarIdusuario();
        $filtro= array();

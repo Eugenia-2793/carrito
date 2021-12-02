@@ -165,15 +165,11 @@ class AbmProducto
      * @return array
      */
     public function enStock($datos){
-      //Array (  [idproducto] => Array ( [0] => 1 [1] => 5 ) 
-      //         [cicantidad] => Array ( [0] => 5 [1] => 20 ) 
-      //         [proprecio] => Array ( [0] => 350 [1] => 350 ))
-      
-     //print_r($datos);   
-     $hayStock = false;
+ 
+     $hayStock[] = "";
      $cant = count($datos['idproducto']);
-
      $listado = array('idproducto'=> '','pronombre' => '', 'protipo' =>'', 'prodetalle' => '' , 'procantstock' => '',  'proprecio' => '');
+     
      for($i=0; $i < $cant; $i++){
 
         $cantidad= $datos['cicantidad'][$i];
@@ -192,18 +188,30 @@ class AbmProducto
         $precio = $unProducto->getProPrecio(); 
 
         $nuevostock = $stock - $cantidad;
-        // echo "stock=". $stock;
-        // echo "cantidad=". $cantidad;
-        // echo "total=".$nuevostock;
-        // ordenado como el ogt $obj->setear($param['idproducto'], $param['pronombre'], $param['prodetalle'], $param['procantstock'], $param['proprecio'], $param['protipo']);
-        $listado = array('idproducto'=> $idproducto,'pronombre' => $pronombre, 'protipo' =>$protipo, 'prodetalle' => $detalle , 'procantstock' => $nuevostock,  'proprecio' => $precio);
-        $modifico = $this->modificacion($listado);   
-           if($modifico){
-              $hayStock= true;
-           }//if
-       
-        }//foreach
-    return $hayStock;
+
+        if($nuevostock >= 0){
+           $listado = array('idproducto'=> $idproducto,'pronombre' => $pronombre, 'protipo' =>$protipo, 'prodetalle' => $detalle , 'procantstock' => $nuevostock,  'proprecio' => $precio);
+           $modifico = $this->modificacion($listado);   
+              if($modifico){
+                 $hayStock[$i] = 1; //true
+              }//if
+          }else{
+            $hayStock[$i] = 0; //false
+          }//ifnuevostock
+        }//for
+
+
+         $suma =0;
+         foreach($hayStock as $hay){
+             $suma = $suma + $hay;
+         }
+         if ($suma == $cant){
+             $enStock = true;
+         }else{
+            $enStock = false;
+         }
+
+    return $enStock;
     }//function
 
 
