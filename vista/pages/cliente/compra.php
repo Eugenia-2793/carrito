@@ -10,6 +10,32 @@ if ($sesion->activa()) {
     }
 }
 if ($encuentraRol) {
+
+
+$objCompra = new AbmCompra;  
+$AbmObjCompra = new AbmCompra;
+$id = $AbmObjCompra->recuperarIdusuario();
+$filtro= array();
+$filtro['idusuario'] = $id;
+$compra = $AbmObjCompra->buscar($filtro);
+$obj = $compra[0];
+$idcompra = $obj->getIdCompra();
+
+
+$AbmObjCompraEstado = new AbmCompraEstado;
+$filtro= array();
+$filtro['idcompra'] = $idcompra;
+$compra = $AbmObjCompraEstado->buscar($filtro);
+$estado = $AbmObjCompraEstado->recuperarestado($compra);
+//print_r($estado); trae el objeto abmcompraestadotipo
+
+$AbmObjCompraEstadoTipo = new AbmCompraEstadoTipo;
+$idcet = $AbmObjCompraEstadoTipo->recuperarestadoid($estado);
+$descripcion = $AbmObjCompraEstadoTipo->recuperardescripcion($estado);
+
+// echo "el id $idcet";
+// echo  "descripcion $descripcion";
+
 ?>
 
 <section>
@@ -17,41 +43,40 @@ if ($encuentraRol) {
 
     <!-- Listado de usuarios -->
     <div class="row mb-5" id="">
-      <form id="Usuario" name="Usuario" method="POST" action="editar.php" data-toggle="validator">
+      <form id="Usuario" name="Usuario" method="POST" action="eliminar.php" data-toggle="validator">
         <div class="table-responsive">
           <table class="table table-striped">
             <thead>
               <tr>
-                <th scope="col">Producto</th>
-                <th scope="col">Cantidad</th>
+                <th scope="col">Fecha</th>
                 <th scope="col">Precio</th>
                 <th scope="col">Estado</th>
                 <th scope="col" class='text-center'>Cancelar</th>
               </tr>
             </thead>
-
             <?php 
+
+             $fechaini = $obj->getCoFecha();
+             $precio = $obj->getcomPrecio();
+             $fechaini = $obj->getCoFecha();
+             
+              echo '<tbody>';
+              echo '<tr class="align-middle">';
+              echo '<td >' . $fechaini .  '</td>';
+              echo '<td>' .  $precio .  '</td>';
+              echo '<td>' .  $descripcion .  '</td>';
+              echo "<td class='text-center'> 
+                      <button class='btn btn-danger btn-sm' type='submit' value='" . $id . "' formaction='eliminar.php' name='idusuario' id='idusuario'>
+                          <i class='fas fa-trash-alt'></i>
+                      </button>
+                   </td>";
+              
+                 
             
-    //          if (count($compraunica) > 0) {
-    //              $i = 1;
-    //              foreach ($compraunica as $unica) {
-    //              echo '<tbody>';
-         
-    //                $idcompra  = $unica->getIdCompraItem();
-    //                $nombre = $unica->getIdProducto();
-    //                $compra = $unica->getIdCompra();
-    //                $cantidad = $unica->getCiCantidad();
-    //                $precio = $unica->getitemPrecio();
-
-    //                echo '<td>' . $idcompra .  '</td>';
-    //                echo '<td>' . $cantidad .  '</td>';
-    //                echo '<td>' . $precio .  '</td>';
-    //                echo '<td>  <input type=submit id="borrar" name="borrar">  </td>';
-
-    //              }
+                 
     echo '</tbody>';
       echo '</table>';
-    //          }
+             
     // ?>
 
 <?php

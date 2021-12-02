@@ -148,18 +148,6 @@ class AbmCompraItem
         $arreglo = CompraItem::listar($where);
         return $arreglo;
     }
-
-        /**
-     * Puede traer un obj específico o toda la lista si el parámetro es null
-     * permite buscar un objeto
-     * @param array $param
-     * @return array
-     */
-    public function enStock($param)
-    { 
-    }
-
-   
    
     /**
      * Puede traer un obj específico o toda la lista si el parámetro es null
@@ -227,5 +215,24 @@ class AbmCompraItem
      }//for
      return $acomodados;
     }//function
+
+       /**
+     * Puede traer un obj específico o toda la lista si el parámetro es null
+     * permite buscar un objeto
+     * @param array $param
+     * @return array
+     */
+    public function recuperarPrecio($itemsdecompra)
+    { 
+        $precio= 0;
+        foreach($itemsdecompra as $compra){
+            
+            $unitem = $compra;
+            $itemprecios = $unitem->getitemPrecio();
+            $precio = $precio + $itemprecios;
+            //echo $itemprecio; //los recupera xd
+        }
+      return $precio ;
+    }
 
 }//clase

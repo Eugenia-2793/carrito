@@ -17,6 +17,7 @@ class AbmCompra
            
         ) {
             //creo objeto estadotipos
+            echo "aca esta el problema?";
             $objUsuario = new Usuario();
             $objUsuario->setidusuario($param['idusuario']);       
             $objUsuario->cargar();
@@ -261,17 +262,24 @@ class AbmCompra
      * @param array $param
      * @return array
      */
-    public function actualizarprecio($items, $filtro){
+    public function actualizarprecio($compraunica, $preciofinal){
        
-        $idcompra= $filtro;
-        
-        $actualizarcompraprecio= array();
-        foreach($items as $item){
-            
-            //print_r($producto);
-            // $precioitem = $producto[0]['itemprecio'];
-            //echo "</br> precio item : $precioitem</br>";
-        }
+     //idcompra | cofecha | idusuario | comprecio   
+      $listado= array ('idcompra'=> '', 'cofecha'=>'','idusuario'=>'', 'comprecio' =>'');
+      
+      $compra = $compraunica[0];
+      $idcompra = $compra->getIdCompra();
+      $cofecha  = $compra->getCoFecha();
+      $idusuario = $compra->getIdUsuario();
+
+      print_r($idusuario);
+
+      $listado= array ('idcompra'=> $idcompra, 'cofecha'=>$cofecha,'idusuario'=>$idusuario, 'comprecio' =>$preciofinal);
+
+      $modifico = $this->modificacion($listado);
+      
+      return $modifico;
+         
 
     }//function
 

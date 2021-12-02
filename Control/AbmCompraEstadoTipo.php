@@ -144,6 +144,19 @@ class AbmCompraEstadoTipo
      return $idcompraestadotipo;
     }
 
+    //recuperarestadoid($estado)
+    /**
+     * recupero el id
+     * @param array $param
+     * @return array
+     */
+    public function recuperardescripcion($estado)
+    {
+        $idcet = $estado;
+        $descripcion = $idcet->getCetDescripcion();   
+     return $descripcion;
+    }
+
 
 
 

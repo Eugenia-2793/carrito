@@ -23,7 +23,12 @@ if($enStock){
     $filtro= $datos['idcompra'];
     //echo "filtro con id compra = $filtro";
     $itemsdecompra = $AbmObjItem->buscar($filtro);
-    $cantidad = count($itemsdecompra);
+    $precio = $AbmObjItem->recuperarPrecio($itemsdecompra);
+    $preciofinal = $precio;
+    //echo "precio finl: $preciofinal";
+
+
+    //$cantidad = count($itemsdecompra);
     //echo "cantidad de item: $cantidad";
     //print_r($itemsdecompra);
 
@@ -34,7 +39,10 @@ if($enStock){
     // echo "filtro </br> $filtro";
     $compraunica = $AbmObjCompra->buscar($filtro);
     //actualizar el precio de la compra:
-    $precio = $AbmObjCompra->actualizarprecio($itemsdecompra, $filtro);
+    $precio = $AbmObjCompra->actualizarprecio($compraunica, $preciofinal);
+    if($precio){
+       echo "todo correcto";
+    }
    //$mostrarCompra = $AbmObjCompra->mostrarCompra($compraunica);
 
    $mensaje = "Compra creada con exito";
