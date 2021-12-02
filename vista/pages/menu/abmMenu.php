@@ -44,9 +44,9 @@ if (isset($datos['accion'])) {
     }
 
     if ($resp) {
-        $mensaje = "La acción <b>" . $datos['accion'] . " usuario</b> se realizo correctamente.";
+        $mensaje = "La acción <b>" . $datos['accion'] . " menú</b> se realizo correctamente.";
     } else {
-        $mensaje .= "La acción <b>" . $datos['accion'] . " usuario</b> no pudo concretarse.";
+        $mensaje .= "La acción <b>" . $datos['accion'] . " menú</b> no pudo concretarse.";
     }
 }
 

@@ -124,24 +124,3 @@ function generarHash() {
 
     document.getElementById("link").value = hash;
 }
-
-
-/*
-//Validator bootstrap
-(function() {
-    'use strict';
-    window.addEventListener('load', function() {
-      // Obtener todos los formularios a los que queremos aplicar estilos de validación personalizados de Bootstrap
-      var forms = document.getElementsByClassName('needs-validation');
-      // No dejamos envíar si todos los campos no son validos
-      var validation = Array.prototype.filter.call(forms, function(form) {
-        form.addEventListener('submit', function(event) {
-          if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
-          }
-          form.classList.add('was-validated');
-        }, false);
-      });
-    }, false);
-  })();*/
