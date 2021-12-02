@@ -12,12 +12,15 @@ if ($sesion->activa()) {
 if ($encuentraRol) {
 
 
-$objCompra = new AbmCompra;  
+// $objCompra = new AbmCompra;  
 $AbmObjCompra = new AbmCompra;
 $id = $AbmObjCompra->recuperarIdusuario();
 $filtro= array();
 $filtro['idusuario'] = $id;
 $compra = $AbmObjCompra->buscar($filtro);
+
+if(!($compra == null)){
+
 $obj = $compra[0];
 $idcompra = $obj->getIdCompra();
 
@@ -80,10 +83,21 @@ $descripcion = $AbmObjCompraEstadoTipo->recuperardescripcion($estado);
     // ?>
 
 <?php
-  }else {
+}else{
+  $mensaje = "Tu carrito esta vacio";
+  echo "<div class='alert alert-danger d-flex align-items-center' role='alert'>
+  <svg class='bi flex-shrink-0 me-2' width='24' height='24' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
+  <div>" . $mensaje . "</div>
+  </div>";
+  echo '<a href="listarProductos.php" class="btn btn-success" >VAMOS A COMPRAR! </a>';
+  
+}
+
+ //permisos
+ }else {
      include_once("../../pages/login/sinPermiso.php");
  }
 
-
+//pie
 include_once("../../estructura/pie.php");
 ?>

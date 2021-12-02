@@ -20,8 +20,8 @@ if($enStock){
 
     $AbmObjItem = new AbmCompraItem;
     $AbmObjItem->altavariositems($datos);
-    $filtro= $datos['idcompra'];
-    //echo "filtro con id compra = $filtro";
+   // $filtro['idcompra']= $datos['idcompra'];
+    $filtro['idcompra']= $datos['idcompra'];;
     $itemsdecompra = $AbmObjItem->buscar($filtro);
     $precio = $AbmObjItem->recuperarPrecio($itemsdecompra);
     $preciofinal = $precio;
@@ -35,14 +35,14 @@ if($enStock){
     //Eso es en caso de que cuando un usuario inicia una compra, la cantidad de stock de los items que compra se reducen. Pero, si cancela la compra, esos items vuelven a tener la cantidad de stock que tenían.
 
     $AbmObjCompra = new AbmCompra;
-    $filtro= $datos['idcompra'];
-    // echo "filtro </br> $filtro";
-    $compraunica = $AbmObjCompra->buscar($filtro);
+    $busca['idcompra']= $datos['idcompra'];
+    // echo "busca </br> $busca";
+    $compraunica = $AbmObjCompra->buscar($busca);
     //actualizar el precio de la compra:
     $precio = $AbmObjCompra->actualizarprecio($compraunica, $preciofinal);
-    if($precio){
-       echo "todo correcto";
-    }
+    // if($precio){
+    //   // echo "todo correcto";
+    // }
    //$mostrarCompra = $AbmObjCompra->mostrarCompra($compraunica);
 
    $mensaje = "Compra creada con exito";
@@ -50,6 +50,8 @@ if($enStock){
    <svg class='bi flex-shrink-0 me-2' width='24' height='24' role='img' aria-label='Success:'><use xlink:href='#check-circle-fill'/></svg>
    <div>" . $mensaje . "</div>
    </div>";
+   echo '<a href="compra.php" class="btn btn-warning" >ver Compra</a>';
+
 
 }else{
   $mensaje = "no hay productos en stock";

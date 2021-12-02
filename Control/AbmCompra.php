@@ -17,7 +17,7 @@ class AbmCompra
            
         ) {
             //creo objeto estadotipos
-            echo "aca esta el problema?";
+            
             $objUsuario = new Usuario();
             $objUsuario->setidusuario($param['idusuario']);       
             $objUsuario->cargar();
@@ -266,13 +266,12 @@ class AbmCompra
        
      //idcompra | cofecha | idusuario | comprecio   
       $listado= array ('idcompra'=> '', 'cofecha'=>'','idusuario'=>'', 'comprecio' =>'');
-      
+
       $compra = $compraunica[0];
       $idcompra = $compra->getIdCompra();
       $cofecha  = $compra->getCoFecha();
-      $idusuario = $compra->getIdUsuario();
+      $idusuario= $this->recuperarIdusuario();
 
-      print_r($idusuario);
 
       $listado= array ('idcompra'=> $idcompra, 'cofecha'=>$cofecha,'idusuario'=>$idusuario, 'comprecio' =>$preciofinal);
 
