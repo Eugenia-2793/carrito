@@ -21,7 +21,7 @@ $encuentraRol = false;
 
 if ($sesion->activa()) {
     foreach ($idrol as $unIdRol) {
-        if ($unIdRol  == 2) {
+        if ($unIdRol == 2) {
             $encuentraRol = true;
         }
     }
@@ -74,7 +74,7 @@ if ($encuentraRol) {
                             Solo se permiten imágenes - Relación de aspecto de 3/2
                         </div>
                     </div>
-                    <!-- accion = editar, idusuario y tipo = combo (input oculto) -->
+                    <!-- accion = editar, idproducto y tipo = combo (input oculto) -->
                     <input id='accion' name='accion' value='editar' type='hidden'>
                     <input id='idproducto' name='idproducto' value='" . $datos['idproducto'] . "' type='hidden'>
                     <input id='protipo' name='protipo' value='combo' type='hidden'>

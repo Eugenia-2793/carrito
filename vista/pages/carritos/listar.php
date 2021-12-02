@@ -1,68 +1,106 @@
 <?php
-$Titulo = "Listar usuarios";
+$Titulo = "Listado de Compras";
 include_once("../../estructura/cabecera.php");
 
 $objAbmCompra = new AbmCompra();
 $listaCompra = $objAbmCompra->listarCompras(null);
 $encuentraRol = false;
 // print_r($listaCompra);
+
+if ($sesion->activa()) {
+  foreach ($idrol as $unIdRol) {
+    if ($unIdRol == 1) {
+      $encuentraRol = true;
+    }
+  }
+}
+
+if ($encuentraRol) {
 ?>
 
   <section>
     <h2>Listado de Compras</h2>
 
-    <!-- Boton Agregar Usuario 
-    <div class="mb-2 d-flex justify-content-end">
-      <a class="btn btn-primary" href="nuevo.php" role="button"><i class="fas fa-plus"></i> Nuevo Usuario</a>
-    </div>-->
-
-    <!-- Listado de usuarios -->
+    <!-- Listado de Compras -->
     <div class="row mb-5" id="">
-      <form id="Usuario" name="Usuario" method="POST" action="editar.php" data-toggle="validator">
+      <form id="ListaCompras" name="ListaCompras" method="POST" action="cancelarCompra.php" data-toggle="validator">
         <div class="table-responsive">
           <table class="table table-striped">
             <thead>
               <tr>
-                <th scope="col">idcompra</th>
-                <th scope="col">Cofecha</th>
-                <th scope="col">Coprecio</th>
-                <th scope="col">Estado</th>
-                <th scope="col" class='text-center'>Cambiar estado</th>
+                <th scope="col">Id Compra</th>
+                <th scope="col">Usuario</th>
+                <th scope="col">Fecha Inicio</th>
+                <th scope="col">Fecha Fin</th>
+                <!-- <th scope="col" class='text-center'>Coprecio</th> -->
+                <th scope="col" class='text-center'>Estado</th>
+                <th scope="col" class='text-center'>Cambiar Estado</th>
               </tr>
             </thead>
             <?php
 
- if (count($listaCompra) > 0) {
-     $i = 1;
-     echo '<tbody>';
-     foreach ($listaCompra as $objAbmCompra) {
-       $idcompra = $objAbmCompra[0]->getIdCompra();
-       $cofecha = $objAbmCompra[0]->getCoFecha();
-       $idusuario = $objAbmCompra[0]->getIdUsuario()->getidusuario();
-       $precio = $objAbmCompra[0]->getcomPrecio();
-       $roles = "";
+            if (count($listaCompra) > 0) {
+              $i = 1;
+              echo '<tbody>';
+              foreach ($listaCompra as $objAbmCompra) {
+                $idcompra = $objAbmCompra[0]->getIdCompra();
+                //$cofecha = $objAbmCompra[0]->getCoFecha();
+                $usnombre = $objAbmCompra[0]->getIdUsuario()->getusnombre();
+                $precio = $objAbmCompra[0]->getcomPrecio();
 
-       foreach ($objAbmCompra[1] as $est) {
-        $estados = $est ;
-       }
- 
+                // Obtenemos el estado de la compra
+                $estados = $objAbmCompra[1][0];
 
-       echo '<tr class="align-middle">';
-       echo '<th scope="row">' . $idcompra . '</th>';
-       echo '<td>'. $cofecha.'</td>';
-       echo '<td>'. $precio.'</td>';
-       echo '<td>'. $estados.'</td>';     
-       echo '<td class="text-center"> 
-               <button class="btn btn-success btn-sm" type="submit" value="' . $estados. '" formaction="editar.php" name="editar" id="editar">
-               <i class="fa fa-pen"></i>
-             </button> 
-             </td>';
-         $i++;
-               
+                // Obtenemos un objeto CompraEstado
+                $abmCompraEstado = new AbmCompraEstado;
+                $objCompraEstado = $abmCompraEstado->buscaObjCompraEstado($idcompra);
+                $fechaini = $objCompraEstado[0]->getCeFechaIni();
+                $fechafin = $objCompraEstado[0]->getCeFechaFin();
 
-    }}
-             ?>
 
+                echo '<tr class="align-middle">';
+                echo '<th scope="row">' . $idcompra . '</th>';
+                echo '<td>' . $usnombre . '</td>';
+                echo '<td>' . $fechaini . '</td>';
+                echo '<td>' . $fechafin . '</td>';
+                //echo '<td class="text-center">' . $precio . '</td>';
+                switch ($estados) {
+                  case "iniciada":
+                    echo '<td class="text-center"><span class="badge bg-warning text-dark">' . $estados . '</span></td>';
+                    break;
+                  case "aceptada":
+                    echo '<td class="text-center"><span class="badge bg-success">' . $estados . '</span></td>';
+                    break;
+                  case "enviada":
+                    echo '<td class="text-center"><span class="badge bg-primary">' . $estados . '</span></td>';
+                    break;
+                  case "cancelada":
+                    echo '<td class="text-center"><span class="badge bg-danger">' . $estados . '</span></td>';
+                    break;
+                }
+
+                echo '<td class="text-center">';
+
+                if ($estados == "iniciada") {
+                  echo '<button class="btn btn-outline-success btn-sm" type="submit" value="' . $idcompra . '" formaction="aceptarCompra.php" name="idcompraestado" id="idcompraestado">
+                          Aceptar
+                        </button>
+                        <button class="btn btn-outline-danger btn-sm" type="submit" value="' . $idcompra . '" name="idcompraestado" id="idcompraestado">
+                          Cancelar
+                        </button>';
+                } elseif ($estados == "aceptada") {
+                  echo '<button class="btn btn-outline-primary btn-sm" type="submit" value="' . $idcompra . '" formaction="enviarCompra.php" name="idcompraestado" id="idcompraestado">
+                          Enviar
+                        </button>
+                        <button class="btn btn-outline-danger btn-sm" type="submit" value="' . $idcompra . '" name="idcompraestado" id="idcompraestado">
+                          Cancelar
+                        </button>';
+                }
+                echo '</td>';
+                $i++;
+              }
+            }
+            ?>
 
         </div>
       </form>
@@ -70,7 +108,12 @@ $encuentraRol = false;
   </section>
 
 <?php
-echo '</tbody>';
-echo '</table>';
+  echo '</tbody>';
+  echo '</table>';
+} else {
+  include_once("../../pages/login/sinPermiso.php");
+}
+
+
 include_once("../../estructura/pie.php");
 ?>

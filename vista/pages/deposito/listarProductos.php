@@ -9,7 +9,7 @@ $encuentraRol = false;
 
 if ($sesion->activa()) {
     foreach ($idrol as $unIdRol) {
-        if ($unIdRol  == 2) {
+        if ($unIdRol == 2) {
             $encuentraRol = true;
         }
     }

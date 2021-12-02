@@ -65,10 +65,10 @@ CREATE TABLE `compraestadotipo` (
 --
 
 INSERT INTO `compraestadotipo` (`idcompraestadotipo`, `cetdescripcion`, `cetdetalle`) VALUES
-(1, 'iniciada', 'cuando el usuario : cliente inicia la compra de uno o mas productos del carrito'),
-(2, 'aceptada', 'cuando el usuario administrador da ingreso a uno de las compras en estado = 1 '),
-(3, 'enviada', 'cuando el usuario administrador envia a uno de las compras en estado =2 '),
-(4, 'cancelada', 'un usuario administrador podra cancelar una compra en cualquier estado y un usuario cliente solo en estado=1 ');
+(1, 'iniciada', 'Cuando el usuario cliente inicia la compra de uno o mas productos del carrito'),
+(2, 'aceptada', 'Cuando el usuario administrador da ingreso a una de las compras en estado = 1'),
+(3, 'enviada', 'Cuando el usuario administrador envia a una de las compras en estado = 2'),
+(4, 'cancelada', 'Un usuario administrador podra cancelar una compra en cualquier estado y un usuario cliente solo en estado = 1');
 
 -- --------------------------------------------------------
 
@@ -103,16 +103,20 @@ CREATE TABLE `menu` (
 --
 
 INSERT INTO `menu` (`idmenu`, `menombre`, `medescripcion`, `idpadre`, `medeshabilitado`) VALUES
-(0, 'Principal', 'menu padre de los roles', NULL, NULL),
-(1, 'Administrador', 'menu de rol administrador', 0, NULL),
-(2, 'Deposito', 'menu del rol deposito', 0, NULL),
-(3, 'Cliente', 'menu del rol cliente', 0, NULL),
-(4, 'Listar Usuarios', '../../pages/usuario/listar.php', 1, NULL),
-(5, 'Listar Roles', '../../pages/roles/listar.php', 1, NULL),
-(6, 'Listar Productos', '../../pages/deposito/listarProductos.php', 2, NULL),
-(7, 'Agregar Usuario', '../../pages/usuario/nuevo.php', 1, NULL),
-(8, 'Agregar Rol', '../../pages/roles/nuevo.php', 1, NULL),
-(9, 'Agregar Producto', '../../pages/deposito/agregarProducto.php', 2, NULL);
+(0, 'Principal', 'menu padre de los roles', NULL, '0000-00-00 00:00:00'),
+(1, 'Administrador', 'menu de rol administrador', 0, '0000-00-00 00:00:00'),
+(2, 'Deposito', 'menu del rol deposito', 0, '0000-00-00 00:00:00'),
+(3, 'Cliente', 'menu del rol cliente', 0, '0000-00-00 00:00:00'),
+(4, 'Listar Usuarios', '../../pages/usuario/listar.php', 1, '0000-00-00 00:00:00'),
+(5, 'Agregar Usuario', '../../pages/usuario/nuevo.php', 1, '0000-00-00 00:00:00'),
+(6, 'Listar Roles', '../../pages/roles/listar.php', 1, '0000-00-00 00:00:00'),
+(7, 'Agregar Rol', '../../pages/roles/nuevo.php', 1, '0000-00-00 00:00:00'),
+(8, 'Listar Productos', '../../pages/deposito/listarProductos.php', 2, '0000-00-00 00:00:00'),
+(9, 'Agregar Producto', '../../pages/deposito/agregarProducto.php', 2, '0000-00-00 00:00:00'),
+(10, 'Listar Menus', '../../pages/menu/listar.php', 1, '0000-00-00 00:00:00'),
+(11, 'Agregar Menú', '../../pages/menu/nuevo.php', 1, '0000-00-00 00:00:00'),
+(12, 'Listar Compras', '../../pages/carritos/listar.php', 1, '0000-00-00 00:00:00'),
+(13, 'Listar Productos', '../../pages/cliente/listarProductos.php', 3, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -201,12 +205,12 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`idusuario`, `usnombre`, `uspass`, `usmail`, `usdeshabilitado`) VALUES
-(0, 'Eugenia', '11e7cedd4fd766fd4c56b102b122f8cd', 'eugenia@gmail.com', '0000-00-00 00:00:00'),
+(0, 'Eugenia', 'e10adc3949ba59abbe56e057f20f883e', 'eugenia@gmail.com', '0000-00-00 00:00:00'),
 (1, 'Aoshi', 'e10adc3949ba59abbe56e057f20f883e', 'aoshi@gmail.com', '0000-00-00 00:00:00'),
 (2, 'Salome', 'e10adc3949ba59abbe56e057f20f883e', 'salome@gmail.com', '0000-00-00 00:00:00'),
 (3, 'Bhima', '93ca8c23ed6bd58ae16de366c9cc341a', 'bhima@gmail.com', '0000-00-00 00:00:00'),
-(17, 'Maria', '372e49d242e450b924196e30818b8c1e', 'maria@gmail.com', '0000-00-00 00:00:00'),
-(18, 'Eldepo', '93ca8c23ed6bd58ae16de366c9cc341a', 'maria21@gmail.com', '2021-11-24 03:00:00');
+(4, 'Maria', '372e49d242e450b924196e30818b8c1e', 'maria@gmail.com', '0000-00-00 00:00:00'),
+(5, 'Eldepo', '93ca8c23ed6bd58ae16de366c9cc341a', 'depo@hotmail.com', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -230,9 +234,9 @@ INSERT INTO `usuariorol` (`idusuario`, `idrol`) VALUES
 (1, 3),
 (2, 2),
 (3, 3),
-(17, 2),
-(17, 3),
-(18, 3);
+(4, 2),
+(4, 3),
+(5, 3);
 
 --
 -- Índices para tablas volcadas

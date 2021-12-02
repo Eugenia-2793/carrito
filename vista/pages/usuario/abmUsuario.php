@@ -10,7 +10,7 @@ include_once("../../estructura/cabecera.php");
 
 $resp = false;
 $objUsuario = new AbmUsuario();
-$objUsuarioRol = new AbmUsuarioRol();
+//$objUsuarioRol = new AbmUsuarioRol();
 
 /* Acción que permite: editar, borrar y crear un usuario */
 if (isset($datos['accion'])) {
@@ -62,6 +62,15 @@ if (isset($datos['accion'])) {
         }
     }
 
+    /*** REGISTRAR ***/
+    if ($datos['accion'] == 'registrar') {
+        if ($objUsuario->alta($datos)) {
+            $resp = true;
+        } else {
+            $mensaje = "<b>ERROR:</b> definir la clave primaria para no repetir. ";
+        }
+    }
+
     if ($resp) {
         $mensaje = "La acción <b>" . $datos['accion'] . " usuario</b> se realizo correctamente.";
     } else {
@@ -98,6 +107,10 @@ $encuentraError = strpos(strtoupper($mensaje), 'ERROR');
 if ($datos['accion'] == 'editarPerfil') {
     echo "<div class='mb-4'>
             <a class='btn btn-dark' href='../../pages/perfil/perfil.php' role='button'><i class='fas fa-angle-double-left'></i> Regresar</a>
+        </div>";
+} elseif ($datos['accion'] == 'registrar') {
+    echo "<div class='mb-4'>
+            <a class='btn btn-dark' href='../../pages/login/login.php' role='button'><i class='fas fa-angle-double-left'></i> Regresar</a>
         </div>";
 } else {
     echo "<div class='mb-4'>

@@ -1,19 +1,6 @@
 <?php
 $Titulo = "Registrar";
 include_once("../../estructura/cabecera.php");
-
-/*$datos = data_submitted();
-if (isset($datos['cs'])) {
-    if ($datos['cs'] == 1) {
-        $sesion->cerrarSession();
-        header("Location:../index/login.php");
-    }
-} else {
-    $activa = $sesion->activa();
-    if ($activa) {
-        header("Location:../index/carrito.php");
-    }
-}*/
 ?>
 
 <div class="form-signin mx-auto p-3 text-center">
@@ -37,7 +24,7 @@ if (isset($datos['cs'])) {
         <!--Habilitado-->
         <input id="usdeshabilitado" name="usdeshabilitado" value="0000-00-00 00:00:00" type="hidden">
         <!-- accion = nuevo (input oculto) -->
-        	<input id="accion" name="accion" value="crear" type="hidden">
+        <input id="accion" name="accion" value="registrar" type="hidden">
         <!-- Boton -->
         <button class="w-100 btn btn-lg btn-primary" type="submit">Registrarse</button>
     </form>

@@ -5,7 +5,7 @@ include_once("../../estructura/cabecera.php");
 $encuentraRol = false;
 if ($sesion->activa()) {
     foreach ($idrol as $unIdRol) {
-        if ($unIdRol  == 3) {
+        if ($unIdRol == 3) {
             $encuentraRol = true;
         }
     }
@@ -110,7 +110,7 @@ $listaProducto = $objAbmProducto->buscar(null);
                                 echo '<td class="text-center">' . $tipo .  '</td>';
                                 echo '<td class="text-center">' . $precio .  '</td>';
                                 echo "<td  class='text-center'>
-                                          <input type='checkbox' name='producto[]' value='". $id."'> 
+                                          <input type='checkbox' name='producto[]' value='" . $id . "'> 
                                      </td>";
                                 echo '<input type="hidden" id="idcompra" name="idcompra" value="'.$idcompra.'">';
 
@@ -123,14 +123,14 @@ $listaProducto = $objAbmProducto->buscar(null);
 
                         ?>
 
-                    <!-- <input class="btn btn-success" type="submit" value="Agregar al carrito">   -->
-                       
-                     <div class="mb-2 d-flex justify-content-end">
-                        <button class="btn btn-success" type="submit"> Agregar al carrito</button>    
-                     </div>      
+                        <!-- <input class="btn btn-success" type="submit" value="Agregar al carrito">   -->
+
+                        <div class="mb-2 d-flex justify-content-end">
+                            <button class="btn btn-success" type="submit"> Agregar al carrito</button>
+                        </div>
                 </div>
             </form>
-           </div>
+        </div>
     </section>
 
 <?php

@@ -10,6 +10,7 @@ class AbmCompraEstado
      */
     private function cargarObjeto($param)
     {
+        //print_r($param);
         //Los param llegan bien Array ( [idcompraestado] => [idcompra] => 19 [idcompraestadotipo] => 1 [cefechaini] => 21-11-26 12:50:44 [cefechafin] => 0000-00-00 00:00:00 )
         $obj = null;
         if (
@@ -21,7 +22,7 @@ class AbmCompraEstado
             //creo objeto estadotipos
             $objcompra = new Compra();
             $objcompra->setIdCompra($param['idcompra']);
-            $objcompra->cargar(); 
+            $objcompra->cargar();
 
 
             //creo objeto usuario
@@ -33,7 +34,6 @@ class AbmCompraEstado
             //agregarle los otros objetos
             $obj = new CompraEstado();
             $obj->setear($param['idcompraestado'], $objcompra, $objCompraEstadoTipo, $param['cefechaini'], $param['cefechafin']);
-
         }
         return $obj;
     }
@@ -85,7 +85,7 @@ class AbmCompraEstado
         return $resp;
     }
 
-   
+
     /**
      * Por lo general no se usa ya que se utiliza borrado lógico ( es decir pasar de activo a inactivo)
      * permite eliminar un objeto 
@@ -111,10 +111,12 @@ class AbmCompraEstado
      */
     public function modificacion($param)
     {
-        //echo "Estoy en modificacion";
         $resp = false;
         if ($this->seteadosCamposClaves($param)) {
             $elObjtArchivoE = $this->cargarObjeto($param);
+            //var_dump($elObjtArchivoE);
+            echo "<br>";
+            echo "<br>";
             if ($elObjtArchivoE != null and $elObjtArchivoE->modificar()) {
                 $resp = true;
             }
@@ -122,7 +124,95 @@ class AbmCompraEstado
         return $resp;
     }
 
-   
+
+    /**
+     * Cambiamos el tipo de la compraestado a ACEPTADA
+     * @param array $param
+     * @return boolean
+     */
+    public function aceptarCompra($param)
+    {
+        $resp = false;
+
+        if ($this->seteadosCamposClaves($param)) {
+            $objCompraEstado = new AbmCompraEstado;
+            $filtro = array();
+            $filtro['idcompra'] = $param['idcompraestado'];
+            $listaCompraEstado = $objCompraEstado->buscar($filtro);
+
+            $objCompraEstadoTipo = new AbmCompraEstadoTipo;
+            $listaCompraEstadoTipo = $objCompraEstadoTipo->buscar(['idcompraestadotipo' => 2]);
+            $listaCompraEstado[0]->setIdCompraEstadoTipo($listaCompraEstadoTipo[0]);
+            if ($listaCompraEstado[0] != null and $listaCompraEstado[0]->modificar()) {
+                $resp = true;
+            }
+        }
+        return $resp;
+    }
+
+
+    /**
+     * Cambiamos el tipo de la compraestado a ENVIADA
+     * @param array $param
+     * @return boolean
+     */
+    public function enviarCompra($param)
+    {
+        $resp = false;
+
+        if ($this->seteadosCamposClaves($param)) {
+            $objCompraEstado = new AbmCompraEstado;
+            $filtro = array();
+            $filtro['idcompra'] = $param['idcompraestado'];
+            $listaCompraEstado = $objCompraEstado->buscar($filtro);
+
+            // $idcompraestado = $listaCompraEstado[0]->getIdCompraEstado();
+            $objCompraEstadoTipo = new AbmCompraEstadoTipo;
+            $listaCompraEstadoTipo = $objCompraEstadoTipo->buscar(['idcompraestadotipo' => 3]);
+            // $idcompra = $param['idcompra'];
+            //$idcompraestadotipo = 3;
+            // $fechaini = $listaCompraEstado[0]->getCeFechaIni();
+            $fechafin = date("Y-m-d H:i:s");
+
+            $listaCompraEstado[0]->setIdCompraEstadoTipo($listaCompraEstadoTipo[0]);
+            $listaCompraEstado[0]->setCeFechaFin($fechafin);
+            if ($listaCompraEstado[0] != null and $listaCompraEstado[0]->modificar()) {
+                $resp = true;
+            }
+        }
+        return $resp;
+    }
+
+
+    /**
+     * Cambiamos el tipo de la compraestado a CANCELADA
+     * @param array $param
+     * @return boolean
+     */
+    public function cancelarCompra($param)
+    {
+        $resp = false;
+
+        if ($this->seteadosCamposClaves($param)) {
+            $objCompraEstado = new AbmCompraEstado;
+            $filtro = array();
+            $filtro['idcompra'] = $param['idcompraestado'];
+            $listaCompraEstado = $objCompraEstado->buscar($filtro);
+
+            $objCompraEstadoTipo = new AbmCompraEstadoTipo;
+            $listaCompraEstadoTipo = $objCompraEstadoTipo->buscar(['idcompraestadotipo' => 4]);
+            $fechafin = date("Y-m-d H:i:s");
+
+            $listaCompraEstado[0]->setIdCompraEstadoTipo($listaCompraEstadoTipo[0]);
+            $listaCompraEstado[0]->setCeFechaFin($fechafin);
+            if ($listaCompraEstado[0] != null and $listaCompraEstado[0]->modificar()) {
+                $resp = true;
+            }
+        }
+        return $resp;
+    }
+
+
     /**
      * Puede traer un obj específico o toda la lista si el parámetro es null
      * permite buscar un objeto
@@ -148,11 +238,11 @@ class AbmCompraEstado
         return $arreglo;
     }
 
-     //---------------------------------------PARA ADMINISTRAr--------------------------------------------------
+    //---------------------------------------PARA ADMINISTRAR--------------------------------------------------
     //-----------------------------------------------------------------------------------------------------------
     //-----------------------------------------------------------------------------------------------------------
-     
-      /** 
+
+    /** 
      * Busca todos los usuariorol correspondientes a un objusuario
      * Lista todos los roles que tiene el usuario
      * @param object
@@ -195,4 +285,18 @@ class AbmCompraEstado
       return $objcompraestadotipo;
     }
 
+    /**
+     * Cambiamos el tipo de la compraestado a CANCELADA
+     * @param int $param
+     * @return array
+     */
+    public function buscaObjCompraEstado($param)
+    {
+        $objCompraEstado = new AbmCompraEstado;
+        $filtro = array();
+        $filtro['idcompra'] = $param;
+        $listaCompraEstado = $objCompraEstado->buscar($filtro);
+
+        return $listaCompraEstado;
+    }
 }//clase
