@@ -99,6 +99,8 @@ if ($encuentraRol) {
                 echo '</td>';
                 $i++;
               }
+              echo '</tbody>';
+              echo '</table>';
             }
             ?>
 
@@ -108,8 +110,6 @@ if ($encuentraRol) {
   </section>
 
 <?php
-  echo '</tbody>';
-  echo '</table>';
 } else {
   include_once("../../pages/login/sinPermiso.php");
 }
