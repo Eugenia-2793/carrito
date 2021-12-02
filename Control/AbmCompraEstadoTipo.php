@@ -128,4 +128,42 @@ class AbmCompraEstadoTipo
         $arreglo = CompraEstadoTipo::listar($where);
         return $arreglo;
     }
-}
+
+
+    //recuperarestadoid($estado)
+    /**
+     * recupero el id
+     * @param array $param
+     * @return array
+     */
+    public function recuperarestadoid($estado)
+    {
+        $idcet = $estado;
+        $idcompraestadotipo = $idcet->getIdCompraEstadoTipo();
+
+     return $idcompraestadotipo;
+    }
+
+    //recuperarestadoid($estado)
+    /**
+     * recupero el id
+     * @param array $param
+     * @return array
+     */
+    public function recuperardescripcion($estado)
+    {
+        $idcet = $estado;
+        $descripcion = $idcet->getCetDescripcion();   
+     return $descripcion;
+    }
+
+
+
+
+
+
+
+
+
+
+}//clase

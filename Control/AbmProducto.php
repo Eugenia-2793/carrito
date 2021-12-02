@@ -147,8 +147,7 @@ class AbmProducto
     {
      //Array ( [producto] => Array ( [0] => 1 [1] => 2 ) )
      $productos = array();
-      if(!($datos == null)){
-        $productos = array();
+      if(!(empty($datos['producto']))){
           foreach($datos['producto'] as $producto){
              $idProducto['idproducto'] = $producto;
              $unProducto = $this->buscar($idProducto);
@@ -158,6 +157,55 @@ class AbmProducto
       //productos es un arreglo de arreglos
       return $productos;
     }//function
+
+
+    /**
+     * Si hay stock crea los items 
+     * @param array $param
+     * @return array
+     */
+    public function enStock($datos){
+      //Array (  [idproducto] => Array ( [0] => 1 [1] => 5 ) 
+      //         [cicantidad] => Array ( [0] => 5 [1] => 20 ) 
+      //         [proprecio] => Array ( [0] => 350 [1] => 350 ))
+      
+     //print_r($datos);   
+     $hayStock = false;
+     $cant = count($datos['idproducto']);
+
+     $listado = array('idproducto'=> '','pronombre' => '', 'protipo' =>'', 'prodetalle' => '' , 'procantstock' => '',  'proprecio' => '');
+     for($i=0; $i < $cant; $i++){
+
+        $cantidad= $datos['cicantidad'][$i];
+
+        $objProducto = new AbmProducto();
+        $idProducto = array();
+        $idProducto['idproducto'] = $datos['idproducto'][$i];
+        $listProductos = $objProducto->buscar($idProducto);
+        $unProducto = $listProductos[0];
+        
+        $idproducto = $unProducto->getIdProducto();
+        $pronombre = $unProducto->getProNombre();
+        $protipo = $unProducto->getProTipo();
+        $detalle = $unProducto->getProDetalle();
+        $stock = $unProducto->getProStock();
+        $precio = $unProducto->getProPrecio(); 
+
+        $nuevostock = $stock - $cantidad;
+        // echo "stock=". $stock;
+        // echo "cantidad=". $cantidad;
+        // echo "total=".$nuevostock;
+        // ordenado como el ogt $obj->setear($param['idproducto'], $param['pronombre'], $param['prodetalle'], $param['procantstock'], $param['proprecio'], $param['protipo']);
+        $listado = array('idproducto'=> $idproducto,'pronombre' => $pronombre, 'protipo' =>$protipo, 'prodetalle' => $detalle , 'procantstock' => $nuevostock,  'proprecio' => $precio);
+        $modifico = $this->modificacion($listado);   
+           if($modifico){
+              $hayStock= true;
+           }//if
+       
+        }//foreach
+    return $hayStock;
+    }//function
+
 
 
 }//clase

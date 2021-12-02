@@ -148,9 +148,6 @@ class AbmCompraItem
         $arreglo = CompraItem::listar($where);
         return $arreglo;
     }
-
-
-   
    
     /**
      * Puede traer un obj específico o toda la lista si el parámetro es null
@@ -186,7 +183,9 @@ class AbmCompraItem
     public function acomodar($param)
     { 
       //param = Array ( [idproducto] => Array ( [0] => 1 [1] => 3 ) [idcompra] => 27 [proprecio] => Array ( [0] => 350 [1] => 300 ) [cicantidad] => Array ( [0] => 3 [1] => 1 ) )
-        $cant = count($param['idproducto']);
+      //Por data_submited
+      //Array ( [idproducto] => Array ( [0] => 1 [1] => 7 ) [idcompra] => 31 [cicantidad] => Array ( [0] => 1 [1] => [2] => [3] => [4] => [5] => [6] => 2 ) [itemprecio] => Array ( [0] => 350 [1] => 350 [2] => 300 [3] => 250 [4] => 400 [5] => 500 [6] => 600 ) ) 
+      $cant = count($param['idproducto']);
         $listado[] = array('idcompraitem'=> '','idproducto' => '', 'idcompra' =>'', 'cicantidad' => '' , 'itemprecio' => '');
         for($i=0; $i < $cant; $i++){
            $listado[$i]['idcompraitem'] = null;
@@ -194,7 +193,7 @@ class AbmCompraItem
            $listado[$i]['idcompra'] = $param['idcompra'];
            $listado[$i]['cicantidad'] = $param['cicantidad'][$i];
            $listado[$i]['itemprecio'] = $param['itemprecio'][$i];
-          
+     
         }
         return $listado;
     }//finfuction
@@ -217,31 +216,23 @@ class AbmCompraItem
      return $acomodados;
     }//function
 
-
-    //actualizarprecio(producto)
-        /**
+       /**
      * Puede traer un obj específico o toda la lista si el parámetro es null
      * permite buscar un objeto
      * @param array $param
      * @return array
      */
-    public function actualizarprecio($productos){
-        //ver si madno el objeto o por parametrosss-----------------------terminar.
-        //modificar precio de una compra.
-        $objCompra = new AbmCompra;
-        $idcompra= $productos[0]['idcompra'];
-        $unacompra = $objCompra->buscar($idcompra);
-        $actualizacompra= array();
-        foreach($unacompra as $parametros){
+    public function recuperarPrecio($itemsdecompra)
+    { 
+        $precio= 0;
+        foreach($itemsdecompra as $compra){
+            
+            $unitem = $compra;
+            $itemprecios = $unitem->getitemPrecio();
+            $precio = $precio + $itemprecios;
+            //echo $itemprecio; //los recupera xd
         }
-        //print_r($unacompra);
-        //echo $precio= $unacompra['comprecio'];
-
-    }//function
-
-
-
-
-
+      return $precio ;
+    }
 
 }//clase

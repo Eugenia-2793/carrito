@@ -17,6 +17,7 @@ class AbmCompra
            
         ) {
             //creo objeto estadotipos
+            
             $objUsuario = new Usuario();
             $objUsuario->setidusuario($param['idusuario']);       
             $objUsuario->cargar();
@@ -197,9 +198,11 @@ class AbmCompra
      */
     public function existeCompra($param)
     {
-        $id = $param['idusuario'];
-        $existeObj = $this->buscar($id); 
-        return $existeObj;
+        $unacompra = $param[0];
+        $idcompra = $unacompra->getIdCompra();
+        // $verestado = $this->verEstado($idcompra);
+       
+        return $idcompra;
         
     }
 
@@ -213,20 +216,29 @@ class AbmCompra
     {    
         $id= $param['idusuario'];
         $DateAndTime = date('y-m-d h:i:s ', time()); 
-
         $datos = array('idcompra'=> '', 'cofecha' => $DateAndTime, 'idusuario' => $id, 'comprecio' => 0 );
         $nuevoObj = $this->alta($datos); //booleano
         
        return $nuevoObj;
     }
 
-    /*
- INSERT INTO `compraestadotipo` (`idcompraestadotipo`, `cetdescripcion`, `cetdetalle`) VALUES
-(1, 'iniciada', 'cuando el usuario : cliente inicia la compra de uno o mas productos del carrito'),
-(2, 'aceptada', 'cuando el usuario administrador da ingreso a uno de las compras en estado = 1 '),
-(3, 'enviada', 'cuando el usuario administrador envia a uno de las compras en estado =2 '),
-(4, 'cancelada', 'un usuario administrador podra cancelar una compra en cualquier estado y un usuario cliente solo en estado=1 ');
- */
+    /**
+     * verfica qué estado tiene la compra
+     * 
+     */
+    public function verEstado($idcompra){
+       
+        $AbmObjCompraEstado = new AbmCompraEstado;
+         $filtro= array();
+         $filtro['idcompra'] = $idcompra;
+         $compra = $AbmObjCompraEstado->buscar($filtro);
+         $estado = $AbmObjCompraEstado->recuperarestado($compra);
+          //print_r($estado); trae el objeto abmcompraestadotipo
+         $AbmObjCompraEstadoTipo = new AbmCompraEstadoTipo;
+         $idcet = $AbmObjCompraEstadoTipo->recuperarestadoid($estado);
+
+         return $idcet;
+    }
 
  /**
  * cargo el datos de la comrpa.
@@ -253,6 +265,33 @@ class AbmCompra
         } 
         return $listaActivos;      
     }
+
+        //actualizarprecio(producto)
+        /**
+     * Puede traer un obj específico o toda la lista si el parámetro es null
+     * permite buscar un objeto
+     * @param array $param
+     * @return array
+     */
+    public function actualizarprecio($compraunica, $preciofinal){
+       
+     //idcompra | cofecha | idusuario | comprecio   
+      $listado= array ('idcompra'=> '', 'cofecha'=>'','idusuario'=>'', 'comprecio' =>'');
+
+      $compra = $compraunica[0];
+      $idcompra = $compra->getIdCompra();
+      $cofecha  = $compra->getCoFecha();
+      $idusuario= $this->recuperarIdusuario();
+
+
+      $listado= array ('idcompra'=> $idcompra, 'cofecha'=>$cofecha,'idusuario'=>$idusuario, 'comprecio' =>$preciofinal);
+
+      $modifico = $this->modificacion($listado);
+      
+      return $modifico;
+         
+
+    }//function
 
 
 

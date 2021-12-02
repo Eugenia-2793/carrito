@@ -2,11 +2,7 @@
 $Titulo = "Listar Productos";
 include_once("../../estructura/cabecera.php");
 
-$objAbmProducto = new AbmProducto();
-$listaProducto = $objAbmProducto->buscar(null);
-
 $encuentraRol = false;
-
 if ($sesion->activa()) {
     foreach ($idrol as $unIdRol) {
         if ($unIdRol == 3) {
@@ -14,8 +10,69 @@ if ($sesion->activa()) {
         }
     }
 }
-
 if ($encuentraRol) {
+
+//creo la compra y muestro productos para que se carguen dinamicamente
+$AbmObjCompra = new AbmCompra;
+$id = $AbmObjCompra->recuperarIdusuario();
+$filtro= array();
+$filtro['idusuario'] = $id;
+//$compra son todas las compras que le pertenecen a este ususario.
+$compra = $AbmObjCompra->buscar($filtro);
+//buscoel estado de esas compras 
+
+$cuantas = count($compra);
+echo "cuantas compra tiene este usuario". $cuantas. "</br>";
+
+
+//-------------------------------------------------
+//si existe la compra o necesita iniciar una nueva
+//-------------------------------------------------
+if(!($compra == null)){
+   //Y EL ESTADO ES == 1
+    $existe = $AbmObjCompra->existeCompra($compra);
+    $idcompra = $existe;
+
+}else{
+   //al ingresar
+   $nueva = $AbmObjCompra->nuevaCompra($filtro); //id de la compra
+   $idcompra= $nueva;
+   echo "id de la compra nueva:". $idcompra;
+   if($nueva){
+       $id = $AbmObjCompra->recuperarIdusuario();
+       $filtro= array();
+       $filtro['idusuario'] = $id;
+       $compra = $AbmObjCompra->buscar($filtro);
+       $existe = $AbmObjCompra->existeCompra($compra);
+       $idcompra = $existe;
+   }
+}
+
+//------------------------------------------------------------
+//----------------recupera el estado de compra ---------------
+//------------------------------------------------------------
+
+$AbmObjCompraEstado = new AbmCompraEstado;
+$filtro= array();
+$filtro['idcompra'] = $idcompra;
+$compra = $AbmObjCompraEstado->buscar($filtro);
+$estado = $AbmObjCompraEstado->recuperarestado($compra);
+//print_r($estado); trae el objeto abmcompraestadotipo
+
+
+$AbmObjCompraEstadoTipo = new AbmCompraEstadoTipo;
+$idcet = $AbmObjCompraEstadoTipo->recuperarestadoid($estado);
+//echo "idcet =". $idcet;
+
+//------------------------------------------------------------
+//solo uestra los productos a las compras con estado iniciada
+if($idcet == 1){
+
+//-------------------------PRODUCTOS-------------------------------------
+//-----------------------------------------------------------------------
+
+$objAbmProducto = new AbmProducto();
+$listaProducto = $objAbmProducto->buscar(null);
 ?>
     <section>
         <h2>Listar Productos</h2>
@@ -39,11 +96,13 @@ if ($encuentraRol) {
                             $i = 1;
                             echo '<tbody>';
                             foreach ($listaProducto as $objAbmProducto) {
+                                $stock = $objAbmProducto->getProStock();
+
+                                if($stock > 0){
                                 $id =  $objAbmProducto->getIdProducto();
                                 $nombre = $objAbmProducto->getProNombre();
                                 $detalle =  $objAbmProducto->getProDetalle();
                                 $tipo = $objAbmProducto->getProTipo();
-                                $stock = $objAbmProducto->getProStock();
                                 $precio = $objAbmProducto->getProPrecio();
 
                                 echo '<tr class="align-middle">';
@@ -53,8 +112,10 @@ if ($encuentraRol) {
                                 echo "<td  class='text-center'>
                                           <input type='checkbox' name='producto[]' value='" . $id . "'> 
                                      </td>";
+                                echo '<input type="hidden" id="idcompra" name="idcompra" value="'.$idcompra.'">';
 
                                 $i++;
+                               }
                             }
                             echo '</tbody>';
                             echo '</table>';
@@ -73,6 +134,12 @@ if ($encuentraRol) {
     </section>
 
 <?php
+
+     }else{
+       include_once("../cliente/compra.php");
+     }
+
+//de permisos 
 } else {
     include_once("../../pages/login/sinPermiso.php");
 }
