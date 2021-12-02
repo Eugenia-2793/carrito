@@ -200,6 +200,7 @@ class AbmCompra
     {
         $unacompra = $param[0];
         $idcompra = $unacompra->getIdCompra();
+        // $verestado = $this->verEstado($idcompra);
        
         return $idcompra;
         
@@ -221,13 +222,23 @@ class AbmCompra
        return $nuevoObj;
     }
 
-    /*
- INSERT INTO `compraestadotipo` (`idcompraestadotipo`, `cetdescripcion`, `cetdetalle`) VALUES
-(1, 'iniciada', 'cuando el usuario : cliente inicia la compra de uno o mas productos del carrito'),
-(2, 'aceptada', 'cuando el usuario administrador da ingreso a uno de las compras en estado = 1 '),
-(3, 'enviada', 'cuando el usuario administrador envia a uno de las compras en estado =2 '),
-(4, 'cancelada', 'un usuario administrador podra cancelar una compra en cualquier estado y un usuario cliente solo en estado=1 ');
- */
+    /**
+     * verfica qué estado tiene la compra
+     * 
+     */
+    public function verEstado($idcompra){
+       
+        $AbmObjCompraEstado = new AbmCompraEstado;
+         $filtro= array();
+         $filtro['idcompra'] = $idcompra;
+         $compra = $AbmObjCompraEstado->buscar($filtro);
+         $estado = $AbmObjCompraEstado->recuperarestado($compra);
+          //print_r($estado); trae el objeto abmcompraestadotipo
+         $AbmObjCompraEstadoTipo = new AbmCompraEstadoTipo;
+         $idcet = $AbmObjCompraEstadoTipo->recuperarestadoid($estado);
+
+         return $idcet;
+    }
 
  /**
  * cargo el datos de la comrpa.

@@ -18,21 +18,26 @@ $id = $AbmObjCompra->recuperarIdusuario();
 $filtro= array();
 $filtro['idusuario'] = $id;
 $compra = $AbmObjCompra->buscar($filtro);
-//print_r($compra);
+$cuantas = count($compra);
+echo "cuantas compra tiene este usuario". $cuantas. "</br>";
 
+//-------------------------------------------------
+//si existe la compra o necesita iniciar una nueva
+//-------------------------------------------------
 if(!($compra == null)){
-   //existe compra - continuar. - traer los items de esta compra.
-   //echo "entro primero <br/>";
+   //Y EL ESTADO ES == 1
     $existe = $AbmObjCompra->existeCompra($compra);
     $idcompra = $existe;
+    //echo "id de la compra existente:". $idcompra;
     //echo $idcompra;
   //$unacompra = $compra[0];
   //$idcompra = $unacompra->getIdCompra();
   
 }else{
-    //no existe compra - continuar. - acomodar los productos seleccionador.
-  //echo "entro segundo </br>";
+  //al ingresar
    $nueva = $AbmObjCompra->nuevaCompra($filtro); //id de la compra
+   $idcompra= $nueva;
+   echo "id de la compra nueva:". $idcompra;
    if($nueva){
        $id = $AbmObjCompra->recuperarIdusuario();
        $filtro= array();
@@ -42,6 +47,10 @@ if(!($compra == null)){
        $idcompra = $existe;
    }
 }
+
+//------------------------------------------------------------
+//----------------recupera el estado de compra ---------------
+//------------------------------------------------------------
 
 $AbmObjCompraEstado = new AbmCompraEstado;
 $filtro= array();
@@ -55,6 +64,7 @@ $AbmObjCompraEstadoTipo = new AbmCompraEstadoTipo;
 $idcet = $AbmObjCompraEstadoTipo->recuperarestadoid($estado);
 //echo "idcet =". $idcet;
 
+//solo uestra los productos a las compras con estado iniciada
 if($idcet == 1){
 //-------------------------PRODUCTOS-------------------------------------
 //-----------------------------------------------------------------------

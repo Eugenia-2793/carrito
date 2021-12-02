@@ -39,6 +39,7 @@ $descripcion = $AbmObjCompraEstadoTipo->recuperardescripcion($estado);
 // echo "el id $idcet";
 // echo  "descripcion $descripcion";
 
+if($idcet == 1 || $idcet == 2){
 ?>
 
 <section>
@@ -46,7 +47,7 @@ $descripcion = $AbmObjCompraEstadoTipo->recuperardescripcion($estado);
 
     <!-- Listado de usuarios -->
     <div class="row mb-5" id="">
-      <form id="Usuario" name="Usuario" method="POST" action="eliminar.php" data-toggle="validator">
+      <form id="Usuario" name="Usuario" method="POST" action="#" data-toggle="validator">
         <div class="table-responsive">
           <table class="table table-striped">
             <thead>
@@ -68,30 +69,34 @@ $descripcion = $AbmObjCompraEstadoTipo->recuperardescripcion($estado);
               echo '<td >' . $fechaini .  '</td>';
               echo '<td>' .  $precio .  '</td>';
               echo '<td>' .  $descripcion .  '</td>';
-              echo "<td class='text-center'> 
-                      <button class='btn btn-danger btn-sm' type='submit' value='" . $id . "' formaction='eliminar.php' name='idusuario' id='idusuario'>
+              echo "<td class='text-center'>"; 
+      
+              echo "<button class='btn btn-danger btn-sm' type='submit' value='" . $id . "' formaction='eliminar.php' name='idusuario' id='idusuario'>
                           <i class='fas fa-trash-alt'></i>
-                      </button>
-                   </td>";
-              
+                      </button>";
+              echo "</td>";
                  
             
                  
     echo '</tbody>';
       echo '</table>';
              
-    // ?>
+   }else{
+      echo '<a href="#" class="btn btn-warning" >Historial de compras</a>';
+    }//verifico con los estados si lo pongo abajo no se ve el cartel.
 
-<?php
-}else{
-  $mensaje = "Tu carrito esta vacio";
-  echo "<div class='alert alert-danger d-flex align-items-center' role='alert'>
-  <svg class='bi flex-shrink-0 me-2' width='24' height='24' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
-  <div>" . $mensaje . "</div>
-  </div>";
-  echo '<a href="listarProductos.php" class="btn btn-success" >VAMOS A COMPRAR! </a>';
+   }else{
+   $mensaje = "Tu carrito esta vacio";
+   echo "<div class='alert alert-danger d-flex align-items-center' role='alert'>
+   <svg class='bi flex-shrink-0 me-2' width='24' height='24' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
+   <div>" . $mensaje . "</div>
+   </div>";
+      echo '<a href="listarProductos.php" class="btn btn-success" >VAMOS A COMPRAR! </a>';
+      
   
-}
+   }
+
+  
 
  //permisos
  }else {
