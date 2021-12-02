@@ -11,8 +11,6 @@ if ($sesion->activa()) {
 }
 if ($encuentraRol) {
 
-
-// $objCompra = new AbmCompra;  
 $AbmObjCompra = new AbmCompra;
 $id = $AbmObjCompra->recuperarIdusuario();
 $filtro= array();
@@ -30,14 +28,11 @@ $filtro= array();
 $filtro['idcompra'] = $idcompra;
 $compra = $AbmObjCompraEstado->buscar($filtro);
 $estado = $AbmObjCompraEstado->recuperarestado($compra);
-//print_r($estado); trae el objeto abmcompraestadotipo
 
 $AbmObjCompraEstadoTipo = new AbmCompraEstadoTipo;
 $idcet = $AbmObjCompraEstadoTipo->recuperarestadoid($estado);
 $descripcion = $AbmObjCompraEstadoTipo->recuperardescripcion($estado);
 
-// echo "el id $idcet";
-// echo  "descripcion $descripcion";
 
 if($idcet == 1){
 ?>
@@ -81,8 +76,8 @@ if($idcet == 1){
       echo '</table>';
              
    }else{
-      echo '<a href="#" class="btn btn-warning" >Historial de compras</a>';
-    }//verifico con los estados si lo pongo abajo no se ve el cartel.
+      echo '<a href="historial.php" class="btn btn-warning" >Historial de compras</a>';
+    }
 
    }else{
    $mensaje = "Tu carrito esta vacio";
