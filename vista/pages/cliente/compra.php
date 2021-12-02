@@ -1,8 +1,15 @@
 <?php
 $Titulo = "ver compra";
 include_once '../../estructura/cabecera.php';
-
-
+$encuentraRol = false;
+if ($sesion->activa()) {
+    foreach ($idrol as $unIdRol) {
+        if ($unIdRol  == 3) {
+            $encuentraRol = true;
+        }
+    }
+}
+if ($encuentraRol) {
 ?>
 
 <section>
@@ -48,9 +55,9 @@ include_once '../../estructura/cabecera.php';
     // ?>
 
 <?php
-//  else {
-//     include_once("../../pages/login/sinPermiso.php");
-// }
+  }else {
+     include_once("../../pages/login/sinPermiso.php");
+ }
 
 
 include_once("../../estructura/pie.php");

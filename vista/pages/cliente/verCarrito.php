@@ -2,8 +2,21 @@
 $Titulo = "ver carrito";
 include_once '../../estructura/cabecera.php';
 
+
+$encuentraRol = false;
+if ($sesion->activa()) {
+    foreach ($idrol as $unIdRol) {
+        if ($unIdRol  == 3) {
+            $encuentraRol = true;
+        }
+    }
+}
+if ($encuentraRol) {
+
+
 $datos = data_submitted();
 $idcompra = $datos['idcompra'];
+//echo "el id de la compra". $idcompra;
 //print_r($datos);
 
 //-------------------------PRODUCTOS-------------------------------------
@@ -59,34 +72,32 @@ if(!($productos == null)){ //verifico que existan productos
   }//foreach
   echo '</tbody>';
   echo '</table>';
-}
-else{ //si no hay productos seleccionados 
+   }
+  else{ //si no hay productos seleccionados 
   $mensaje = "no hay productos seleccionados";
   echo "<div class='alert alert-danger d-flex align-items-center' role='alert'>
   <svg class='bi flex-shrink-0 me-2' width='24' height='24' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
   <div>" . $mensaje . "</div>
   </div>";
-}
+   }
 
 //-------------------------PRODUCTOS-------------------------------------
 ?>
-
 <!--------------BOTONES--ver que paso con el de volver sin recargar :(-------------------------->
-
 
 <!--<button class="btn btn-warning" onclick="goBack()">Seguir Comprando</button>-->
 <a href="listarProductos.php" class="btn btn-warning" >ver Productos</a>
 
-<button class="btn btn-success" type="submit"> Finalizar Compra</button> 
+<button class="btn btn-success" type="submit" > Finalizar Compra </button> 
 
-  <script>
-      function goBack() {
-        window.history.back();
-      }
-
-  </script>
 
 
 <?php
+
+//de permisos 
+} else {
+  include_once("../../pages/login/sinPermiso.php");
+}
+
 include_once("../../estructura/pie.php");
 ?>

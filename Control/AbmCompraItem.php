@@ -149,6 +149,15 @@ class AbmCompraItem
         return $arreglo;
     }
 
+        /**
+     * Puede traer un obj específico o toda la lista si el parámetro es null
+     * permite buscar un objeto
+     * @param array $param
+     * @return array
+     */
+    public function enStock($param)
+    { 
+    }
 
    
    
@@ -196,7 +205,7 @@ class AbmCompraItem
            $listado[$i]['idcompra'] = $param['idcompra'];
            $listado[$i]['cicantidad'] = $param['cicantidad'][$i];
            $listado[$i]['itemprecio'] = $param['itemprecio'][$i];
-          
+     
         }
         return $listado;
     }//finfuction
@@ -218,33 +227,5 @@ class AbmCompraItem
      }//for
      return $acomodados;
     }//function
-
-
-    //actualizarprecio(producto)
-        /**
-     * Puede traer un obj específico o toda la lista si el parámetro es null
-     * permite buscar un objeto
-     * @param array $param
-     * @return array
-     */
-    public function actualizarprecio($productos){
-        //ver si madno el objeto o por parametrosss-----------------------terminar.
-        //modificar precio de una compra.
-        $objCompra = new AbmCompra;
-        $idcompra= $productos[0]['idcompra'];
-        $unacompra = $objCompra->buscar($idcompra);
-        $actualizacompra= array();
-        foreach($unacompra as $parametros){
-            echo "esto que hace?";
-        }
-        //print_r($unacompra);
-        //echo $precio= $unacompra['comprecio'];
-
-    }//function
-
-
-
-
-
 
 }//clase

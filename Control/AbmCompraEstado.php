@@ -176,5 +176,23 @@ class AbmCompraEstado
         return $estados;
     }
 
+      /** 
+     * Busca todos los usuariorol correspondientes a un objusuario
+     * Lista todos los roles que tiene el usuario
+     * @param object
+     * @return array devuelve las descripciones de cada rol de dicho usuario
+     */
+    public function recuperarestado($compra)
+    {
+        //idcompraestadotipo
+        $unacompra = $compra[0];
+        $objcompraestadotipo = $unacompra->getIdCompraEstadoTipo();
+        
+        
+        // $idcet = $objcompraestadotipo[0];
+        // $idcompraestadotipo = $idcet->getIdCompraEstadoTipo();
+       
+      return $objcompraestadotipo;
+    }
 
 }//clase

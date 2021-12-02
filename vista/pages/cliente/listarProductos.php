@@ -18,24 +18,44 @@ $id = $AbmObjCompra->recuperarIdusuario();
 $filtro= array();
 $filtro['idusuario'] = $id;
 $compra = $AbmObjCompra->buscar($filtro);
-
+//print_r($compra);
 
 if(!($compra == null)){
    //existe compra - continuar. - traer los items de esta compra.
    //echo "entro primero <br/>";
-   $existe = $AbmObjCompra->existeCompra($filtro);
-   $idcompra = $existe[0]->getIdCompra();
+    $existe = $AbmObjCompra->existeCompra($compra);
+    $idcompra = $existe;
+    //echo $idcompra;
+  //$unacompra = $compra[0];
+  //$idcompra = $unacompra->getIdCompra();
   
 }else{
     //no existe compra - continuar. - acomodar los productos seleccionador.
   //echo "entro segundo </br>";
    $nueva = $AbmObjCompra->nuevaCompra($filtro); //id de la compra
    if($nueva){
-    $existe = $AbmObjCompra->existeCompra($filtro);
-    $idcompra = $existe[0]->getIdCompra();
+       $id = $AbmObjCompra->recuperarIdusuario();
+       $filtro= array();
+       $filtro['idusuario'] = $id;
+       $compra = $AbmObjCompra->buscar($filtro);
+       $existe = $AbmObjCompra->existeCompra($compra);
+       $idcompra = $existe;
    }
 }
 
+$AbmObjCompraEstado = new AbmCompraEstado;
+$filtro= array();
+$filtro['idcompra'] = $idcompra;
+$compra = $AbmObjCompraEstado->buscar($filtro);
+$estado = $AbmObjCompraEstado->recuperarestado($compra);
+//print_r($estado); trae el objeto abmcompraestadotipo
+
+
+$AbmObjCompraEstadoTipo = new AbmCompraEstadoTipo;
+$idcet = $AbmObjCompraEstadoTipo->recuperarestadoid($estado);
+//echo "idcet =". $idcet;
+
+if($idcet == 1){
 //-------------------------PRODUCTOS-------------------------------------
 //-----------------------------------------------------------------------
 
@@ -64,11 +84,13 @@ $listaProducto = $objAbmProducto->buscar(null);
                             $i = 1;
                             echo '<tbody>';
                             foreach ($listaProducto as $objAbmProducto) {
+                                $stock = $objAbmProducto->getProStock();
+
+                                if($stock > 0){
                                 $id =  $objAbmProducto->getIdProducto();
                                 $nombre = $objAbmProducto->getProNombre();
                                 $detalle =  $objAbmProducto->getProDetalle();
                                 $tipo = $objAbmProducto->getProTipo();
-                                $stock = $objAbmProducto->getProStock();
                                 $precio = $objAbmProducto->getProPrecio();
 
                                 echo '<tr class="align-middle">';
@@ -81,6 +103,7 @@ $listaProducto = $objAbmProducto->buscar(null);
                                 echo '<input type="hidden" id="idcompra" name="idcompra" value="'.$idcompra.'">';
 
                                 $i++;
+                               }
                             }
                             echo '</tbody>';
                             echo '</table>';
@@ -97,8 +120,14 @@ $listaProducto = $objAbmProducto->buscar(null);
             </form>
            </div>
     </section>
- 
+
 <?php
+
+     }else{
+       include_once("../cliente/compra.php");
+     }
+
+//de permisos 
 } else {
     include_once("../../pages/login/sinPermiso.php");
 }

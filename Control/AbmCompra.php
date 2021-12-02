@@ -197,9 +197,10 @@ class AbmCompra
      */
     public function existeCompra($param)
     {
-        $id = $param['idusuario'];
-        $existeObj = $this->buscar($id); 
-        return $existeObj;
+        $unacompra = $param[0];
+        $idcompra = $unacompra->getIdCompra();
+       
+        return $idcompra;
         
     }
 
@@ -213,7 +214,6 @@ class AbmCompra
     {    
         $id= $param['idusuario'];
         $DateAndTime = date('y-m-d h:i:s ', time()); 
-
         $datos = array('idcompra'=> '', 'cofecha' => $DateAndTime, 'idusuario' => $id, 'comprecio' => 0 );
         $nuevoObj = $this->alta($datos); //booleano
         
@@ -267,6 +267,7 @@ class AbmCompra
         
         $actualizarcompraprecio= array();
         foreach($items as $item){
+            
             //print_r($producto);
             // $precioitem = $producto[0]['itemprecio'];
             //echo "</br> precio item : $precioitem</br>";
