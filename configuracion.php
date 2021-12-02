@@ -1,8 +1,8 @@
 <?php
 
-$PROYECTO = "PWD2021/carrito";
+$PROYECTO = "carrito";
 
-$GLOBALS['ROOT'] = $_SERVER['DOCUMENT_ROOT'] . "/PWD2021/carrito/";
+$GLOBALS['ROOT'] = $_SERVER['DOCUMENT_ROOT'] . "/carrito/";
 
 $INICIO = "Location:http://" . $_SERVER['HTTP_HOST'] . "$PROYECTO" . "/vista/home/home/index.php";
 

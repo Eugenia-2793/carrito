@@ -39,7 +39,7 @@ $descripcion = $AbmObjCompraEstadoTipo->recuperardescripcion($estado);
 // echo "el id $idcet";
 // echo  "descripcion $descripcion";
 
-if($idcet == 1 || $idcet == 2){
+if($idcet == 1){
 ?>
 
 <section>
@@ -59,7 +59,6 @@ if($idcet == 1 || $idcet == 2){
               </tr>
             </thead>
             <?php 
-
              $fechaini = $obj->getCoFecha();
              $precio = $obj->getcomPrecio();
              $fechaini = $obj->getCoFecha();
@@ -71,7 +70,7 @@ if($idcet == 1 || $idcet == 2){
               echo '<td>' .  $descripcion .  '</td>';
               echo "<td class='text-center'>"; 
       
-              echo "<button class='btn btn-danger btn-sm' type='submit' value='" . $id . "' formaction='eliminar.php' name='idusuario' id='idusuario'>
+              echo "<button class='btn btn-danger btn-sm' type='submit' value='" . $idcompra . "' formaction='cancelarCompra.php' name='idcompraestado' id='idcompraestado'>
                           <i class='fas fa-trash-alt'></i>
                       </button>";
               echo "</td>";

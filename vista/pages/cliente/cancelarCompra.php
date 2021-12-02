@@ -1,11 +1,19 @@
 <?php
-include_once '../../../configuracion.php';
+$Titulo = "ver compra";
+include_once '../../estructura/cabecera.php';
+$encuentraRol = false;
+if ($sesion->activa()) {
+    foreach ($idrol as $unIdRol) {
+        if ($unIdRol  == 3) {
+            $encuentraRol = true;
+        }
+    }
+}
+if ($encuentraRol) {
+
+    //con permiso de usario
+    
 $datos = data_submitted();
-print_r($datos);
-
-$Titulo = "Cancelar Compra";
-include_once("../../estructura/cabecera.php");
-
 $resp = false;
 $objCompraEstado = new AbmCompraEstado;
 
@@ -55,5 +63,11 @@ $encuentraError = strpos(strtoupper($mensaje), 'ERROR');
 </div>
 
 <?php
+
+  //con permiso de usario
+  } else {
+     include_once("../../pages/login/sinPermiso.php");
+  }
+
 include_once("../../estructura/pie.php");
 ?>
