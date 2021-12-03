@@ -3,7 +3,6 @@ $Titulo = "Listar Menus";
 include_once("../../estructura/cabecera.php");
 
 $objAbmMenu = new AbmMenu();
-//$listaMenu = $objAbmMenu->buscar(null);   
 $listaMenu = $objAbmMenu->buscar(null);
 $encuentraRol = false;
 
