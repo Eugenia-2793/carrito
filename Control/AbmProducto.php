@@ -215,6 +215,31 @@ class AbmProducto
     }//function
 
 
+     /**
+     * cambia el stock porque se elimino la compra
+     * @param array $$idproductoidcantidad
+     */
+    public function cambiostock($idproductoidcantidad){
+
+        //[0] => Array ( [idproducto] => Producto Object ( [idproducto:Producto:private] => 1 [pronombre:Producto:private] => Hachiko [prodetalle:Producto:private] => Perrito [procantstock:Producto:private] => 90 [proprecio:Producto:private] => 350 [protipo:Producto:private] => pelicula [mensajeoperacion:Producto:private] => ) [cicantidad] => 5 )
+        $i=0;
+        foreach($idproductoidcantidad as $pro){
+            $producto = $pro[$i]['idproducto'];
+            $cantidad = $pro[$i]['cantidad'];
+
+            //   $idproducto = $producto->getIdProducto();
+            //   $pronombre = $producto->getProNombre();
+            //   $protipo = $producto->getProTipo();
+            //   $detalle = $producto->getProDetalle();
+            //   $stock = $producto->getProStock();
+            //   $precio = $producto->getProPrecio(); 
+          
+        }
+
+
+    }//function
+
+
 
 }//clase
 
