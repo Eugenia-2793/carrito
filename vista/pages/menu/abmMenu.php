@@ -11,7 +11,7 @@ include_once("../../estructura/cabecera.php");
 
 $resp = false;
 $objTrans = new AbmMenu();
-
+//var_dump($datos);
 /* Acción que permite: editar, borrar y crear un menú */
 if (isset($datos['accion'])) {
     $mensaje = "";

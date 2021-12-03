@@ -10,7 +10,6 @@ include_once("../../estructura/cabecera.php");
 
 $resp = false;
 $objUsuario = new AbmUsuario();
-//$objUsuarioRol = new AbmUsuarioRol();
 
 /* Acción que permite: editar, borrar y crear un usuario */
 if (isset($datos['accion'])) {

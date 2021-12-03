@@ -2,20 +2,26 @@
 class AbmMenu
 {
     /**
-     * Espera como parametro un arreglo asociativo donde las claves coinciden 
-     * con los nombres de las variables instancias del objeto
+     * Espera como parametro un arreglo asociativo donde las claves coinciden con los nombres de las variables instancias del objeto
      * @param array $param
      * @return Menu
      */
     private function cargarObjeto($param)
     {
         $obj = null;
-        if (
-            array_key_exists('idmenu', $param) and array_key_exists('menombre', $param) and array_key_exists('medescripcion', $param)
-            and array_key_exists('idpadre', $param) and array_key_exists('medeshabilitado', $param)
-        ) {
+
+        if (array_key_exists('idmenu', $param) and array_key_exists('menombre', $param)) {
             $obj = new Menu();
-            $obj->setear($param['idmenu'], $param['menombre'], $param['medescripcion'], $param['idpadre'], $param['medeshabilitado']);
+            $objmenu = null;
+            if (isset($param['idpadre'])) {
+                $objmenu = new Menu();
+                $objmenu->setIdmenu($param['idpadre']);
+                $objmenu->cargar();
+            }
+            if (!isset($param['medeshabilitado'])) {
+                $param['medeshabilitado'] = null;
+            }
+            $obj->setear($param['idmenu'], $param['menombre'], $param['medescripcion'], $objmenu, $param['medeshabilitado']);
         }
         return $obj;
     }
@@ -23,8 +29,7 @@ class AbmMenu
 
 
     /**
-     * Espera como parametro un arreglo asociativo donde las claves 
-     * coinciden con los nombres de las variables instancias del objeto que son claves
+     * Espera como parametro un arreglo asociativo donde las claves coinciden con los nombres de las variables instancias del objeto que son claves
      * @param array $param
      * @return Menu
      */
@@ -34,7 +39,7 @@ class AbmMenu
 
         if (isset($param['idmenu'])) {
             $obj = new Menu();
-            $obj->setear($param['idmenu'], null, null, null, null);
+            $obj->setIdmenu($param['idmenu']);
         }
         return $obj;
     }
@@ -66,6 +71,9 @@ class AbmMenu
     {
         $resp = false;
 
+        $param['idmenu'] = null;
+        $param['medeshabilitado'] = "0000-00-00 00:00:00";
+
         $elObjtMenu = $this->cargarObjeto($param);
 
         if ($elObjtMenu != null and $elObjtMenu->insertar()) {
@@ -73,6 +81,7 @@ class AbmMenu
         }
         return $resp;
     }
+
 
 
     /**
@@ -137,6 +146,7 @@ class AbmMenu
     }
 
 
+
     /**
      * Creamos un nuevo menu con el nombre del nuevo rol
      * y idpadre = 0 por defecto. 
@@ -198,6 +208,27 @@ class AbmMenu
         return $resp;
     }
 
+    public function modificacionBaja($param)
+    {
+        $resp = "no se modifico";
+        if ($this->seteadosCamposClaves($param)) {
+            $buscar2 = array();
+            $buscar2['idmenu'] = $param['idmenu'];
+            $elUsuario = $this->buscar($buscar2);
+            if ($elUsuario != null) {
+                $elUsuario[0]->setMenombre($param['menombre']);
+                $elUsuario[0]->setMedescripcion($param['medescripcion']);
+                $elUsuario[0]->setObjMenu($param['idpadre']);
+                $elUsuario[0]->setMedeshabilitado($param['medeshabilitado']);
+
+                if ($elUsuario[0] != null and $elUsuario[0]->modificar()) {
+                    $resp = true;
+                }
+            }
+        }
+        return $resp;
+    }
+
 
 
     /**
@@ -252,10 +283,4 @@ class AbmMenu
         }
         return $listaActivos;
     }
-
-
-
-
-
-
 }
