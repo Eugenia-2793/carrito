@@ -294,6 +294,56 @@ class AbmCompra
     }//function
 
 
+    /**
+     * Si existe mi compra en estado 1 me deja seguir comprando, sino existe crea un nueva
+     * @param array $param
+     * @return array
+     */
+    public function micompra($filtro){
+        $compra = $this->buscar($filtro);
+        $cuantas = count($compra);
+
+        if(!($compra == null)){
+            $existe = $this->existeCompra($compra);
+            $idcompra = $existe;
+        }else{
+            $nueva = $this->nuevaCompra($filtro);
+              if($nueva){
+                  $id = $this->recuperarIdusuario();
+                  $filtro= array();
+                  $filtro['idusuario'] = $id;
+                  $compra = $this->buscar($filtro);
+                  $existe = $this->existeCompra($compra);
+                  $idcompra = $existe;
+                }
+        }
+              $recuperoidcet = $this->estadodemicompra($idcompra);
+              $idcet = $recuperoidcet['idcet'];
+              $enviar= array('idcompra' => $idcompra, 'idcet' => $idcet);
+ 
+       return $enviar;
+    }
+
+
+
+    public function estadodemicompra($idcompra){
+
+        $AbmObjCompraEstado = new AbmCompraEstado;
+        $filtro= array();
+        $filtro['idcompra'] = $idcompra;
+        $compra = $AbmObjCompraEstado->buscar($filtro);
+        $estado = $AbmObjCompraEstado->recuperarestado($compra);
+
+        $AbmObjCompraEstadoTipo = new AbmCompraEstadoTipo;
+        $idcet = $AbmObjCompraEstadoTipo->recuperarestadoid($estado);
+        $descripcion = $AbmObjCompraEstadoTipo->recuperardescripcion($estado);
+        $devuelvo= array('idcet' => $idcet, 'descripcion' => $descripcion);
+
+        return $devuelvo;
+
+    }
+
+
 
 
 

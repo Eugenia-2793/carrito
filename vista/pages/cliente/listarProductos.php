@@ -13,51 +13,21 @@ if ($sesion->activa()) {
 if ($encuentraRol) {
 
 //--------------------------------------------vamos a comprar
+//-------------------------------------------------------------
 $AbmObjCompra = new AbmCompra;
 $id = $AbmObjCompra->recuperarIdusuario();
 $filtro= array();
 $filtro['idusuario'] = $id;
-$compra = $AbmObjCompra->buscar($filtro);
-$cuantas = count($compra);
-
-if(!($compra == null)){
-
-    $existe = $AbmObjCompra->existeCompra($compra);
-    $idcompra = $existe;
-
-}else{
-
-   $nueva = $AbmObjCompra->nuevaCompra($filtro);
-   if($nueva){
-       $id = $AbmObjCompra->recuperarIdusuario();
-       $filtro= array();
-       $filtro['idusuario'] = $id;
-       $compra = $AbmObjCompra->buscar($filtro);
-       $existe = $AbmObjCompra->existeCompra($compra);
-       $idcompra = $existe;
-   }
-}
-
-
-$AbmObjCompraEstado = new AbmCompraEstado;
-$filtro= array();
-$filtro['idcompra'] = $idcompra;
-$compra = $AbmObjCompraEstado->buscar($filtro);
-$estado = $AbmObjCompraEstado->recuperarestado($compra);
-
-$AbmObjCompraEstadoTipo = new AbmCompraEstadoTipo;
-$idcet = $AbmObjCompraEstadoTipo->recuperarestadoid($estado);
-
-
-
-if($idcet == 1){
-
-//-------------------------PRODUCTOS-------------------------------------
-//-----------------------------------------------------------------------
-
+$micompra = $AbmObjCompra->micompra($filtro);
+$idcompra = $micompra['idcompra'];
+//productos
+if($micompra['idcet'] == 1){
 $objAbmProducto = new AbmProducto();
 $listaProducto = $objAbmProducto->buscar(null);
 ?>
+
+
+
     <section>
         <h2>Listar Productos</h2>
 

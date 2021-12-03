@@ -203,6 +203,11 @@ class AbmCompraEstado
             $listaCompraEstadoTipo = $objCompraEstadoTipo->buscar(['idcompraestadotipo' => 4]);
             $fechafin = date("Y-m-d H:i:s");
 
+            $objCompraItem = new AbmCompraItem();
+            $listaItems = $objCompraItem->buscar($filtro);
+            //$actualizo = $objCompraItem->actualizo($listaItems);
+
+
             $listaCompraEstado[0]->setIdCompraEstadoTipo($listaCompraEstadoTipo[0]);
             $listaCompraEstado[0]->setCeFechaFin($fechafin);
             if ($listaCompraEstado[0] != null and $listaCompraEstado[0]->modificar()) {

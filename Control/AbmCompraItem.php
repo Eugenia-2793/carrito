@@ -235,4 +235,19 @@ class AbmCompraItem
       return $precio ;
     }
 
+
+    public function creaciondeitems($datos){
+        
+        $this->altavariositems($datos);
+        $filtro['idcompra']= $datos['idcompra'];;
+        $itemsdecompra = $this->buscar($filtro);
+        $precio = $this->recuperarPrecio($itemsdecompra);
+        $preciofinal = $precio;
+    
+        $AbmObjCompra = new AbmCompra;
+        $busca['idcompra']= $datos['idcompra'];
+        $compraunica = $AbmObjCompra->buscar($busca);
+        $actualizaprecio = $AbmObjCompra->actualizarprecio($compraunica, $preciofinal);
+    }
+
 }//clase
