@@ -206,7 +206,22 @@ class AbmCompraEstado
             $listaCompraEstado[0]->setIdCompraEstadoTipo($listaCompraEstadoTipo[0]);
             $listaCompraEstado[0]->setCeFechaFin($fechafin);
             if ($listaCompraEstado[0] != null and $listaCompraEstado[0]->modificar()) {
-                $resp = true;
+            
+                $ObjItems = new AbmCompraItem;
+                $itemsdecompra = $ObjItems->buscar($filtro); 
+                $i= 0;
+                $idproductoidcantidad[]=array('idproducto' => '', 'cicantidad' =>'' ); //mofico productos (incremento) arreglo con idproducto y cantidad.
+                 foreach($itemsdecompra as $item){
+
+                    $idproductoidcantidad[$i]['idproducto']= $item->getIdProducto(); //obj
+                    $idproductoidcantidad[$i]['cicantidad']= $item->getCiCantidad(); //cantis
+                    $i++;
+                 }
+                   $objProducto = new AbmProducto();
+                  // $cambiostock = $objProducto->cambiostock($idproductoidcantidad);2producto aumenta.3 borro item.
+
+
+               $resp = true; 
             }
         }
         return $resp;

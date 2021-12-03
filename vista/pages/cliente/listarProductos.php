@@ -12,77 +12,22 @@ if ($sesion->activa()) {
 }
 if ($encuentraRol) {
 
-//creo la compra y muestro productos para que se carguen dinamicamente
+//--------------------------------------------vamos a comprar
+//-------------------------------------------------------------
 $AbmObjCompra = new AbmCompra;
 $id = $AbmObjCompra->recuperarIdusuario();
 $filtro= array();
 $filtro['idusuario'] = $id;
-//$compra son todas las compras que le pertenecen a este ususario.
-$compra = $AbmObjCompra->buscar($filtro);
-//buscoel estado de esas compras 
-
-$cuantas = count($compra);
-//echo "cuantas compra tiene este usuario". $cuantas. "</br>";
-
-
-
-
-
-//aca hacer un forech con cantidad de compras y que la ulltima ver si esta en 1
-
-
-
-
-
-//-------------------------------------------------
-//si existe la compra o necesita iniciar una nueva
-//-------------------------------------------------
-if(!($compra == null)){
-   //Y EL ESTADO ES == 1
-    $existe = $AbmObjCompra->existeCompra($compra);
-    $idcompra = $existe;
-
-}else{
-   //al ingresar
-   $nueva = $AbmObjCompra->nuevaCompra($filtro); //id de la compra
-   $idcompra= $nueva;
-   //echo "id de la compra nueva:". $idcompra;
-   if($nueva){
-       $id = $AbmObjCompra->recuperarIdusuario();
-       $filtro= array();
-       $filtro['idusuario'] = $id;
-       $compra = $AbmObjCompra->buscar($filtro);
-       $existe = $AbmObjCompra->existeCompra($compra);
-       $idcompra = $existe;
-   }
-}
-
-//------------------------------------------------------------
-//----------------recupera el estado de compra ---------------
-//------------------------------------------------------------
-
-$AbmObjCompraEstado = new AbmCompraEstado;
-$filtro= array();
-$filtro['idcompra'] = $idcompra;
-$compra = $AbmObjCompraEstado->buscar($filtro);
-$estado = $AbmObjCompraEstado->recuperarestado($compra);
-//print_r($estado); trae el objeto abmcompraestadotipo
-
-
-$AbmObjCompraEstadoTipo = new AbmCompraEstadoTipo;
-$idcet = $AbmObjCompraEstadoTipo->recuperarestadoid($estado);
-//echo "idcet =". $idcet;
-
-//------------------------------------------------------------
-//solo uestra los productos a las compras con estado iniciada
-if($idcet == 1){
-
-//-------------------------PRODUCTOS-------------------------------------
-//-----------------------------------------------------------------------
-
+$micompra = $AbmObjCompra->micompra($filtro);
+$idcompra = $micompra['idcompra'];
+//productos
+if($micompra['idcet'] == 1){
 $objAbmProducto = new AbmProducto();
 $listaProducto = $objAbmProducto->buscar(null);
 ?>
+
+
+
     <section>
         <h2>Listar Productos</h2>
 
@@ -131,8 +76,6 @@ $listaProducto = $objAbmProducto->buscar(null);
                         }
 
                         ?>
-
-                        <!-- <input class="btn btn-success" type="submit" value="Agregar al carrito">   -->
 
                         <div class="mb-2 d-flex justify-content-end">
                             <button class="btn btn-success" type="submit"> Agregar al carrito</button>

@@ -11,35 +11,18 @@ if ($sesion->activa()) {
 }
 if ($encuentraRol) {
 
-
-// $objCompra = new AbmCompra;  
+//busco las compras que solo esten iniciadas
 $AbmObjCompra = new AbmCompra;
-$id = $AbmObjCompra->recuperarIdusuario();
-$filtro= array();
-$filtro['idusuario'] = $id;
-$compra = $AbmObjCompra->buscar($filtro);
-
-if(!($compra == null)){
-
-$obj = $compra[0];
-$idcompra = $obj->getIdCompra();
-
-
-$AbmObjCompraEstado = new AbmCompraEstado;
-$filtro= array();
-$filtro['idcompra'] = $idcompra;
-$compra = $AbmObjCompraEstado->buscar($filtro);
-$estado = $AbmObjCompraEstado->recuperarestado($compra);
-//print_r($estado); trae el objeto abmcompraestadotipo
-
-$AbmObjCompraEstadoTipo = new AbmCompraEstadoTipo;
-$idcet = $AbmObjCompraEstadoTipo->recuperarestadoid($estado);
-$descripcion = $AbmObjCompraEstadoTipo->recuperardescripcion($estado);
-
-// echo "el id $idcet";
-// echo  "descripcion $descripcion";
-
-if($idcet == 1){
+ $id = $AbmObjCompra->recuperarIdusuario();
+ $filtro= array();
+ $filtro['idusuario'] = $id;
+  $compra = $AbmObjCompra->buscar($filtro);
+  if(!($compra == null)){
+      $obj = $compra[0];
+      $idcompra = $obj->getIdCompra();
+      $idcetmicompra = $AbmObjCompra->estadodemicompra($idcompra);
+      
+      if($idcetmicompra['idcet'] == 1){
 ?>
 
 <section>
@@ -59,6 +42,7 @@ if($idcet == 1){
               </tr>
             </thead>
             <?php 
+             $descripcion= $idcetmicompra['descripcion'];
              $fechaini = $obj->getCoFecha();
              $precio = $obj->getcomPrecio();
              $fechaini = $obj->getCoFecha();
@@ -81,21 +65,18 @@ if($idcet == 1){
       echo '</table>';
              
    }else{
-      echo '<a href="#" class="btn btn-warning" >Historial de compras</a>';
-    }//verifico con los estados si lo pongo abajo no se ve el cartel.
-
+      echo '<a href="historial.php" class="btn btn-warning" >Historial de compras</a>';
+    }
    }else{
-   $mensaje = "Tu carrito esta vacio";
-   echo "<div class='alert alert-danger d-flex align-items-center' role='alert'>
-   <svg class='bi flex-shrink-0 me-2' width='24' height='24' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
-   <div>" . $mensaje . "</div>
-   </div>";
+       $mensaje = "Tu carrito esta vacio";
+       echo "<div class='alert alert-danger d-flex align-items-center' role='alert'>
+       <svg class='bi flex-shrink-0 me-2' width='24' height='24' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
+       <div>" . $mensaje . "</div>
+      </div>";
       echo '<a href="listarProductos.php" class="btn btn-success" >VAMOS A COMPRAR! </a>';
       
   
    }
-
-  
 
  //permisos
  }else {

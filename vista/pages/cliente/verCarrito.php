@@ -1,8 +1,8 @@
 <?php
 $Titulo = "ver carrito";
 include_once '../../estructura/cabecera.php';
-
-
+$datos = data_submitted();
+$idcompra = $datos['idcompra'];
 $encuentraRol = false;
 if ($sesion->activa()) {
     foreach ($idrol as $unIdRol) {
@@ -14,17 +14,12 @@ if ($sesion->activa()) {
 if ($encuentraRol) {
 
 
-$datos = data_submitted();
-$idcompra = $datos['idcompra'];
-//echo "el id de la compra". $idcompra;
-//print_r($datos);
-
-//-------------------------PRODUCTOS-------------------------------------
+//-------------------------Catidad-------------------------------------
 //-----------------------------------------------------------------------
 
 $AbmObjProducto = new AbmProducto;
 $productos = $AbmObjProducto->buscarProductoporId($datos);
-if(!($productos == null)){ //verifico que existan productos
+if(!($productos == null)){ 
   ?>
    
   <!-- Listado de Productos -->
@@ -81,13 +76,9 @@ if(!($productos == null)){ //verifico que existan productos
   </div>";
    }
 
-//-------------------------PRODUCTOS-------------------------------------
 ?>
-<!--------------BOTONES--ver que paso con el de volver sin recargar :(-------------------------->
 
-<!--<button class="btn btn-warning" onclick="goBack()">Seguir Comprando</button>-->
 <a href="listarProductos.php" class="btn btn-warning" >ver Productos</a>
-
 <button class="btn btn-success" type="submit" > Finalizar Compra </button> 
 
 
