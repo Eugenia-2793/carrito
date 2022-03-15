@@ -5,9 +5,9 @@
 - [Descripción](#descripción-)
   - [Objetivo](#objetivo-)
   - [Pautas Básicas](#pautas-básicas-)
-- [Ilustraciones](#ilustraciones-)
+- [Ilustraciones](#ilustraciones-🖼️)
 - [Mi Procedimiento](#mi-procedimiento-)
-  - [Construido con](#construido-con-)
+  - [Construido con](#construido-con-%EF%B8%8F)
   - [Recursos Útiles](#recursos-útiles-)
 
 ## Descripción 📋
@@ -47,11 +47,11 @@ Desde la **vista privada**, luego de concretar el proceso de autenticación y de
 
 ### Ilustración 1
 
-![Ilustración 1: Modelo Entidad Relación](ilustracion1.png)
+![Ilustración 1: Modelo Entidad Relación](vista/img/ilustracion1.png)
 
 ### Ilustración 2
 
-![lustración 2: Estructura Proyecto](ilustracion2.png)
+![lustración 2: Estructura Proyecto](vista/img/ilustracion2.png)
 
 ## Mi Procedimiento 👣
 
