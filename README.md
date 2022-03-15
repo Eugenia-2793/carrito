@@ -5,7 +5,7 @@
 - [Descripción](#descripción-)
   - [Objetivo](#objetivo-)
   - [Pautas Básicas](#pautas-básicas-)
-- [Ilustraciones](#ilustraciones-🖼️)
+- [Ilustraciones](#ilustraciones-%EF%B8%8F)
 - [Mi Procedimiento](#mi-procedimiento-)
   - [Construido con](#construido-con-%EF%B8%8F)
   - [Recursos Útiles](#recursos-útiles-)
@@ -27,8 +27,8 @@ Desde la **vista privada**, luego de concretar el proceso de autenticación y de
 
 ### Pautas Básicas 📏
 
-1. La aplicación debe ser desarrollada sobre una arquitectura MVC (Modelo-Vista-Control) utilizando PHP como lenguaje de programación. Se propone una estructura de directorio inicial como la que se visualiza en la [Ilustración 2](#ilustración-2).
-2. Se debe utilizar la Base de Datos **_bdcarritocompras_** otorgada por la cátedra. Realizar el MOR de las tablas del modelo de base de datos de la [Ilustración 1](#ilustración-1). Verificar la estructura de las tablas y realizar las modificaciones que crea necesarias.
+1. La aplicación debe ser desarrollada sobre una arquitectura MVC (Modelo-Vista-Control) utilizando PHP como lenguaje de programación. Se propone una estructura de directorio inicial como la que se visualiza en la [Ilustración 2](#modelo-entidad-relación).
+2. Se debe utilizar la Base de Datos **_bdcarritocompras_** otorgada por la cátedra. Realizar el MOR de las tablas del modelo de base de datos de la [Ilustración 1](#estructura-proyecto). Verificar la estructura de las tablas y realizar las modificaciones que crea necesarias.
 3. La aplicación tendrá páginas públicas y otras restringidas, que sólo podrán ser accedidas a partir de un usuario y contraseña. Utilizar el módulo de autenticación implementado en TP5. La aplicación debe tener como mínimo los siguientes roles: cliente, depósito y administrador.
 4. El menú de la aplicación debe ser un menú dinámico que pueda ser gestionado por el administrador de la aplicación. Las tablas de la base de datos vinculadas a esta información son: menu y menurol.
 5. Cualquier usuario que tenga más de un rol asignado, puede cambiar de rol según lo desee.
@@ -45,11 +45,11 @@ Desde la **vista privada**, luego de concretar el proceso de autenticación y de
 
 ## Ilustraciones 🖼️
 
-### Ilustración 1
+### Modelo Entidad Relación
 
 ![Ilustración 1: Modelo Entidad Relación](vista/img/ilustracion1.png)
 
-### Ilustración 2
+### Estructura Proyecto
 
 ![lustración 2: Estructura Proyecto](vista/img/ilustracion2.png)
 
